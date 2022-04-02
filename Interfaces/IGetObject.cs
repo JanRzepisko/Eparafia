@@ -1,0 +1,10 @@
+using eparafia.Models;
+
+namespace eparafia;
+
+public interface IGetObject
+{
+    public Task<User> GetUser(int id);
+    public Task<User> GetUser(List<Dictionary<string, dynamic>> data);
+
+}
