@@ -21,14 +21,12 @@ Rejestracja Użytkownika
 /user/login
 
 Logowanie użytkownika 
-> {
 ```json
 {
   "email": "string",
   "password": "string"
 }
 ```
-}
 
 <hr>
 
