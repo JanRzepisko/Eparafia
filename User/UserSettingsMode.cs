@@ -9,4 +9,5 @@ public enum UserSettingsMode
       //3 - Email
       //4 - PhoneNumber
       //5 - Adress
+
 }

@@ -6,5 +6,6 @@ public interface IGetObject
 {
     public Task<User> GetUser(int id);
     public Task<User> GetUser(List<Dictionary<string, dynamic>> data);
+    public Task<Priest.Priest> GetPriest(int id);
 
 }

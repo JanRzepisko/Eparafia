@@ -1,4 +1,5 @@
 using eparafia.Models;
+using eparafia.Priest;
 
 namespace eparafia.Helpers;
 
@@ -26,5 +27,15 @@ public class GetObject : IGetObject
     public async Task<User> GetUser(List<Dictionary<string, dynamic>> data)
     {
         return new User(data[0]["name"],data[0]["surname"],data[0]["email"],data[0]["phonenumber"],data[0]["parafia"],data[0]["id"],data[0]["adress"], data[0]["isactive"]);
+    }
+
+    public async Task<Priest.Priest> GetPriest(int id)
+    {
+        var data = await _sqlManager.Reader($"SELECT * FROM users.priest WHERE id = {id};");
+        if (data.Count == 0) throw new UserIsNotExist();
+        
+        Priest.Priest user = new Priest.Priest((PriestRole)data[0]["role"],data[0]["phonenumber"],data[0]["yearofordination"],data[0]["surname"],data[0]["email"],data[0]["name"],data[0]["id"], data[0]["parafia"]);
+
+        return user;    
     }
 }
