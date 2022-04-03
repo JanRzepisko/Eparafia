@@ -48,6 +48,14 @@ Tu Sprawdzasz czy user istnieje jeżeli tak
 
 ustawienia zmiana wartości
 
+```
+      //0 - Name
+      //1 - Surname
+      //3 - Email
+      //4 - PhoneNumber
+      //5 - Adress
+```
+
 ```json
 {
   "id": 0,

@@ -20,7 +20,7 @@ public class EmailManager : IEmailManager
         using SmtpClient client = new ();
         client.EnableSsl = true;
         client.UseDefaultCredentials = false;
-        client.Credentials = new NetworkCredential("rzejan@gmail.com", "rzejan060922"); 
+        client.Credentials = new NetworkCredential("eparafiadev@gmail.com", "g8vYZOna8j231H7"); 
         client.Host = "smtp.gmail.com";
         client.Port = 587;
         client.DeliveryMethod = SmtpDeliveryMethod.Network; 
