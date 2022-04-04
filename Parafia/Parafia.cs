@@ -1,10 +1,11 @@
+using eparafia.Models;
 using eparafia.Priest;
 
 namespace eparafia.Parafia;
 
 public class Parafia
 {
-    public Parafia(int id, string name, string city, string address, List<Priest.Priest> priests, string createdDate, string subscriptionExpiration, decimal subscriptionPrice)
+    public Parafia(int id, string name, string city, string address, List<Priest.Priest> priests, string createdDate, string subscriptionExpiration, decimal subscriptionPrice, List<User> users)
     {
         Id = id;
         Name = name;
@@ -14,6 +15,7 @@ public class Parafia
         CreatedDate = createdDate;
         SubscriptionExpiration = subscriptionExpiration;
         SubscriptionPrice = subscriptionPrice;
+        Users = users;
     }
 
     public int Id { get; }
@@ -21,6 +23,7 @@ public class Parafia
     public string City { get; }
     public string Address { get; }
     public List<Priest.Priest> Priests { get; }
+    public List<User> Users { get; }
     public string CreatedDate { get; }
     public string SubscriptionExpiration { get; }
     public decimal SubscriptionPrice { get; }

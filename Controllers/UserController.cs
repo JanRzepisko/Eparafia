@@ -147,5 +147,14 @@ public class UserController : ControllerBase
         return Ok();
     }
 
+    [HttpPost($"{BaseUrl}/joinIntoParafia")]
+    public async Task<IActionResult> JoinIntoParafia(JoinIntoParafiaRequestModel request)
+    {
+        if(!await _sqlManager.IsValueExist($"SELECT id FROM users.users WHERE id = {request.UserId};")) return StatusCode(409, "UserIsNotExist");
+        if(!await _sqlManager.IsValueExist($"SELECT id FROM parafia.parafia WHERE id = {request.ParafiaId};")) return StatusCode(409, "ParafiaIsNotExist");
 
+        await _sqlManager.Execute($"UPDATE users.users SET parafia = {request.ParafiaId} WHERE id = {request.UserId};");
+        
+        return Ok();
+    }
 }

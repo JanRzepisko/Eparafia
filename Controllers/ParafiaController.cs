@@ -38,8 +38,8 @@ public class ParafiaController
                 break;
         }
         
-        await _sqlManager.Execute($"INSERT INTO parafia.parafia VALUES({parafiaId}, '{request.Name}', '{request.City}', NOW(), '{request.SubscriptionExpiration}', {request.SubscriptionPrice});");
-
+        await _sqlManager.Execute($"INSERT INTO parafia.parafia VALUES({parafiaId}, '{request.Name}', '{request.City}', NOW(), '{request.SubscriptionExpiration}', {request.SubscriptionPrice}, '{request.Address}');");
+        
         foreach (var item in request.Priests)
         {
             while (true)
@@ -64,6 +64,15 @@ public class ParafiaController
             await _sqlManager.Execute($"INSERT INTO users.priest VALUES({id}, '{item.Name}', '{item.SurName}', '{item.Email}', '{item.PhoneNumber}', 0,0,'{BCrypt.Net.BCrypt.HashPassword("Password")}',{parafiaId},false, '{firstLoginToken}');");
         }
 
+        await _sqlManager.Execute($"create table announcements.{parafiaId} (id int, content varchar, date date);");
+        
         return new OkResult();
     }
+
+    [HttpPost($"{BaseUrl}/get")]
+    public async Task<IActionResult> Get(GetParafiaRequestModel request)
+    {
+        return new ObjectResult(await _getObject.GetParafia(request.Id));
+    }
+    
 }

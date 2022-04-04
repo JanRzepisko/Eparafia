@@ -38,4 +38,30 @@ public class GetObject : IGetObject
 
         return user;    
     }
+
+    public async Task<Parafia.Parafia> GetParafia(int id)
+    {
+        var data = await _sqlManager.Reader($"SELECT * FROM parafia.parafia WHERE id = {id};");
+        if (data.Count == 0) throw new UserIsNotExist();
+
+        List<Priest.Priest> priests = new List<Priest.Priest>();
+        var dataPriests = await _sqlManager.Reader($"SELECT id FROM users.priest WHERE parafia = {id};");
+
+        foreach (var item in dataPriests)
+        {
+            priests.Add(await GetPriest(item["id"]));
+        }
+        
+        List<User> users = new List<User>();
+        var dataUsers = await _sqlManager.Reader($"SELECT id FROM users.users WHERE parafia = {id};");
+
+        foreach (var item in dataUsers)
+        {
+            users.Add(await GetUser(item["id"]));
+        }
+
+
+        return new Parafia.Parafia(data[0]["id"], data[0]["name"], data[0]["city"], data[0]["address"], priests, data[0]["createddate"].ToString(),
+            data[0]["subscriptionexpiration"], (decimal)data[0]["subscriptionprice"], users);
+    }
 }
