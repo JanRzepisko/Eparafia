@@ -63,8 +63,6 @@ public class ParafiaController
             
             await _sqlManager.Execute($"INSERT INTO users.priest VALUES({id}, '{item.Name}', '{item.SurName}', '{item.Email}', '{item.PhoneNumber}', 0,0,'{BCrypt.Net.BCrypt.HashPassword("Password")}',{parafiaId},false, '{firstLoginToken}');");
         }
-
-        await _sqlManager.Execute($"create table announcements.{parafiaId} (id int, content varchar, date date);");
         
         return new OkResult();
     }

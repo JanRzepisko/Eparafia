@@ -64,4 +64,11 @@ public class GetObject : IGetObject
         return new Parafia.Parafia(data[0]["id"], data[0]["name"], data[0]["city"], data[0]["address"], priests, data[0]["createddate"].ToString(),
             data[0]["subscriptionexpiration"], (decimal)data[0]["subscriptionprice"], users);
     }
+
+    public async Task<Announcements.Announcements> GetAnnouncements(int id)
+    {
+        var data = await _sqlManager.Reader($"SELECT * FROM parafia.announcements WHERE id = {id};");
+        
+        return new Announcements.Announcements(data[0]["id"], data[0]["tittle"], data[0]["content"], data[0]["date"].ToString(), data[0]["parafia"]);
+    }
 }
