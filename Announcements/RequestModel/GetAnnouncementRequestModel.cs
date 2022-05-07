@@ -4,7 +4,7 @@ namespace eparafia.Announcements.RequestModel;
 
 public class GetAnnouncementRequestModel :  Request
 {
-    public GetAnnouncementRequestModel(int parafiaId, int page)
+    public GetAnnouncementRequestModel(int parafiaId, int page, string token) : base(token)
     {
         ParafiaId = parafiaId;
         Page = page;

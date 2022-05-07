@@ -4,16 +4,16 @@ namespace eparafia.Priest;
 
 public class FirstLoginRequestModel : Request
 {
-     public FirstLoginRequestModel(int yearOfOrdination, string password, string email, string fristLoginToken)
+     public FirstLoginRequestModel(int yearOfOrdination, string password, string email, string firstLoginToken)
      {
           YearOfOrdination = yearOfOrdination;
           Password = password;
           Email = email;
-          FristLoginToken = fristLoginToken;
+          FirstLoginToken = firstLoginToken;
      }
      
      public int YearOfOrdination { get; }
      public string Password { get; }
      public string Email { get; }
-     public string FristLoginToken { get; }
+     public string FirstLoginToken { get; }
 }

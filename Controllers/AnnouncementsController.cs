@@ -15,22 +15,28 @@ public class AnnouncementsController : ControllerBase
     private readonly IGetObject _getObject;
     private readonly ILogger<AnnouncementsController> _logger;
     private readonly IEmailManager _emailManager;
+    private readonly ITokenVerification _tokenVerification;
 
     private const string BaseUrl = "/announcements";
 
     public AnnouncementsController(ISqlManager sqlManager, ILogger<AnnouncementsController> logger,
         IGetObject getObject,
-        IEmailManager emailManager)
+        IEmailManager emailManager, ITokenVerification tokenVerification)
     {
         _sqlManager = sqlManager;
         _logger = logger;
         _getObject = getObject;
         _emailManager = emailManager;
+        _tokenVerification = tokenVerification;
     }
 
     [HttpPost($"{BaseUrl}/add")]
     public async Task<IActionResult> Add(AddAnnouncementRequestModel request)
     {
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.Priest))
+        {
+            return StatusCode(409, "BadAccessToken");
+        }
         Random rand = new Random();
         int id = rand.Next(1000000, 9999999);
         while (true)
@@ -51,6 +57,11 @@ public class AnnouncementsController : ControllerBase
     [HttpPost($"{BaseUrl}/edit")]
     public async Task<IActionResult> Edit(EditAnnouncementRequestModel request)
     {
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.Priest))
+        {
+            return StatusCode(409, "BadAccessToken");
+        }
+        
         switch (request.Mode)
         {
             case SettingsMode.Content:
@@ -73,7 +84,12 @@ public class AnnouncementsController : ControllerBase
     [HttpPost($"{BaseUrl}/get")]
     public async Task<IActionResult> Get(GetAnnouncementRequestModel request)
     {
-        int objectsPerPage = 2;
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.User))
+        {
+            return StatusCode(409, "BadAccessToken");
+        }
+        
+        int objectsPerPage = 5;
 
         var data = await _sqlManager.Reader(
             $"SELECT * FROM parafia.announcements WHERE parafia = {request.ParafiaId} ORDER BY date;");

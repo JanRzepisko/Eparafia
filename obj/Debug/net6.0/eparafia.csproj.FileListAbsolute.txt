@@ -58,3 +58,4 @@ C:\Users\Jabuszko\eparafia\Eparafia\obj\Debug\net6.0\staticwebassets.development
 C:\Users\Jabuszko\eparafia\Eparafia\obj\Debug\net6.0\scopedcss\bundle\eparafia.styles.css
 C:\Users\Jabuszko\eparafia\Eparafia\obj\Debug\net6.0\eparafia.csproj.CopyComplete
 C:\Users\Jabuszko\eparafia\Eparafia\obj\Debug\net6.0\eparafia.genruntimeconfig.cache
+C:\Users\Jabuszko\eparafia\Eparafia\bin\Debug\net6.0\Newtonsoft.Json.dll

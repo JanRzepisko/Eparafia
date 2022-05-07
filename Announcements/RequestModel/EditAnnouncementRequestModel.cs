@@ -4,7 +4,7 @@ namespace eparafia.Announcements.RequestModel;
 
 public class EditAnnouncementRequestModel : Request
 {
-    public EditAnnouncementRequestModel(int id, SettingsMode mode, string content)
+    public EditAnnouncementRequestModel(int id, SettingsMode mode, string content, string token) : base(token)
     {
         Id = id;
         Mode = mode;

@@ -4,7 +4,7 @@ namespace eparafia.Models;
 
 public class IsUserExistRequestModel : Request
 {
-    public IsUserExistRequestModel(int id)
+    public IsUserExistRequestModel(int id, string token) : base(token)
     {
         Id = id;
     }

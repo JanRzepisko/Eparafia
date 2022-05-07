@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<ISqlManager, SqlManager>();
 builder.Services.AddSingleton<IGetObject, GetObject>();
 builder.Services.AddSingleton<IEmailManager, EmailManager>();
+builder.Services.AddSingleton<ITokenVerification, TokenVerification>();
 
 var app = builder.Build();
 

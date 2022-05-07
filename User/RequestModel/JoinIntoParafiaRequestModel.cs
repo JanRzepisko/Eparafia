@@ -1,8 +1,10 @@
+using eparafia.Helpers;
+
 namespace eparafia.Models;
 
-public class JoinIntoParafiaRequestModel
+public class JoinIntoParafiaRequestModel : Request
 {
-    public JoinIntoParafiaRequestModel(int parafiaId, int userId)
+    public JoinIntoParafiaRequestModel(int parafiaId, int userId, string token) : base(token)
     {
         ParafiaId = parafiaId;
         UserId = userId;

@@ -1,5 +1,8 @@
+using eparafia.Calendar.Event;
+using eparafia.Calendar.EventEnums;
 using eparafia.Models;
 using eparafia.Priest;
+using Newtonsoft.Json;
 
 namespace eparafia.Helpers;
 
@@ -24,9 +27,9 @@ public class GetObject : IGetObject
         return user;
     }
     
-    public async Task<User> GetUser(List<Dictionary<string, dynamic>> data)
+    public Task<User> GetUser(List<Dictionary<string, dynamic>> data)
     {
-        return new User(data[0]["name"],data[0]["surname"],data[0]["email"],data[0]["phonenumber"],data[0]["parafia"],data[0]["id"],data[0]["adress"], data[0]["isactive"]);
+        return Task.FromResult(new User(data[0]["name"],data[0]["surname"],data[0]["email"],data[0]["phonenumber"],data[0]["parafia"],data[0]["id"],data[0]["adress"], data[0]["isactive"]));
     }
 
     public async Task<Priest.Priest> GetPriest(int id)
@@ -62,7 +65,7 @@ public class GetObject : IGetObject
 
 
         return new Parafia.Parafia(data[0]["id"], data[0]["name"], data[0]["city"], data[0]["address"], priests, data[0]["createddate"].ToString(),
-            data[0]["subscriptionexpiration"], (decimal)data[0]["subscriptionprice"], users);
+            data[0]["subscriptionexpiration"], (decimal)data[0]["subscriptionprice"], users, JsonConvert.DeserializeObject(data[0]["weekcalendar"]));
     }
 
     public async Task<Announcements.Announcements> GetAnnouncements(int id)
@@ -70,5 +73,27 @@ public class GetObject : IGetObject
         var data = await _sqlManager.Reader($"SELECT * FROM parafia.announcements WHERE id = {id};");
         
         return new Announcements.Announcements(data[0]["id"], data[0]["tittle"], data[0]["content"], data[0]["date"].ToString(), data[0]["parafia"]);
+    }
+
+
+    public async Task<List<Event>> GetCalendar(int parafiaId)
+    {
+        string? jsonCalendar = (await _sqlManager.Reader($"SELECT weekcalendar FROM parafia.parafia WHERE id = {parafiaId};"))[0].ToString();
+
+        var data = await _sqlManager.Reader($"SELECT * FROM parafia.events WHERE parafiaid = {parafiaId};");
+
+        List<Event> calendar = new List<Event>();
+
+        List<Event> defaultCalendar = JsonConvert.DeserializeObject(jsonCalendar) as List<Event>;
+
+        foreach (var item in data)
+        {
+            calendar.Add(new SpecialEvent(item["type"], item["duration"], item["description"], DateTime.Parse(item["date"])));
+        }
+        foreach (var item in defaultCalendar)
+        {
+            calendar.Add(item);
+        }
+        return calendar;
     }
 }

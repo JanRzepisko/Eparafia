@@ -2,6 +2,7 @@ using eparafia.Helpers;
 using eparafia.Models;
 using eparafia.Parafia.RequestModel;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace eparafia.Controllers;
 
@@ -37,8 +38,10 @@ public class ParafiaController
             if (!await _sqlManager.IsValueExist($"SELECT * FROM parafia.parafia WHERE id = {parafiaId};"))
                 break;
         }
+
+        string calendarJson = JsonConvert.SerializeObject(request.DefaultWeek);
         
-        await _sqlManager.Execute($"INSERT INTO parafia.parafia VALUES({parafiaId}, '{request.Name}', '{request.City}', NOW(), '{request.SubscriptionExpiration}', {request.SubscriptionPrice}, '{request.Address}');");
+        await _sqlManager.Execute($"INSERT INTO parafia.parafia VALUES({parafiaId}, '{request.Name}', '{request.City}', NOW(), '{request.SubscriptionExpiration}', {request.SubscriptionPrice}, '{request.Address}', '{request.ContactPhoneNumber}', '{calendarJson}');");
         
         foreach (var item in request.Priests)
         {
@@ -49,7 +52,7 @@ public class ParafiaController
                 if (!await _sqlManager.IsValueExist($"SELECT * FROM users.priest WHERE id = {id};"))
                     break;
             }
-
+ 
             var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[8];
             var random = new Random();
@@ -61,7 +64,7 @@ public class ParafiaController
 
             string firstLoginToken = new String(stringChars);
             
-            await _sqlManager.Execute($"INSERT INTO users.priest VALUES({id}, '{item.Name}', '{item.SurName}', '{item.Email}', '{item.PhoneNumber}', 0,0,'{BCrypt.Net.BCrypt.HashPassword("Password")}',{parafiaId},false, '{firstLoginToken}');");
+            await _sqlManager.Execute($"INSERT INTO users.priest VALUES({id}, '{item.Name}', '{item.SurName}', '{item.Email}', '{item.PhoneNumber}', 0,0,'{BCrypt.Net.BCrypt.HashPassword("Password")}',{parafiaId},false, '{firstLoginToken}', '', '');");
         }
         
         return new OkResult();

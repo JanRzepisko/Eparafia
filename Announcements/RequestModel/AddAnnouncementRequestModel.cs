@@ -4,7 +4,7 @@ namespace eparafia.Announcements.RequestModel;
 
 public class AddAnnouncementRequestModel : Request
 {
-    public AddAnnouncementRequestModel(string title, string content, int parafiaId)
+    public AddAnnouncementRequestModel(string title, string content, int parafiaId, string token) : base(token)
     {
         Title = title;
         Content = content;

@@ -2,6 +2,7 @@ using System.ComponentModel;
 using BCrypt.Net;
 using eparafia.Helpers;
 using eparafia.Models;
+using eparafia.Models.ResponsModel;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -11,19 +12,23 @@ namespace eparafia.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
+    private static Random random = new Random();
+
     private readonly ISqlManager _sqlManager;
     private readonly IGetObject _getObject;
+    private readonly ITokenVerification _tokenVerification;
     private readonly ILogger<UserController> _logger;
     private readonly IEmailManager _emailManager;
     
     private const string BaseUrl = "/user";
 
-    public UserController(ISqlManager sqlManager, ILogger<UserController> logger, IGetObject getObject, IEmailManager emailManager)
+    public UserController(ISqlManager sqlManager, ILogger<UserController> logger, IGetObject getObject, IEmailManager emailManager, ITokenVerification tokenVerification)
     {
         _sqlManager = sqlManager;
         _logger = logger;
         _getObject = getObject;
         _emailManager = emailManager;
+        _tokenVerification = tokenVerification;
     }
 
     [HttpPost($"{BaseUrl}/register")]
@@ -55,14 +60,12 @@ public class UserController : ControllerBase
             return StatusCode(409, "UnexpectedException");
         }
         await _emailManager.SendEmail(user.Email);
-
+        
         return new ObjectResult(user);
     }
-    
     [HttpPost($"{BaseUrl}/login")]
     public async Task<IActionResult> Login(LoginUserRequestModel request)
     {
-        await request.Validate();
         User user;
 
         if (await _sqlManager.IsValueExist($"SELECT id FROM users.users WHERE email = '{request.Email}';"))
@@ -77,7 +80,6 @@ public class UserController : ControllerBase
             {
                 return StatusCode(409, "BadPassword");
             }
-            
             if (!data["isactive"])
             {
                 return StatusCode(409, "UserIsNotActive");
@@ -88,9 +90,37 @@ public class UserController : ControllerBase
             return StatusCode(409, "UserIsNotExist");
         }
         
-        return new ObjectResult(user);
-    }
+        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        string newToken = new string(Enumerable.Repeat(chars, 10)
+            .Select(s => s[random.Next(s.Length)]).ToArray());
 
+        newToken += "_" + user.Id;
+
+        newToken += "_" + DateTime.Now.ToString("dd-MM-yyyy HH':'mm':'ss");
+
+        var tokens = (await _sqlManager.Reader($"SELECT token1, token2 FROM users.users WHERE id = {user.Id};"))[0];
+
+        
+        if (tokens["token1"] == "")
+        {
+            await _sqlManager.Execute($"UPDATE users.users SET token1 = '{newToken}';");
+        }
+        else if (tokens["token2"] == "")
+        {
+            await _sqlManager.Execute($"UPDATE users.users SET token2 = '{newToken}';");
+        }
+        else if (DateTime.Parse(tokens["token1"].ToString().Split('_')[2]) > DateTime.Parse(tokens["token2"].ToString().Split('_')[2]))
+        {
+            await _sqlManager.Execute($"UPDATE users.users SET token2 = '{newToken}';");
+        }
+        else
+        {
+            await _sqlManager.Execute($"UPDATE users.users SET token1 = '{newToken}';");
+        }
+        LoginResponsModel response = new LoginResponsModel(user, newToken);
+
+        return new ObjectResult(response);
+    }
     [HttpPost($"{BaseUrl}/isUserExist")]
     public async Task<IActionResult> IsUserExist(IsUserExistRequestModel request)
     {
@@ -103,15 +133,25 @@ public class UserController : ControllerBase
         {
             return StatusCode(409, "UserIsNotExist");
         }
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.User))
+        {
+            return StatusCode(409, "BadAccessToken");
+        }
 
         return new ObjectResult(user);
     }
-
     [HttpPost($"{BaseUrl}/settings")]
     public async Task<IActionResult> SetSettings(SettingsRequestModel request)
     {
+        
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.User))
+        {
+            return StatusCode(409, "BadAccessToken");
+        }
         if (!await _sqlManager.IsValueExist($"SELECT id FROM users.users WHERE id = {request.Id}"))
             return StatusCode(409, "UserIsNotExist");
+        
+
         
         switch (request.Mode)
         {
@@ -146,10 +186,14 @@ public class UserController : ControllerBase
 
         return Ok();
     }
-
     [HttpPost($"{BaseUrl}/joinIntoParafia")]
     public async Task<IActionResult> JoinIntoParafia(JoinIntoParafiaRequestModel request)
     {
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.User))
+        {
+            return StatusCode(409, "BadAccessToken");
+        }
+        
         if(!await _sqlManager.IsValueExist($"SELECT id FROM users.users WHERE id = {request.UserId};")) return StatusCode(409, "UserIsNotExist");
         if(!await _sqlManager.IsValueExist($"SELECT id FROM parafia.parafia WHERE id = {request.ParafiaId};")) return StatusCode(409, "ParafiaIsNotExist");
 

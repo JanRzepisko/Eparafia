@@ -1,3 +1,4 @@
+using eparafia.Calendar.Event;
 using eparafia.Models;
 using eparafia.Priest;
 
@@ -5,7 +6,7 @@ namespace eparafia.Parafia;
 
 public class Parafia
 {
-    public Parafia(int id, string name, string city, string address, List<Priest.Priest> priests, string createdDate, string subscriptionExpiration, decimal subscriptionPrice, List<User> users)
+    public Parafia(int id, string name, string city, string address, List<Priest.Priest> priests, string createdDate, string subscriptionExpiration, decimal subscriptionPrice, List<User> users, List<DefaultEvent> defaultWeek)
     {
         Id = id;
         Name = name;
@@ -16,6 +17,7 @@ public class Parafia
         SubscriptionExpiration = subscriptionExpiration;
         SubscriptionPrice = subscriptionPrice;
         Users = users;
+        DefaultWeek = defaultWeek;
     }
 
     public int Id { get; }
@@ -27,5 +29,5 @@ public class Parafia
     public string CreatedDate { get; }
     public string SubscriptionExpiration { get; }
     public decimal SubscriptionPrice { get; }
-    
+    public List<DefaultEvent> DefaultWeek { get; }
 }

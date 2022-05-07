@@ -1,18 +1,17 @@
 namespace eparafia.Helpers;
 
+[Serializable]
 public class Request
 {
-    private readonly ISqlManager _sqlManager;
-    
-    public Request(ISqlManager sqlManager)
-    {
-        _sqlManager = sqlManager;
-
-    }
+    //public string? Token;
+    public string? Token { get; }
 
     protected Request()
     {
-        
+    }    
+    public Request(string? token)
+    {
+        Token = token;
     }
 
     public virtual Task Validate()
