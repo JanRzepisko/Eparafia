@@ -10,5 +10,5 @@ public interface IGetObject
     public Task<Priest.Priest> GetPriest(int id);
     public Task<Parafia.Parafia> GetParafia(int id);
     public Task<Announcements.Announcements> GetAnnouncements(int id);
-    public Task<List<Event>> GetCalendar(int parafiaId);
+    public Task<List<SpecialEvent>> GetCalendar(int parafiaId, int week);
 }

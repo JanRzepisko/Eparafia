@@ -110,6 +110,6 @@ public class CalendarController : ControllerBase
             return StatusCode(409, "BadAccessToken");
         }
 
-        return new ObjectResult(await _getObject.GetCalendar(request.ParafiaId));
+        return new ObjectResult(await _getObject.GetCalendar(request.ParafiaId, request.Week));
     }
 }
