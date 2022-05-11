@@ -103,20 +103,19 @@ public class GetObject : IGetObject
             defaultCalendar.Add(item.ToObject<DefaultEvent>());
         }
 
+        
+        
+        int dayOfWeek = DayOfWeek.Monday - DateTime.Today.DayOfWeek;
 
-        DayOfWeek today = DateTime.Today.DayOfWeek;
-
+        DateTime monday = DateTime.Today.AddDays(dayOfWeek);
+        
         foreach (var event1 in defaultCalendar!)
         {
             var @event = event1;
-            SpecialEvent convertedEvent = null;
-
-            int dayOfWeek = DayOfWeek.Monday - DateTime.Today.DayOfWeek;
-
-            DateTime monday = DateTime.Today.AddDays(dayOfWeek);
 
 
-            convertedEvent = new SpecialEvent(@event.Type, @event.Duration, @event.Description, monday
+
+            SpecialEvent convertedEvent = new SpecialEvent(@event.Type, @event.Duration, @event.Description, monday
                 .AddDays((int) @event.Day).AddHours(int.Parse(@event.Time!.Split(':')[0]))
                 .AddMinutes(int.Parse(@event.Time.Split(':')[1])));
 
@@ -125,8 +124,11 @@ public class GetObject : IGetObject
 
         foreach (var item in data)
         {
-            calendar.Add(new SpecialEvent((EventType) int.Parse(item["type"].ToString()), item["duration"],
-                item["description"], DateTime.Parse(item["date"])));
+            if (DateTime.Parse(item["date"]) > monday && DateTime.Parse(item["date"]) < monday.AddDays(7))
+            {
+                calendar.Add(new SpecialEvent((EventType) int.Parse(item["type"].ToString()), item["duration"],
+                    item["description"], DateTime.Parse(item["date"])));
+            }
         }
         calendar = calendar.OrderBy(item => item.Date).ToList();
         return calendar;
