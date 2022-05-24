@@ -1,4 +1,5 @@
 using eparafia.Calendar.Event;
+using eparafia.Carol;
 using eparafia.Models;
 
 namespace eparafia;
@@ -11,4 +12,5 @@ public interface IGetObject
     public Task<Parafia.Parafia> GetParafia(int id);
     public Task<Announcements.Announcements> GetAnnouncements(int id);
     public Task<List<SpecialEvent>> GetCalendar(int parafiaId, int week);
+    public Task<UserCarol> GetCarolUser(int userId);
 }

@@ -1,5 +1,6 @@
 using eparafia.Calendar.Event;
 using eparafia.Calendar.EventEnums;
+using eparafia.Carol;
 using eparafia.Models;
 using eparafia.Priest;
 using Microsoft.Extensions.DependencyInjection;
@@ -72,8 +73,8 @@ public class GetObject : IGetObject
 
         return new Parafia.Parafia(data[0]["id"], data[0]["name"], data[0]["city"], data[0]["address"], priests,
             data[0]["createddate"].ToString(),
-            data[0]["subscriptionexpiration"], (decimal) data[0]["subscriptionprice"], users,
-            JsonConvert.DeserializeObject(data[0]["weekcalendar"]));
+            data[0]["subscriptionexpiration"].ToString(), (decimal) data[0]["subscriptionprice"], users,
+            JsonConvert.DeserializeObject(data[0]["weekcalendar"]) as List<DefaultEvent>);
     }
 
     public async Task<Announcements.Announcements> GetAnnouncements(int id)
@@ -112,9 +113,7 @@ public class GetObject : IGetObject
         foreach (var event1 in defaultCalendar!)
         {
             var @event = event1;
-
-
-
+            
             SpecialEvent convertedEvent = new SpecialEvent(@event.Type, @event.Duration, @event.Description, monday
                 .AddDays((int) @event.Day).AddHours(int.Parse(@event.Time!.Split(':')[0]))
                 .AddMinutes(int.Parse(@event.Time.Split(':')[1])));
@@ -133,4 +132,20 @@ public class GetObject : IGetObject
         calendar = calendar.OrderBy(item => item.Date).ToList();
         return calendar;
     }
+
+
+    public async Task<UserCarol> GetCarolUser(int userId)
+    {
+        User user = await GetUser(userId);
+
+        var data = await _sqlManager.Reader($"SELECT * FROM carol.p{user.Parafia} WHERE userid = {user.Id};");
+
+        if (data.Count == 0) throw new Exception("CarolIsNotExist");
+
+        UserCarol carol = new UserCarol(DateTime.Parse(data[0]["date"]), await GetPriest(data[0]["priest"]),
+            data[0]["carolid"]);
+
+        return carol;
+    }
+
 }
