@@ -1,3 +1,5 @@
 Eparafia\stripe.*
 Eparafia\bin\*
 Eparafia\obj\*
+Eparafia\.vs\*
+Eparafia\.idea\*
