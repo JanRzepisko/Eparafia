@@ -8,10 +8,13 @@ public class Event
     public int Duration { get; }//min
     public string? Description { get; }
     
-    public Event(EventType type, int duration, string? description)
+    public string Intention { get; }
+    
+    public Event(EventType type, int duration, string? description, string intention)
     {
         Type = type;
         Duration = duration;
         Description = description;
+        Intention = intention;
     }
 }

@@ -8,7 +8,7 @@ public class DefaultEvent : Event
     public string? Time{ get; }
 
 
-    public DefaultEvent(EventType type, string? time, int duration, string? description, DayOfWeek day) : base(type, duration, description)
+    public DefaultEvent(EventType type, string? time, int duration, string? description, DayOfWeek day, string intention) : base(type, duration, description, intention)
     {
         Day = day;
         Time = time;

@@ -116,7 +116,7 @@ public class GetObject : IGetObject
             
             SpecialEvent convertedEvent = new SpecialEvent(@event.Type, @event.Duration, @event.Description, monday
                 .AddDays((int) @event.Day).AddHours(int.Parse(@event.Time!.Split(':')[0]))
-                .AddMinutes(int.Parse(@event.Time.Split(':')[1])));
+                .AddMinutes(int.Parse(@event.Time.Split(':')[1])), "Brak"); //TODO intention
 
             calendar.Add(convertedEvent);
         }
@@ -126,7 +126,7 @@ public class GetObject : IGetObject
             if (DateTime.Parse(item["date"]) > monday && DateTime.Parse(item["date"]) < monday.AddDays(7))
             {
                 calendar.Add(new SpecialEvent((EventType) int.Parse(item["type"].ToString()), item["duration"],
-                    item["description"], DateTime.Parse(item["date"])));
+                    item["description"], DateTime.Parse(item["date"]), "Brak"));
             }
         }
         calendar = calendar.OrderBy(item => item.Date).ToList();

@@ -1,1 +1,6 @@
 **/.idea
+**\.idea
+**\bin
+**/bin
+**\obj
+**/obj
