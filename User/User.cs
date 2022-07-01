@@ -1,8 +1,8 @@
-namespace eparafia.Models;
+namespace eparafia.User;
 
 public class User
 {
-    public User(string name, string surName, string email, string phoneNumber, int parafia, int id, string adress, bool isActive)
+    public User(string name, string surName, string email, string phoneNumber, int parafia, int id, string address, bool isActive)
     {
         Name = name;
         SurName = surName;
@@ -10,7 +10,7 @@ public class User
         PhoneNumber = phoneNumber;
         Parafia = parafia;
         Id = id;
-        Adress = adress;
+        Address = address;
         IsActive = isActive;
     }
     
@@ -20,6 +20,6 @@ public class User
     public string Email { get; }
     public string PhoneNumber { get; }
     public int Parafia { get; }
-    public string Adress { get; }
+    public string Address { get; }
     public bool IsActive { get; }
 }

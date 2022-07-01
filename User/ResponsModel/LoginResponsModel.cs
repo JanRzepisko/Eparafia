@@ -2,7 +2,7 @@ namespace eparafia.Models.ResponsModel;
 
 public class LoginResponsModel
 {
-    public LoginResponsModel(User user, string token)
+    public LoginResponsModel(User.User user, string token)
     {
         Name = user.Name;
         SurName = user.SurName;
@@ -10,7 +10,7 @@ public class LoginResponsModel
         PhoneNumber = user.PhoneNumber;
         Parafia = user.Parafia;
         Id = user.Id;
-        Adress = user.Adress;
+        Adress = user.Address;
         IsActive = user.IsActive;
         Token = token;
     }

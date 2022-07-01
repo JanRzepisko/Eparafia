@@ -6,7 +6,7 @@ public class SpecialEvent : Event
 {
     public DateTime Date { get; }
 
-    public SpecialEvent(EventType type, int duration, string? description, DateTime date, string intention) : base(type, duration, description, intention)
+    public SpecialEvent(EventType type, int duration, string? description, DateTime date, Intention.Intention intention) : base(type, duration, description, intention)
     {
         Date = date;
     }

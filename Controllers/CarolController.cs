@@ -50,10 +50,10 @@ public class CarolController : ControllerBase
             return StatusCode(409, "BadAccessToken");
         }
         
-        User user = await _getObject.GetUser(request.Id);
+        User.User user = await _getObject.GetUser(request.Id);
 
         if (user.Email == "") return StatusCode(409, "EmailIsNotSet");
-        if (user.Adress == "") return StatusCode(409, "AddressIsNotSet");
+        if (user.Address == "") return StatusCode(409, "AddressIsNotSet");
         if (user.PhoneNumber == "") return StatusCode(409, "PhoneNumberIsNotSet"); 
         
         if (await _sqlManager.IsValueExist($"SELECT * FROM parafia.carol WHERE id = {user.Id};"))
@@ -82,9 +82,9 @@ public class CarolController : ControllerBase
         
         foreach (var item in data)
         {
-            User user = await _getObject.GetUser(item["id"]);
-            invites.Add(new InviteModel(user.Adress, 0, user.Id));
-            address += "|" + user.Adress;
+            User.User user = await _getObject.GetUser(item["id"]);
+            invites.Add(new InviteModel(user.Address, 0, user.Id));
+            address += "|" + user.Address;
         }
         
         Parafia.Parafia parafia = await _getObject.GetParafia(priest.Parafia);

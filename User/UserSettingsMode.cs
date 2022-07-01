@@ -8,6 +8,6 @@ public enum UserSettingsMode
       //1 - Surname
       //3 - Email
       //4 - PhoneNumber
-      //5 - Adress
+      //5 - Address
 
 }

@@ -8,9 +8,9 @@ public class Event
     public int Duration { get; }//min
     public string? Description { get; }
     
-    public string Intention { get; }
+    public Intention.Intention Intention { get; }
     
-    public Event(EventType type, int duration, string? description, string intention)
+    public Event(EventType type, int duration, string? description, Intention.Intention intention)
     {
         Type = type;
         Duration = duration;

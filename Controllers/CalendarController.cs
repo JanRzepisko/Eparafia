@@ -105,7 +105,7 @@ public class CalendarController : ControllerBase
     [HttpPost($"{BaseUrl}/getCalendar")]
     public async Task<IActionResult> GetCalendar(GetCalendarRequestModel request)
     {
-        if (!await _tokenVerification.UserVerification(request.Token, UserType.User))
+        if (!await _tokenVerification.UserVerification(request.Token, UserType.User)  && !await _tokenVerification.UserVerification(request.Token, UserType.Priest))
         {
             return StatusCode(409, "BadAccessToken");
         }

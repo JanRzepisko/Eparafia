@@ -6,7 +6,7 @@ namespace eparafia.Parafia;
 
 public class Parafia
 {
-    public Parafia(int id, string name, string city, string address, List<Priest.Priest> priests, string createdDate, string subscriptionExpiration, decimal subscriptionPrice, List<User> users, List<DefaultEvent> defaultWeek)
+    public Parafia(int id, string name, string city, string address, List<Priest.Priest> priests, string createdDate, string subscriptionExpiration, decimal subscriptionPrice, List<User.User> users, List<DefaultEvent> defaultWeek)
     {
         Id = id;
         Name = name;
@@ -25,7 +25,7 @@ public class Parafia
     public string City { get; }
     public string Address { get; }
     public List<Priest.Priest> Priests { get; }
-    public List<User> Users { get; }
+    public List<User.User> Users { get; }
     public string CreatedDate { get; }
     public string SubscriptionExpiration { get; }
     public decimal SubscriptionPrice { get; }

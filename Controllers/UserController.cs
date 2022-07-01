@@ -12,7 +12,6 @@ namespace eparafia.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private static Random random = new Random();
 
     private readonly ISqlManager _sqlManager;
     private readonly IGetObject _getObject;
@@ -47,9 +46,9 @@ public class UserController : ControllerBase
                 break;
         }
         
-        await _sqlManager.Execute($"INSERT INTO users.users VALUES({id}, '{request.Name}', '{request.SurName}', '{request.PhoneNumber}', '{request.Email}', 0, NOW(), ' ', '{BCrypt.Net.BCrypt.HashPassword(request.Password, SaltRevision.Revision2Y)}', false);");
+        await _sqlManager.Execute($"INSERT INTO users.users VALUES({id}, '{request.Name}', '{request.SurName}', '{request.PhoneNumber}', '{request.Email}', 0, NOW(), ' ', '{BCrypt.Net.BCrypt.HashPassword(request.Password, SaltRevision.Revision2Y)}', false, '', '');");
 
-        User user;
+        User.User user;
         
         try
         {
@@ -66,7 +65,7 @@ public class UserController : ControllerBase
     [HttpPost($"{BaseUrl}/login")]
     public async Task<IActionResult> Login(LoginUserRequestModel request)
     {
-        User user;
+        User.User user;
 
         if (await _sqlManager.IsValueExist($"SELECT id FROM users.users WHERE email = '{request.Email}';"))
         {
@@ -89,34 +88,9 @@ public class UserController : ControllerBase
         {
             return StatusCode(409, "UserIsNotExist");
         }
+
+        string newToken = await _tokenVerification.GenerateToken(user.Id);
         
-        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        string newToken = new string(Enumerable.Repeat(chars, 10)
-            .Select(s => s[random.Next(s.Length)]).ToArray());
-
-        newToken += "_" + user.Id;
-
-        newToken += "_" + DateTime.Now.ToString("dd-MM-yyyy HH':'mm':'ss");
-
-        var tokens = (await _sqlManager.Reader($"SELECT token1, token2 FROM users.users WHERE id = {user.Id};"))[0];
-
-        
-        if (tokens["token1"] == "")
-        {
-            await _sqlManager.Execute($"UPDATE users.users SET token1 = '{newToken}';");
-        }
-        else if (tokens["token2"] == "")
-        {
-            await _sqlManager.Execute($"UPDATE users.users SET token2 = '{newToken}';");
-        }
-        else if (DateTime.Parse(tokens["token1"].ToString().Split('_')[2]) > DateTime.Parse(tokens["token2"].ToString().Split('_')[2]))
-        {
-            await _sqlManager.Execute($"UPDATE users.users SET token2 = '{newToken}';");
-        }
-        else
-        {
-            await _sqlManager.Execute($"UPDATE users.users SET token1 = '{newToken}';");
-        }
         LoginResponsModel response = new LoginResponsModel(user, newToken);
 
         return new ObjectResult(response);
@@ -124,7 +98,7 @@ public class UserController : ControllerBase
     [HttpPost($"{BaseUrl}/isUserExist")]
     public async Task<IActionResult> IsUserExist(IsUserExistRequestModel request)
     {
-        User user;
+        User.User user;
         try
         {
             user = await _getObject.GetUser(request.Id);

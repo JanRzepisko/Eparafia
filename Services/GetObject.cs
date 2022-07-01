@@ -1,6 +1,7 @@
 using eparafia.Calendar.Event;
 using eparafia.Calendar.EventEnums;
 using eparafia.Carol;
+using eparafia.Intention;
 using eparafia.Models;
 using eparafia.Priest;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,7 @@ namespace eparafia.Helpers;
 
 public class GetObject : IGetObject
 {
+    private const string DateFromat = "G";
     private readonly ISqlManager _sqlManager;
     private readonly ILogger<GetObject> _logger;
 
@@ -20,21 +22,21 @@ public class GetObject : IGetObject
         _logger = logger;
     }
 
-    public async Task<User> GetUser(int id)
+    public async Task<User.User> GetUser(int id)
     {
         var data = await _sqlManager.Reader($"SELECT * FROM users.users WHERE id = {id};");
         if (data.Count == 0) throw new UserIsNotExist();
 
-        User user = new User(data[0]["name"], data[0]["surname"], data[0]["email"], data[0]["phonenumber"],
+        User.User user = new User.User(data[0]["name"], data[0]["surname"], data[0]["email"], data[0]["phonenumber"],
             data[0]["parafia"], data[0]["id"], data[0]["adress"], data[0]["isactive"]);
 
         return user;
     }
 
-    public Task<User> GetUser(List<Dictionary<string, dynamic>> data)
+    public Task<User.User> GetUser(List<Dictionary<string, dynamic>> data)
     {
-        return Task.FromResult(new User(data[0]["name"], data[0]["surname"], data[0]["email"], data[0]["phonenumber"],
-            data[0]["parafia"], data[0]["id"], data[0]["adress"], data[0]["isactive"]));
+        return Task.FromResult(new User.User(data[0]["name"], data[0]["surname"], data[0]["email"], data[0]["phonenumber"],
+            data[0]["parafia"], data[0]["id"], data[0]["address"], data[0]["isactive"]));
     }
 
     public async Task<Priest.Priest> GetPriest(int id)
@@ -62,7 +64,7 @@ public class GetObject : IGetObject
             priests.Add(await GetPriest(item["id"]));
         }
 
-        List<User> users = new List<User>();
+        List<User.User> users = new List<User.User>();
         var dataUsers = await _sqlManager.Reader($"SELECT id FROM users.users WHERE parafia = {id};");
 
         foreach (var item in dataUsers)
@@ -93,7 +95,7 @@ public class GetObject : IGetObject
                 "weekcalendar"].ToString();
 
         var data = await _sqlManager.Reader($"SELECT * FROM parafia.events WHERE parafiaid = {parafiaId};");
-
+        
         List<SpecialEvent> calendar = new List<SpecialEvent>();
 
         List<DefaultEvent?> defaultCalendar = new List<DefaultEvent?>();
@@ -104,19 +106,21 @@ public class GetObject : IGetObject
             defaultCalendar.Add(item.ToObject<DefaultEvent>());
         }
 
-        
-        
+
+
         int dayOfWeek = DayOfWeek.Monday - DateTime.Today.DayOfWeek;
 
         DateTime monday = DateTime.Today.AddDays(dayOfWeek);
-        
+
         foreach (var event1 in defaultCalendar!)
         {
             var @event = event1;
+
+            DateTime convertedDate = monday.AddDays((int) @event.Day + (week * 7)).AddHours(int.Parse(@event.Time!.Split(':')[0]))
+                .AddMinutes(int.Parse(@event.Time.Split(':')[1]));
             
-            SpecialEvent convertedEvent = new SpecialEvent(@event.Type, @event.Duration, @event.Description, monday
-                .AddDays((int) @event.Day).AddHours(int.Parse(@event.Time!.Split(':')[0]))
-                .AddMinutes(int.Parse(@event.Time.Split(':')[1])), "Brak"); //TODO intention
+            SpecialEvent convertedEvent = new SpecialEvent(@event.Type, @event.Duration, @event.Description,
+                convertedDate, await GetIntention(convertedDate, parafiaId));
 
             calendar.Add(convertedEvent);
         }
@@ -126,9 +130,11 @@ public class GetObject : IGetObject
             if (DateTime.Parse(item["date"]) > monday && DateTime.Parse(item["date"]) < monday.AddDays(7))
             {
                 calendar.Add(new SpecialEvent((EventType) int.Parse(item["type"].ToString()), item["duration"],
-                    item["description"], DateTime.Parse(item["date"]), "Brak"));
+                    item["description"], DateTime.Parse(item["date"]),
+                    await GetIntention(DateTime.Parse(item["date"]), parafiaId)));
             }
         }
+
         calendar = calendar.OrderBy(item => item.Date).ToList();
         return calendar;
     }
@@ -136,7 +142,7 @@ public class GetObject : IGetObject
 
     public async Task<UserCarol> GetCarolUser(int userId)
     {
-        User user = await GetUser(userId);
+        User.User user = await GetUser(userId);
 
         var data = await _sqlManager.Reader($"SELECT * FROM carol.p{user.Parafia} WHERE userid = {user.Id};");
 
@@ -148,4 +154,16 @@ public class GetObject : IGetObject
         return carol;
     }
 
+    public async Task<Intention.Intention> GetIntention(DateTime date, int parafiaid)
+    {
+        List<Dictionary<string, dynamic>> data = await _sqlManager.Reader(
+            $"SELECT * FROM parafia.intention WHERE parafiaid = {parafiaid} AND date = '{date.ToFileTimeUtc().ToString()}';");
+        
+        if (data.Count == 0)
+            return new Intention.Intention();
+        else
+        {
+            return new Intention.Intention((IntentionType)(int)data[0]["type"], data[0]["value"].ToString());
+        }
+    }
 }
