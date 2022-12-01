@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.API", "Eparafia.API\Eparafia.API.csproj", "{CA439DA2-3FAE-4E46-BDA1-DEC16403212A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Infrastructure", "Eparafia.Infrastructure\Eparafia.Infrastructure.csproj", "{DF00888E-C9AF-4DAD-9335-71B20A943DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Application", "Eparafia.Application\Eparafia.Application.csproj", "{E5E31ACA-2A86-44C1-A3AB-6B6A1F793173}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA439DA2-3FAE-4E46-BDA1-DEC16403212A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA439DA2-3FAE-4E46-BDA1-DEC16403212A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA439DA2-3FAE-4E46-BDA1-DEC16403212A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA439DA2-3FAE-4E46-BDA1-DEC16403212A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF00888E-C9AF-4DAD-9335-71B20A943DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF00888E-C9AF-4DAD-9335-71B20A943DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF00888E-C9AF-4DAD-9335-71B20A943DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF00888E-C9AF-4DAD-9335-71B20A943DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5E31ACA-2A86-44C1-A3AB-6B6A1F793173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5E31ACA-2A86-44C1-A3AB-6B6A1F793173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5E31ACA-2A86-44C1-A3AB-6B6A1F793173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5E31ACA-2A86-44C1-A3AB-6B6A1F793173}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+/Eparafia.API/bin
+/Eparafia.Infrastructure/bin
+/Eparafia.Application/bin/
+/Eparafia.API/obj
+/Eparafia.Infrastructure/obj
+/Eparafia.Application/obj
+/Eparafia.API/Properties
+/Eparafia.API/appsettings.json
