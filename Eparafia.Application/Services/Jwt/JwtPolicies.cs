@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 
-namespace Eparafia.API.Services.Jwt;
+namespace Eparafia.Application.Services.Jwt;
 
 public static class JwtPolicies
 {

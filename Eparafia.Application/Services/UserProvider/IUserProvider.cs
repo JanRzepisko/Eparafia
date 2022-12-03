@@ -1,4 +1,4 @@
-namespace Eparafia.API.Services.UserProvider;
+namespace Eparafia.Application.Services.UserProvider;
 
 public interface IUserProvider
 {

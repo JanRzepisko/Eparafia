@@ -1,14 +1,16 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Eparafia.API.Services.Jwt;
-using Eparafia.API.Services.UserProvider;
 using Eparafia.Application.DataAccess;
+using Eparafia.Application.Services.FileManager;
+using Eparafia.Application.Services.Jwt;
+using Eparafia.Application.Services.UserProvider;
 using Eparafia.Infrastructure.DataAccess;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -68,13 +70,14 @@ public class Startup
             c.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             c.JsonSerializerOptions.WriteIndented = true;
         }).AddFluentValidation(c => { c.RegisterValidatorsFromAssemblies(new[] {typeof(Program).Assembly}); });
+        
         services.Configure<string>(Configuration);
 
         services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration["ConnectionString"]));
         services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<DataContext>());
-
         services.AddScoped<IJwtAuth, JwtAuth>();
         services.AddScoped<IUserProvider, UserProvider>();
+        services.AddScoped<IFileManager, FileManager>();
 
         services.AddEndpointsApiExplorer();
 
@@ -142,3 +145,4 @@ public class Startup
         });
     }
 }
+

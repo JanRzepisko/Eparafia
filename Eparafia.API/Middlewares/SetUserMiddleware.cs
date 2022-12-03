@@ -1,4 +1,4 @@
-using Eparafia.API.Services.UserProvider;
+using Eparafia.Application.Services.UserProvider;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Eparafia.API.Middlewares;

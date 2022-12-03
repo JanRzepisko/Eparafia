@@ -1,9 +1,12 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Eparafia.Application.DataAccess.Abstract;
+using Eparafia.Application.Entities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Eparafia.API.Services.Jwt;
+namespace Eparafia.Application.Services.Jwt;
 
 public class JwtAuth : IJwtAuth
 {
@@ -14,7 +17,7 @@ public class JwtAuth : IJwtAuth
         _configuration = configuration;
     }
 
-    public Task<GeneratedToken> GenerateJwt(Guid id, string role)
+    public Task<GeneratedToken> GenerateJwt(UserModel user)
     {
         byte[] key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
 
@@ -24,8 +27,11 @@ public class JwtAuth : IJwtAuth
         {
             Subject = new ClaimsIdentity(new[]
             {
-                new Claim("Id", id.ToString()),
-                new Claim(ClaimTypes.Role, role)
+                new Claim("Id", user.Id.ToString()),
+                new Claim("Name", user.Name!),
+                new Claim("Surname", user.Surname!),
+                new Claim("Email", user.Email!),
+                new Claim(ClaimTypes.Role, user.Role!)
             }),
             Expires = DateTime.UtcNow.AddMinutes(30),
             Audience = _configuration["Jwt:Audience"]!,

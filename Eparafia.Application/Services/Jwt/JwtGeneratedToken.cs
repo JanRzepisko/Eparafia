@@ -1,4 +1,4 @@
-namespace Eparafia.API.Services.Jwt;
+namespace Eparafia.Application.Services.Jwt;
 
 public class GeneratedToken
 {

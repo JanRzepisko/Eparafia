@@ -1,4 +1,4 @@
-namespace Eparafia.API.Exceptions;
+namespace Eparafia.Infrastructure.Exceptions;
 
 public sealed class EntityNotFoundException : BaseException
 {

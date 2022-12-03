@@ -1,5 +1,5 @@
-using Eparafia.API.Exceptions;
 using Eparafia.API.Models;
+using Eparafia.Infrastructure.Exceptions;
 using Newtonsoft.Json;
 
 namespace Eparafia.API.Middlewares;
