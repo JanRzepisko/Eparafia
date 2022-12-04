@@ -11,4 +11,4 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
             {
                 c.Limits.MaxRequestBodySize = long.MaxValue;
             }); 
-        });
+        }).UseDefaultServiceProvider(options => options.ValidateScopes = false);

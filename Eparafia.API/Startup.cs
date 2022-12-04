@@ -1,6 +1,8 @@
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Eparafia.API.Extensions;
+using Eparafia.API.Middlewares;
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services.FileManager;
 using Eparafia.Application.Services.Jwt;
@@ -10,7 +12,6 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -24,12 +25,9 @@ public class Startup
     {
         Configuration = configuration;
     }
-
+    
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddCors();
-        services.AddMediatR(typeof(Program).Assembly);
-
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo
@@ -63,22 +61,28 @@ public class Startup
 
         services.AddMvc().AddJsonOptions(c =>
         {
-            c.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
-            c.JsonSerializerOptions.MaxDepth = 32;
-            c.JsonSerializerOptions.PropertyNamingPolicy = null;
             c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
             c.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             c.JsonSerializerOptions.WriteIndented = true;
-        }).AddFluentValidation(c => { c.RegisterValidatorsFromAssemblies(new[] {typeof(Program).Assembly}); });
-        
+        });
+
+        services.AddFluentValidators(typeof(Application.AssemblyEntryPoint).Assembly);
+        services.AddMediatR(typeof(Application.AssemblyEntryPoint).Assembly);            
+        services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviour<,>));
+
         services.Configure<string>(Configuration);
 
-        services.AddDbContext<DataContext>(options => options.UseNpgsql(Configuration["ConnectionString"]));
-        services.AddScoped<IUnitOfWork>(c => c.GetRequiredService<DataContext>());
+        services.AddDbContext<DataContext>(options =>
+        {
+            options.UseNpgsql(Configuration["ConnectionString"]!);
+        });
+
+        services.AddScoped<DbContext, DataContext>();
+        services.AddScoped<IUnitOfWork>(provider => provider.GetService<DataContext>()!);
         services.AddScoped<IJwtAuth, JwtAuth>();
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
-
+    
         services.AddEndpointsApiExplorer();
 
         services.AddAuthentication(options =>
@@ -114,18 +118,13 @@ public class Startup
         });
 
         services.AddControllers();
+        
     }
-    
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-
         app.UseSwagger();
         app.UseSwaggerUI();
-
+        
         app.UseAuthentication();
         app.UseAuthorization();
 
@@ -133,6 +132,10 @@ public class Startup
 
         app.UseHttpsRedirection();
 
+        
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
+        app.UseMiddleware<SetUserMiddleware>();
+        
         app.UseCors(c => c
             .AllowAnyOrigin()
             .AllowAnyMethod()

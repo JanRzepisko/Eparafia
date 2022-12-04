@@ -30,7 +30,7 @@ public static class UpdatePriest
             }
             user.Name = request.User.Name ?? user.Name;
             user.Surname = request.User.Surname ?? user.Surname;
-            user.Email = request.User.Email ?? user.Name;
+            user.Email = request.User.Email ?? user.Email;
             
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;

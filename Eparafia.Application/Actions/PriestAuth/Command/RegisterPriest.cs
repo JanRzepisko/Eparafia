@@ -39,7 +39,7 @@ public static class RegisterPriest
                 IsActive = false,
             };
 
-            await _unitOfWork.Priests.AddAsync(priest, cancellationToken);
+            await _unitOfWork.Priests.AddAsync(newPriest, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

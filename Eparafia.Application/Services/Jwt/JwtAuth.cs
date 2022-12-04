@@ -22,8 +22,8 @@ public class JwtAuth : IJwtAuth
         byte[] key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
 
         //tu add claims
-
-        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+        //TODO GET CONFIGURATION FORM APPSETINGS    
+         SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {

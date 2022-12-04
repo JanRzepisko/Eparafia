@@ -4,18 +4,17 @@ using Eparafia.Application.Services.UserProvider;
 using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.UserAuth.Command;
 
-public static class RemoveUser
+public static class JoinToParishUser
 {
-    public sealed record Command() : IRequest<Unit>;
+    public sealed record Command(Guid ParishId) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IUserProvider _userProvider;
+        private readonly IUserProvider _userProvider; 
 
         public Handler(IUnitOfWork unitOfWork, IUserProvider userProvider)
         {
@@ -25,14 +24,16 @@ public static class RemoveUser
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.GetByIdAsync(_userProvider.Id, cancellationToken);
-            if (user == null)
+            var parish = await _unitOfWork.Parishes.GetByIdAsync(request.ParishId, cancellationToken);
+            if (parish is null)
             {
-                throw new EntityNotFoundException("User not found");
+                throw new EntityNotFoundException("Parish not found");
             }
-
-            _unitOfWork.Users.RemoveById(_userProvider.Id);
+            
+            User? user = await _unitOfWork.Users.GetByIdAsync(_userProvider.Id, cancellationToken);
+            user.ParishId = parish.Id;
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            
             return Unit.Value;
         }
 
@@ -40,7 +41,7 @@ public static class RemoveUser
         {
             public Validator()
             {
-                
+                RuleFor(c => c.ParishId).NotEqual(Guid.Empty);
             }
         }
     }

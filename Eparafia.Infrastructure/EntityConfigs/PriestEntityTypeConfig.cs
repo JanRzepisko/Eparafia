@@ -8,7 +8,6 @@ internal sealed class PriestEntityTypeConfig : IEntityTypeConfiguration<Priest>
 {
     public void Configure(EntityTypeBuilder<Priest> builder)
     {
-        builder.ToTable("Priests");
         builder.HasKey(c => c.Id);
 
         builder.HasOne(c => c.Parish)

@@ -15,11 +15,6 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IUserRepository<User> Users => new UserRepository<User>(_Users);
     public IUserRepository<Priest?> Priests => new UserRepository<Priest?>(_Priests);
     public IBaseRepository<Parish> Parishes => new BaseRepository<Parish>(_Parishes);
-    public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        return SaveChangesAsync();
-    }
-
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
         

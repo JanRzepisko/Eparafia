@@ -1,4 +1,6 @@
+using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services.UserProvider;
+using Eparafia.Infrastructure.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Eparafia.API.Middlewares;
@@ -7,7 +9,7 @@ public class SetUserMiddleware
 {
     private readonly RequestDelegate _next;
     
-    public SetUserMiddleware(RequestDelegate next)
+    public SetUserMiddleware(RequestDelegate next, IUnitOfWork unitOfWork)
     {
         _next = next;
     }

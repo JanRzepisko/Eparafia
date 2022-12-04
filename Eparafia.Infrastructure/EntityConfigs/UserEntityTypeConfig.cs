@@ -8,7 +8,6 @@ internal sealed class UserEntityTypeConfig : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
-        builder.ToTable("Users");
         builder.HasKey(c => c.Id);
 
         builder.HasOne(c => c.Parish)

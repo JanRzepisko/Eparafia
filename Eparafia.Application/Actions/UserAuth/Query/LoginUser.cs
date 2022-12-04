@@ -5,10 +5,9 @@ using MediatR;
 
 namespace Eparafia.Application.Actions.UserAuth.Query;
 
-public static class Login
+public static class LoginUser
 {
     public sealed record Query(string Email, string Password) : IRequest<GeneratedToken>;
-
     public class Handler : IRequestHandler<Query, GeneratedToken>
     {
         private readonly IUnitOfWork _unitOfWork;
