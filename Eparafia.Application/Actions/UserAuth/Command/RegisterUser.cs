@@ -4,6 +4,7 @@ using Eparafia.Application.Services.Jwt;
 using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.UserAuth.Command;

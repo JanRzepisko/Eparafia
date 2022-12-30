@@ -1,4 +1,6 @@
 using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Eparafia.Application.Exceptions;
 using Eparafia.Infrastructure.Exceptions;
 using FluentValidation.AspNetCore;
@@ -14,6 +16,9 @@ public static partial class ServiceCollectionExtensions
                 c.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 c.JsonSerializerOptions.MaxDepth = 32;
                 c.JsonSerializerOptions.PropertyNamingPolicy = null;
+                c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+                c.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                c.JsonSerializerOptions.WriteIndented = true;
             })
             .ConfigureApiBehaviorOptions(c => {
                 c.InvalidModelStateResponseFactory = c => {

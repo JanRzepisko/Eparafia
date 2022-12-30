@@ -21,10 +21,10 @@ public static class RemovePriest
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Priests.GetByIdAsync(request.PriestId, cancellationToken);
-            if (user == null)
+            bool exist = await _unitOfWork.Priests.ExistsAsync(request.PriestId, cancellationToken);
+            if (!exist)
             {
-                throw new EntityNotFoundException("User not found");
+                throw new EntityNotFoundException("Priest not found");
             }
 
             _unitOfWork.Priests.RemoveById(request.PriestId);

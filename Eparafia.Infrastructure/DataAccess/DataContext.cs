@@ -20,7 +20,6 @@ public sealed class DataContext: DbContext, IUnitOfWork
         
     }
 }
-
 //create migration use this
 //dotnet ef migrations add init3 --project ..\Eparafia.Infrastructure\Eparafia.Infrastructure.csproj
 //in API project

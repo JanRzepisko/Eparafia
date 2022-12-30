@@ -31,7 +31,7 @@ public class JwtAuth : IJwtAuth
                 new Claim("Name", user.Name!),
                 new Claim("Surname", user.Surname!),
                 new Claim("Email", user.Email!),
-                new Claim(ClaimTypes.Role, user.Role!)
+                new Claim(ClaimTypes.Role, JwtPolicies.User!)
             }),
             Expires = DateTime.UtcNow.AddMinutes(30),
             Audience = _configuration["Jwt:Audience"]!,

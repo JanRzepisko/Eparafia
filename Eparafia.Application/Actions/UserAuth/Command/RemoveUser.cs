@@ -1,10 +1,8 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Services.UserProvider;
 using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.UserAuth.Command;
 
@@ -25,8 +23,8 @@ public static class RemoveUser
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.GetByIdAsync(_userProvider.Id, cancellationToken);
-            if (user == null)
+            bool exist = await _unitOfWork.Users.ExistsAsync(_userProvider.Id, cancellationToken);
+            if (!exist)
             {
                 throw new EntityNotFoundException("User not found");
             }

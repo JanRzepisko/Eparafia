@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -28,63 +29,22 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddSwaggerGen(c =>
-        {
-            c.SwaggerDoc("v1", new OpenApiInfo
-            {
-                Title = "Eparafia", Version = "v1"
-            });
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
-            {
-                Name = "Authorization",
-                Type = SecuritySchemeType.ApiKey,
-                Scheme = "Bearer",
-                BearerFormat = "JWT",
-                In = ParameterLocation.Header,
-                Description = "Jwt: Bearer {jwt token}"
-            });
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
-            {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    new string[] { }
-                }
-            });
-        });
+        services.AddSwagger();
+        services.AddOptions();
 
-        services.AddMvc().AddJsonOptions(c =>
-        {
-            c.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-            c.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            c.JsonSerializerOptions.WriteIndented = true;
-        });
-
+        
+        services.AddMediatR(typeof(Application.AssemblyEntryPoint).GetTypeInfo().Assembly);
         services.AddFluentValidators(typeof(Application.AssemblyEntryPoint).Assembly);
-        services.AddMediatR(typeof(Application.AssemblyEntryPoint).Assembly);            
         services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviour<,>));
-
         services.Configure<string>(Configuration);
-
-        services.AddDbContext<DataContext>(options =>
-        {
-            options.UseNpgsql(Configuration["ConnectionString"]!);
-        });
+        services.AddDbContext<DataContext>(options => { options.UseNpgsql(Configuration["ConnectionString"]!); });
 
         services.AddScoped<DbContext, DataContext>();
         services.AddScoped<IUnitOfWork>(provider => provider.GetService<DataContext>()!);
         services.AddScoped<IJwtAuth, JwtAuth>();
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
-    
-        services.AddEndpointsApiExplorer();
-
+        
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -109,30 +69,25 @@ public class Startup
             config.AddPolicy(JwtPolicies.User, JwtPolicies.UserPolicy());
         });
 
-
-
+        
         services.AddCors(options =>
         {
-            options.AddDefaultPolicy(policyBuilder =>
-                policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            options.AddDefaultPolicy(policyBuilder => policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
         });
 
         services.AddControllers();
-        
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseSwagger();
         app.UseSwaggerUI();
-        
-        app.UseAuthentication();
-        app.UseAuthorization();
-
         app.UseRouting();
 
+        app.UseAuthentication();
+        app.UseAuthorization();
+        
         app.UseHttpsRedirection();
 
-        
         app.UseMiddleware<ExceptionHandlerMiddleware>();
         app.UseMiddleware<SetUserMiddleware>();
         
@@ -140,11 +95,12 @@ public class Startup
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
-        
+        // app.UseDeveloperExceptionPage();
 
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
+            endpoints.MapSwagger();
         });
     }
 }
