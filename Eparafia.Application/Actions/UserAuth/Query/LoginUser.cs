@@ -26,13 +26,15 @@ public static class LoginUser
             {
                 throw new EntityNotFoundException("User not found");
             }
-
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {
                 throw new BadPassword($"Bad password");
             }
-
-            return await _jwtAuth.GenerateJwt(user);
+            if(!user.IsActive)
+            {
+                //throw new InvalidRequestException("User is not active");
+            }
+            return await _jwtAuth.GenerateJwt(user, JwtPolicies.User);
         }
     }
 }

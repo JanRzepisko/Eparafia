@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="BCrypt-Official" Version="0.1.109" />
+      <PackageReference Include="EntityFramework" Version="6.4.4" />
       <PackageReference Include="FluentValidation" Version="11.4.0" />
       <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
       <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
@@ -26,10 +27,6 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.0" />
       <PackageReference Include="System.Runtime.Serialization.Json" Version="4.0.3" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <Folder Include="DTOs" />
     </ItemGroup>
 
 </Project>

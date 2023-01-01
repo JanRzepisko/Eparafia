@@ -3,11 +3,11 @@ using Eparafia.Application.Repository;
 
 namespace Eparafia.Application.DataAccess;
 
-public interface IUnitOfWork
+public interface    IUnitOfWork
 {
     public IUserRepository<User> Users { get; }
     public IUserRepository<Priest?> Priests { get; }
-    public IBaseRepository<Parish> Parishes { get; }
+    public IParishRepository Parishes { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

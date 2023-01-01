@@ -17,13 +17,13 @@ public class JwtAuth : IJwtAuth
         _configuration = configuration;
     }
 
-    public Task<GeneratedToken> GenerateJwt(UserModel user)
+    public Task<GeneratedToken> GenerateJwt(UserModel user, string role)
     {
         byte[] key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
 
         //tu add claims
         //TODO GET CONFIGURATION FORM APPSETINGS    
-         SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
@@ -31,7 +31,7 @@ public class JwtAuth : IJwtAuth
                 new Claim("Name", user.Name!),
                 new Claim("Surname", user.Surname!),
                 new Claim("Email", user.Email!),
-                new Claim(ClaimTypes.Role, JwtPolicies.User!)
+                new Claim(ClaimTypes.Role, role)
             }),
             Expires = DateTime.UtcNow.AddMinutes(30),
             Audience = _configuration["Jwt:Audience"]!,

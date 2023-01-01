@@ -5,5 +5,5 @@ namespace Eparafia.Application.Services.Jwt;
 
 public interface IJwtAuth
 {
-    public Task<GeneratedToken> GenerateJwt(UserModel user);
+    public Task<GeneratedToken> GenerateJwt(UserModel user, string role);
 }

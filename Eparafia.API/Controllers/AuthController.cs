@@ -21,14 +21,14 @@ public class AuthController : Controller
         _mediator = mediator;
     }
 
-    [HttpPost("User/LoginUser")]
+    [HttpPost("User/Login")]
     public async Task<IActionResult> LoginUser(LoginUser.Query query, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(query, cancellationToken);
         return Ok(ApiResponse.Success(200, result));
     }
     
-    [HttpPost("User/RegisterUser")]
+    [HttpPost("User/Register")]
     public async Task<IActionResult> RegisterUser([FromBody] RegisterUser.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
@@ -56,7 +56,7 @@ public class AuthController : Controller
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }
-    [HttpGet("Priest/LoginUser")]
+    [HttpPost("Priest/Login")]
     public async Task<IActionResult> LoginPriest(LoginPriest.Query query, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(query, cancellationToken);

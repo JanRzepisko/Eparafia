@@ -5,13 +5,28 @@
 namespace Eparafia.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddRole : Migration
+    public partial class newfields : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameColumn(
+                name: "FunctionAtParish",
+                table: "_Priests",
+                newName: "FunctionParish");
+
             migrationBuilder.AlterColumn<string>(
-                name: "PasswordHash",
+                name: "Surname",
+                table: "_Users",
+                type: "text",
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "text",
+                oldNullable: true);
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
                 table: "_Users",
                 type: "text",
                 nullable: false,
@@ -30,14 +45,18 @@ namespace Eparafia.Infrastructure.Migrations
                 oldType: "text",
                 oldNullable: true);
 
-            migrationBuilder.AddColumn<string>(
-                name: "Role",
-                table: "_Users",
+            migrationBuilder.AlterColumn<string>(
+                name: "Surname",
+                table: "_Priests",
                 type: "text",
-                nullable: true);
+                nullable: false,
+                defaultValue: "",
+                oldClrType: typeof(string),
+                oldType: "text",
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
-                name: "PasswordHash",
+                name: "Name",
                 table: "_Priests",
                 type: "text",
                 nullable: false,
@@ -55,28 +74,26 @@ namespace Eparafia.Infrastructure.Migrations
                 oldClrType: typeof(string),
                 oldType: "text",
                 oldNullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "Role",
-                table: "_Priests",
-                type: "text",
-                nullable: false,
-                defaultValue: "");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Role",
-                table: "_Users");
-
-            migrationBuilder.DropColumn(
-                name: "Role",
-                table: "_Priests");
+            migrationBuilder.RenameColumn(
+                name: "FunctionParish",
+                table: "_Priests",
+                newName: "FunctionAtParish");
 
             migrationBuilder.AlterColumn<string>(
-                name: "PasswordHash",
+                name: "Surname",
+                table: "_Users",
+                type: "text",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "text");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
                 table: "_Users",
                 type: "text",
                 nullable: true,
@@ -92,7 +109,15 @@ namespace Eparafia.Infrastructure.Migrations
                 oldType: "text");
 
             migrationBuilder.AlterColumn<string>(
-                name: "PasswordHash",
+                name: "Surname",
+                table: "_Priests",
+                type: "text",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "text");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Name",
                 table: "_Priests",
                 type: "text",
                 nullable: true,

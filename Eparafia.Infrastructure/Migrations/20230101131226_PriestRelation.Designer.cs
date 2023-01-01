@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Eparafia.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221204143713_AddRole")]
-    partial class AddRole
+    [Migration("20230101131226_PriestRelation")]
+    partial class PriestRelation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,10 +31,7 @@ namespace Eparafia.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("City")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("CallName")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -52,6 +49,9 @@ namespace Eparafia.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("FunctionParish")
+                        .HasColumnType("integer");
+
                     b.Property<bool>("HasAvatar")
                         .HasColumnType("boolean");
 
@@ -59,9 +59,10 @@ namespace Eparafia.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ParishId")
+                    b.Property<Guid?>("ParishId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("PasswordHash")
@@ -69,10 +70,10 @@ namespace Eparafia.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Role")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -99,9 +100,10 @@ namespace Eparafia.Infrastructure.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ParishId")
+                    b.Property<Guid?>("ParishId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("PasswordHash")
@@ -112,6 +114,7 @@ namespace Eparafia.Infrastructure.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -121,12 +124,97 @@ namespace Eparafia.Infrastructure.Migrations
                     b.ToTable("_Users");
                 });
 
+            modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
+                {
+                    b.OwnsOne("Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("ParishId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("BuildingNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("PostCode")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Region")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("ParishId");
+
+                            b1.ToTable("_Parishes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ParishId");
+                        });
+
+                    b.OwnsOne("Contact", "Contact", b1 =>
+                        {
+                            b1.Property<Guid>("ParishId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Email")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("PhoneNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("ParishId");
+
+                            b1.ToTable("_Parishes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ParishId");
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
+
+                    b.Navigation("Contact")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Eparafia.Application.Entities.Priest", b =>
                 {
                     b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
                         .WithMany("Priests")
-                        .HasForeignKey("ParishId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("ParishId");
+
+                    b.OwnsOne("Contact", "Contact", b1 =>
+                        {
+                            b1.Property<Guid>("PriestId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Email")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("PhoneNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("PriestId");
+
+                            b1.ToTable("_Priests");
+
+                            b1.WithOwner()
+                                .HasForeignKey("PriestId");
+                        });
+
+                    b.Navigation("Contact")
                         .IsRequired();
 
                     b.Navigation("Parish");
@@ -136,9 +224,7 @@ namespace Eparafia.Infrastructure.Migrations
                 {
                     b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
                         .WithMany("Users")
-                        .HasForeignKey("ParishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParishId");
 
                     b.Navigation("Parish");
                 });

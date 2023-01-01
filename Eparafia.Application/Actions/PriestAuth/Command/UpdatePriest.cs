@@ -12,7 +12,7 @@ namespace Eparafia.Application.Actions.PriestAuth.Command;
 
 public static class UpdatePriest
 {
-    public sealed record Command(string? Name, string? Surname, string? Email, string? Base64, bool RemovePhoto) : IRequest<Unit>;
+    public sealed record Command(string? Name, string? Surname, string? Email, string? Base64, bool RemovePhoto, Contact Contact) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -38,6 +38,9 @@ public static class UpdatePriest
             priest.Name = request.Name ?? priest.Name;
             priest.Surname = request.Surname ?? priest.Surname;
             priest.Email = request.Email ?? priest.Email;
+            priest.Contact.Email = request.Contact.Email ?? priest.Contact.Email;
+            priest.Contact.PhoneNumber = request.Contact.PhoneNumber ?? priest.Contact.PhoneNumber;
+            
 
             if (request.RemovePhoto)
             {

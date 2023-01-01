@@ -1,4 +1,5 @@
 using Eparafia.Application.DataAccess;
+using Eparafia.Application.Exceptions;
 using Eparafia.Application.Services.Jwt;
 using Eparafia.Infrastructure.Exceptions;
 using MediatR;
@@ -27,13 +28,17 @@ public static class LoginPriest
             {
                 throw new EntityNotFoundException("User not found");
             }
-
             if (!BCrypt.Net.BCrypt.Verify(request.Password, priest.PasswordHash))
             {
                 throw new BadPassword($"Bad password");
             }
+            if(!priest.IsActive)
+            {
+                //throw new InvalidRequestException("Priest is not active");
+            }
 
-            return await _jwtAuth.GenerateJwt(priest);
+
+            return await _jwtAuth.GenerateJwt(priest, JwtPolicies.Priest);
         }
     }
 }

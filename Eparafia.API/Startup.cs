@@ -67,6 +67,7 @@ public class Startup
         {
             config.AddPolicy(JwtPolicies.Admin, JwtPolicies.AdminPolicy());
             config.AddPolicy(JwtPolicies.User, JwtPolicies.UserPolicy());
+            config.AddPolicy(JwtPolicies.Priest, JwtPolicies.PriestPolicy());
         });
 
         

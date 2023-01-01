@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Eparafia.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20221203195742_AddCityInParish")]
-    partial class AddCityInParish
+    [Migration("20230101115015_RemoveCascadeDelete")]
+    partial class RemoveCascadeDelete
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,9 +30,6 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
-
-                    b.Property<string>("City")
-                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -64,6 +61,11 @@ namespace Eparafia.Infrastructure.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")
@@ -94,10 +96,14 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ParishId")
+                    b.Property<Guid?>("ParishId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
                         .HasColumnType("text");
 
                     b.Property<string>("Surname")
@@ -108,6 +114,49 @@ namespace Eparafia.Infrastructure.Migrations
                     b.HasIndex("ParishId");
 
                     b.ToTable("_Users");
+                });
+
+            modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
+                {
+                    b.OwnsOne("Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("ParishId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("BuildingNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("FlatNumber")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("PostCode")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Region")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("ParishId");
+
+                            b1.ToTable("_Parishes");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ParishId");
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Eparafia.Application.Entities.Priest", b =>
@@ -125,9 +174,7 @@ namespace Eparafia.Infrastructure.Migrations
                 {
                     b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
                         .WithMany("Users")
-                        .HasForeignKey("ParishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParishId");
 
                     b.Navigation("Parish");
                 });

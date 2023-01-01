@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Eparafia.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddTypeConfigs : Migration
+    public partial class parishes : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,13 @@ namespace Eparafia.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Name = table.Column<string>(type: "text", nullable: true)
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    AddressRegion = table.Column<string>(name: "Address_Region", type: "text", nullable: false),
+                    AddressCity = table.Column<string>(name: "Address_City", type: "text", nullable: false),
+                    AddressStreet = table.Column<string>(name: "Address_Street", type: "text", nullable: false),
+                    AddressBuildingNumber = table.Column<string>(name: "Address_BuildingNumber", type: "text", nullable: false),
+                    AddressFlatNumber = table.Column<string>(name: "Address_FlatNumber", type: "text", nullable: false),
+                    AddressPostCode = table.Column<string>(name: "Address_PostCode", type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,13 +34,14 @@ namespace Eparafia.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    HasAvatar = table.Column<bool>(type: "boolean", nullable: false),
+                    ParishId = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Surname = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    HasAvatar = table.Column<bool>(type: "boolean", nullable: false),
-                    ParishId = table.Column<Guid>(type: "uuid", nullable: false)
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,13 +59,14 @@ namespace Eparafia.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: true),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
+                    HasAvatar = table.Column<bool>(type: "boolean", nullable: false),
+                    ParishId = table.Column<Guid>(type: "uuid", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: true),
                     Surname = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: true),
-                    PasswordHash = table.Column<string>(type: "text", nullable: true),
-                    IsActive = table.Column<bool>(type: "boolean", nullable: false),
-                    HasAvatar = table.Column<bool>(type: "boolean", nullable: false),
-                    ParishId = table.Column<Guid>(type: "uuid", nullable: false)
+                    PasswordHash = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,8 +75,7 @@ namespace Eparafia.Infrastructure.Migrations
                         name: "FK__Users__Parishes_ParishId",
                         column: x => x.ParishId,
                         principalTable: "_Parishes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

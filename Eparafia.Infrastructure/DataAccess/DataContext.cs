@@ -1,3 +1,4 @@
+using Eparafia.Application;
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
@@ -14,10 +15,18 @@ public sealed class DataContext: DbContext, IUnitOfWork
     
     public IUserRepository<User> Users => new UserRepository<User>(_Users);
     public IUserRepository<Priest?> Priests => new UserRepository<Priest?>(_Priests);
-    public IBaseRepository<Parish> Parishes => new BaseRepository<Parish>(_Parishes);
+    public IParishRepository Parishes => new ParishRepository(_Parishes);
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
         
+    }
+    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        //I don't know why it only works here xd
+        modelBuilder.Entity<Parish>().OwnsOne(x => x.Address);
+        modelBuilder.Entity<Parish>().OwnsOne(x => x.Contact);
+        modelBuilder.Entity<Priest>().OwnsOne(x => x.Contact);
     }
 }
 //create migration use this
