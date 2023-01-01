@@ -37,9 +37,10 @@ public static class RegisterUser
                 Name = request.Name,
                 Surname = request.Surname,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                HasAvatar = false,
                 IsActive = false,
                 Role = JwtPolicies.User,
+                PhotoPath = String.Empty,
+                PhotoPathMin = string.Empty,
                 ParishId = null
             };
 
