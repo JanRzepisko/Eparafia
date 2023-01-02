@@ -12,10 +12,14 @@ public sealed class DataContext: DbContext, IUnitOfWork
     private DbSet<User>? _Users { get; set; }
     private DbSet<Parish> _Parishes { get; set; }
     private DbSet<Priest> _Priests { get; set; }
+    private DbSet<Announcement> _Announcement { get; set; }
+    private DbSet<AnnouncementsRecords> _AnnouncementsRecords { get; set; }
     
     public IUserRepository<User> Users => new UserRepository<User>(_Users);
-    public IUserRepository<Priest?> Priests => new UserRepository<Priest?>(_Priests);
+    public IPriestRepository Priests => new PriestRepository(_Priests);
     public IParishRepository Parishes => new ParishRepository(_Parishes);
+    public IAnnouncementRepository Announcements => new AnnouncementRepository(_Announcement);
+    public IBaseRepository<AnnouncementsRecords> AnnouncementsRecords => new BaseRepository<AnnouncementsRecords>(_AnnouncementsRecords);
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
         

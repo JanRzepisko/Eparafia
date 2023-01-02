@@ -17,7 +17,8 @@ public class SetUserMiddleware
     public async Task InvokeAsync(HttpContext context, IUserProvider userProvider)
     {
         bool hasAuthorizations = context.GetEndpoint()!.Metadata.Any(c => c.GetType() == typeof(AuthorizeAttribute));
-        if (!hasAuthorizations)
+        bool forAnonymous = context.GetEndpoint()!.Metadata.Any(c => c.GetType() != typeof(AllowAnonymousAttribute));
+        if (!hasAuthorizations || forAnonymous)
         {
             await _next(context);
         }

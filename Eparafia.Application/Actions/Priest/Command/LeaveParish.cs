@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.Parish;
 
-public static class LeftFromParish
+public static class LeaveParish
 {
     public sealed record Command() : IRequest<Unit>;
 

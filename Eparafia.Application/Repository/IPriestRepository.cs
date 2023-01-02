@@ -3,9 +3,7 @@ using Eparafia.Application.Entities;
 
 namespace Eparafia.Application.Repository;
 
-public interface IUserRepository<TEntity> : IBaseRepository<TEntity> where TEntity : UserModel
+public interface IPriestRepository : IUserRepository<Priest>
 {
-    Task<TEntity?> GetByLoginAsync(string email, CancellationToken cancellationToken = default);
-    Task<TEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-
+    Task<List<Priest>> GetFreePriestAsync(string query, int page, int pageSize, CancellationToken cancellationToken);
 }

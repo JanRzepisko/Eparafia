@@ -27,5 +27,6 @@ internal sealed class AnnouncementsEntityTypeConfig : IEntityTypeConfiguration<A
             .HasForeignKey(c => c.AuthorId)
             .OnDelete(DeleteBehavior.Cascade);
 
+        builder.Ignore(c => c.IsActive);
     }
 }

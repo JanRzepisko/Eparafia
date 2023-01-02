@@ -27,7 +27,13 @@ public static class AnnouncementsUpdate
         {
             var announcements = await _unitOfWork.Announcements.GetByIdAsync(request.Id, cancellationToken);
 
-            announcements.AnnouncementsRecords = request.Records ?? announcements.AnnouncementsRecords;
+            announcements.AnnouncementsRecords = request.Records.Select(c => new AnnouncementsRecords
+            {
+                Announcement = announcements,
+                Content = c.Content,
+                Id = c.Id,
+                AnnouncementId = announcements.Id
+            }).ToList();
             announcements.Title = request.Title ?? announcements.Title;
             announcements.Date = request.Date ?? announcements.Date;
             announcements.AuthorId = _userProvider.Id;

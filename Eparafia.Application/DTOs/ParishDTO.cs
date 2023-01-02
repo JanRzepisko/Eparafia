@@ -1,4 +1,4 @@
-using Eparafia.Application.DTOs.Resluts;
+using Eparafia.Application.DTOs.Rezluts;
 using Eparafia.Application.Entities;
 
 namespace Eparafia.Application.DTOs;
@@ -23,8 +23,9 @@ public class ParishDTO
             {
                 Id = c.Id,
                 Name = c.Name,
-                HasAvatar = c.HasAvatar,
                 Surname = c.Surname,
+                PhotoPath = c.PhotoPath,
+                PhotoPathMin = c.PhotoPathMin,
                 FunctionParish = c.FunctionParish,
             }).ToList()
         };

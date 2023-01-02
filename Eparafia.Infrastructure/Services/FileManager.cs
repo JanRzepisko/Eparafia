@@ -19,8 +19,9 @@ public class FileManager : IFileManager
     {
         {ImageType.AnnouncementsPhoto, "Announcements"},
         {ImageType.ParishAvatar, "Parishes"},
-        {ImageType.PostPhoto, "Parishes"},
-        {ImageType.UserAvatar, "UserAvatar"}
+        {ImageType.PostPhoto, "PostPhoto"},
+        {ImageType.UserAvatar, "UserAvatar"},
+        {ImageType.PriestAvatar, "PriestAvatar"}
     };
 
     public FileManager(IConfiguration configuration)
@@ -30,7 +31,7 @@ public class FileManager : IFileManager
         _imageSizeMin = int.Parse(configuration["ImageSizeMin"]!);
     }
 
-    public async Task SaveImageAsync(string base64, ImageType imageType, Guid imageId, CancellationToken cancellationToken)
+    public async Task<Tuple<string, string>> SaveImageAsync(string base64, ImageType imageType, Guid imageId, CancellationToken cancellationToken)
     {
         byte[] bytes = Convert.FromBase64String(base64);
         Image image;
@@ -49,6 +50,7 @@ public class FileManager : IFileManager
             }));
 
         await image.SaveAsWebpAsync(FactoryFilePathMin(imageType, imageId), cancellationToken);
+        return Tuple.Create(FactoryFilePath(imageType, imageId), FactoryFilePathMin(imageType, imageId));
     }
     public void RemoveImage(ImageType imageType, Guid imageId, CancellationToken cancellationToken)
     {

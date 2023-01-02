@@ -9,4 +9,5 @@ public class Parish : Entity
     public Contact Contact { get; set; }
     public ICollection<User>? Users { get; set; }
     public ICollection<Priest>? Priests { get; set; }
+    public ICollection<Announcement>? Announcements { get; set; }
 }
