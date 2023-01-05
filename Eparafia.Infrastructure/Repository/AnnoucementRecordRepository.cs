@@ -5,21 +5,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eparafia.Infrastructure.Repository;
 
-public class AnnouncementRepository : BaseRepository<Announcement>,  IAnnouncementRepository
+public class AnnouncementRecordRepository : BaseRepository<AnnouncementsRecords>,  IAnnouncementRecordRepository
 {
-    public AnnouncementRepository(DbSet<Announcement>? entities) : base(entities)
+    public AnnouncementRecordRepository(DbSet<AnnouncementsRecords>? entities) : base(entities)
     {
     }
 
-    public Task<List<Announcement>> GetLatestAnnouncements(Guid parishId, int page, int pageSize, CancellationToken cancellationToken)
+    public Task<List<AnnouncementsRecords>> SearchInAnnouncements(Guid parishId, string query, int page, int pageSize, CancellationToken cancellationToken)
     {
         return _entities
-            .Include(c => c.AnnouncementsRecords)
+            .Include(c => c.Announcement)
             .AsQueryable()
-            .Where(c => c.ParishId == parishId && c.PublishDate < DateTime.Today)
-            .OrderByDescending(c => c.PublishDate)
+            .Where(c => c.Announcement.ParishId == parishId && c.Announcement.PublishDate < DateTime.Today && c.Content.ToLower().Contains(query.ToLower()))
+            .OrderByDescending(c => c.Announcement.PublishDate)
             .Skip(page * pageSize)
             .Take(pageSize)
-            .ToListAsync(cancellationToken);
+            .ToListAsync(cancellationToken);    
     }
 }  

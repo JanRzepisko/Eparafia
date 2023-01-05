@@ -9,7 +9,7 @@ public interface    IUnitOfWork
     public IPriestRepository Priests { get; }
     public IParishRepository Parishes { get; }
     public IAnnouncementRepository Announcements { get; }
-    public IBaseRepository<AnnouncementsRecords> AnnouncementsRecords { get; }
+    public IAnnouncementRecordRepository AnnouncementsRecords { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

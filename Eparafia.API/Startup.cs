@@ -87,11 +87,11 @@ public class Startup
         app.UseAuthentication();
         app.UseAuthorization();
         
-        app.UseHttpsRedirection();
+        //app.UseHttpsRedirection();
 
         app.UseMiddleware<ExceptionHandlerMiddleware>();
         app.UseMiddleware<SetUserMiddleware>();
-        
+
         app.UseCors(c => c
             .AllowAnyOrigin()
             .AllowAnyMethod()

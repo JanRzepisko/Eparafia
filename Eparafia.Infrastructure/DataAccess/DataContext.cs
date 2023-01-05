@@ -19,7 +19,7 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IPriestRepository Priests => new PriestRepository(_Priests);
     public IParishRepository Parishes => new ParishRepository(_Parishes);
     public IAnnouncementRepository Announcements => new AnnouncementRepository(_Announcement);
-    public IBaseRepository<AnnouncementsRecords> AnnouncementsRecords => new BaseRepository<AnnouncementsRecords>(_AnnouncementsRecords);
+    public IAnnouncementRecordRepository AnnouncementsRecords => new AnnouncementRecordRepository(_AnnouncementsRecords);
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
         

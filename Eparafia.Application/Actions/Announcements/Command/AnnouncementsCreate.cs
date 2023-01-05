@@ -32,7 +32,7 @@ public static class AnnouncementsCreate
             {
                 Id = id,
                 AuthorId = _userProvider.Id,
-                Date = request.Date,
+                PublishDate = request.Date,
                 ParishId = author.Parish.Id,
                 Title = request.Title,
                 AnnouncementsRecords = request.Records.Select(c => new AnnouncementsRecords()
