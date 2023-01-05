@@ -1,4 +1,5 @@
 using Eparafia.API.Models;
+using Eparafia.Application.Actions.Parish;
 using Eparafia.Application.Actions.PriestAuth.Command;
 using Eparafia.Application.Actions.PriestAuth.Query;
 using Eparafia.Application.Actions.UserAuth.Command;
@@ -45,5 +46,19 @@ public class PriestController : Controller
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
+    }        
+    [Authorize]
+    [HttpDelete("LeaveParish")]
+    public async Task<IActionResult> LeaveParish(LeaveParish.Command command, CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(command, cancellationToken);
+        return Ok(ApiResponse.Success(200));
+    }    
+    [Authorize]
+    [HttpGet("FreePriests")]
+    public async Task<IActionResult> GetFreePriests(string? query, int page, CancellationToken cancellationToken = default)
+    {
+        var result = await _mediator.Send(new GetFreePriests.Query(query, page), cancellationToken);
+        return Ok(ApiResponse.Success(200, result));
     }
 }

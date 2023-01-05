@@ -3,6 +3,7 @@ using System;
 using Eparafia.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Eparafia.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230101151411_Photos")]
+    partial class Photos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,54 +24,6 @@ namespace Eparafia.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Eparafia.Application.Entities.Announcement", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AuthorId")
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<Guid>("ParishId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("ParishId");
-
-                    b.ToTable("_Announcement");
-                });
-
-            modelBuilder.Entity("Eparafia.Application.Entities.AnnouncementsRecords", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<Guid>("AnnouncementId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AnnouncementId");
-
-                    b.ToTable("_AnnouncementsRecords");
-                });
 
             modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
                 {
@@ -179,36 +134,6 @@ namespace Eparafia.Infrastructure.Migrations
                     b.ToTable("_Users");
                 });
 
-            modelBuilder.Entity("Eparafia.Application.Entities.Announcement", b =>
-                {
-                    b.HasOne("Eparafia.Application.Entities.Priest", "Author")
-                        .WithMany("CreatedAnnouncements")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
-                        .WithMany("Announcements")
-                        .HasForeignKey("ParishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Parish");
-                });
-
-            modelBuilder.Entity("Eparafia.Application.Entities.AnnouncementsRecords", b =>
-                {
-                    b.HasOne("Eparafia.Application.Entities.Announcement", "Announcement")
-                        .WithMany("AnnouncementsRecords")
-                        .HasForeignKey("AnnouncementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Announcement");
-                });
-
             modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
                 {
                     b.OwnsOne("Address", "Address", b1 =>
@@ -314,23 +239,11 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Navigation("Parish");
                 });
 
-            modelBuilder.Entity("Eparafia.Application.Entities.Announcement", b =>
-                {
-                    b.Navigation("AnnouncementsRecords");
-                });
-
             modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
                 {
-                    b.Navigation("Announcements");
-
                     b.Navigation("Priests");
 
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Eparafia.Application.Entities.Priest", b =>
-                {
-                    b.Navigation("CreatedAnnouncements");
                 });
 #pragma warning restore 612, 618
         }

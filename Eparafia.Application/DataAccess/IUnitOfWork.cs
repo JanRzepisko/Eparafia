@@ -6,8 +6,10 @@ namespace Eparafia.Application.DataAccess;
 public interface    IUnitOfWork
 {
     public IUserRepository<User> Users { get; }
-    public IUserRepository<Priest?> Priests { get; }
+    public IPriestRepository Priests { get; }
     public IParishRepository Parishes { get; }
+    public IAnnouncementRepository Announcements { get; }
+    public IBaseRepository<AnnouncementsRecords> AnnouncementsRecords { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

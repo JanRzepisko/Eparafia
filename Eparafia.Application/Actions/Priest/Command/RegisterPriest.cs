@@ -35,11 +35,12 @@ public static class RegisterPriest
                 Name = request.Name,
                 Surname = request.Surname,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
-                HasAvatar = false,
                 IsActive = false,
                 Role = JwtPolicies.Priest,
                 ParishId = null,
-                Contact = request.Contact
+                Contact = request.Contact,
+                PhotoPath = String.Empty,
+                PhotoPathMin = string.Empty
             };
 
             await _unitOfWork.Priests.AddAsync(newPriest, cancellationToken);
