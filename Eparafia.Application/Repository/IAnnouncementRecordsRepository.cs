@@ -3,7 +3,7 @@ using Eparafia.Application.Entities;
 
 namespace Eparafia.Application.Repository;
 
-public interface IAnnouncementRepository : IBaseRepository<Announcement>
+public interface IAnnouncementRecordRepository : IBaseRepository<AnnouncementsRecords>
 {
-    Task<List<Announcement>> GetLatestAnnouncements(Guid parishId, int page, int pageSize, CancellationToken cancellationToken);
+    Task<List<AnnouncementsRecords>> SearchInAnnouncements(Guid parishId, string query, int page, int pageSize, CancellationToken cancellationToken);
 }

@@ -1,4 +1,5 @@
 using Eparafia.Application.DataAccess.Abstract;
+using Eparafia.Application.DTOs;
 
 namespace Eparafia.Application.Repository;
 

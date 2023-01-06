@@ -6,11 +6,11 @@ using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.Parish;
 
-public static class AnnouncementsGet
+public static class SearchInAnnouncements
 {
-    public sealed record Query(Guid ParishId, int Page) : IRequest<List<Announcement>>;
+    public sealed record Query(Guid ParishId, string? query, int Page) : IRequest<List<AnnouncementsRecords>>;
 
-    public class Handler : IRequestHandler<Query, List<Announcement>>
+    public class Handler : IRequestHandler<Query, List<AnnouncementsRecords>>
     {
         private readonly int _pageSize;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,9 +21,10 @@ public static class AnnouncementsGet
             _pageSize = configuration.GetValue<int>("PageSize");
         }
 
-        public Task<List<Announcement>> Handle(Query request, CancellationToken cancellationToken)
+        public Task<List<AnnouncementsRecords>> Handle(Query request, CancellationToken cancellationToken)
         {
-            return _unitOfWork.Announcements.GetLatestAnnouncements(request.ParishId, request.Page, _pageSize, cancellationToken);
+            string query = request.query ?? string.Empty;
+            return _unitOfWork.AnnouncementsRecords.SearchInAnnouncements(request.ParishId, query ,request.Page, _pageSize, cancellationToken);
         }
 
         public sealed class Validator : AbstractValidator<Query>

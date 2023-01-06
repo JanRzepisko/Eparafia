@@ -35,7 +35,7 @@ public static class AnnouncementsUpdate
                 AnnouncementId = announcements.Id
             }).ToList();
             announcements.Title = request.Title ?? announcements.Title;
-            announcements.Date = request.Date ?? announcements.Date;
+            announcements.PublishDate = request.Date ?? announcements.PublishDate;
             announcements.AuthorId = _userProvider.Id;
             
             await _unitOfWork.SaveChangesAsync(cancellationToken);

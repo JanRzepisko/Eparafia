@@ -16,8 +16,8 @@ public class AnnouncementRepository : BaseRepository<Announcement>,  IAnnounceme
         return _entities
             .Include(c => c.AnnouncementsRecords)
             .AsQueryable()
-            .Where(c => c.ParishId == parishId && c.IsActive)
-            .OrderByDescending(c => c.Date)
+            .Where(c => c.ParishId == parishId && c.PublishDate < DateTime.Today)
+            .OrderByDescending(c => c.PublishDate)
             .Skip(page * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);
