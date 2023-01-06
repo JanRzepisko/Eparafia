@@ -21,6 +21,10 @@ internal sealed class ParishEntityTypeConfig : IEntityTypeConfiguration<Parish>
             .WithOne(c => c.Parish)
             .HasForeignKey(c => c.ParishId)
             .OnDelete(DeleteBehavior.SetNull);
-        
+
+        builder.HasMany(c => c.Posts)
+            .WithOne(c => c.Parish)
+            .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
