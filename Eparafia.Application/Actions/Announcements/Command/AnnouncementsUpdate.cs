@@ -10,7 +10,7 @@ namespace Eparafia.Application.Actions.Parish;
 
 public static class AnnouncementsUpdate
 {
-    public sealed record Command(List<AnnouncementsRecords>? Records, string? Title, DateTime? Date, Guid Id) : IRequest<Unit>;
+    public sealed record Command(List<AnnouncementRecord>? Records, string? Title, DateTime? Date, Guid Id) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -27,7 +27,7 @@ public static class AnnouncementsUpdate
         {
             var announcements = await _unitOfWork.Announcements.GetByIdAsync(request.Id, cancellationToken);
 
-            announcements.AnnouncementsRecords = request.Records.Select(c => new AnnouncementsRecords
+            announcements.AnnouncementsRecords = request.Records.Select(c => new AnnouncementRecord
             {
                 Announcement = announcements,
                 Content = c.Content,

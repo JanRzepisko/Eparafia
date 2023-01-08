@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eparafia.Infrastructure.Repository;
 
-public class AnnouncementRecordRepository : BaseRepository<AnnouncementsRecords>,  IAnnouncementRecordRepository
+public class AnnouncementRecordRepository : BaseRepository<AnnouncementRecord>,  IAnnouncementRecordRepository
 {
-    public AnnouncementRecordRepository(DbSet<AnnouncementsRecords>? entities) : base(entities)
+    public AnnouncementRecordRepository(DbSet<AnnouncementRecord>? entities) : base(entities)
     {
     }
 
-    public Task<List<AnnouncementsRecords>> SearchInAnnouncements(Guid parishId, string query, int page, int pageSize, CancellationToken cancellationToken)
+    public Task<List<AnnouncementRecord>> SearchInAnnouncements(Guid parishId, string query, int page, int pageSize, CancellationToken cancellationToken)
     {
         return _entities
             .Include(c => c.Announcement)

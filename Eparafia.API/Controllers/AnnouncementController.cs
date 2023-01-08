@@ -52,6 +52,6 @@ public class AnnouncementController : Controller
     public async Task<IActionResult> SearchInAnnouncement(Guid parishId, string? query, int page, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new SearchInAnnouncements.Query(parishId, query, page), cancellationToken);
-        return Ok(ApiResponse.Success(200, AnnouncementsRecordDTO.FromEntity(result)));
+        return Ok(ApiResponse.Success(200, AnnouncementRecordDTO.FromEntity(result)));
     }
 }

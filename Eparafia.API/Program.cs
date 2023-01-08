@@ -10,5 +10,5 @@ static IHostBuilder CreateHostBuilder(string[] args) =>
             webBuilder.UseKestrel(c =>
             {
                 c.Limits.MaxRequestBodySize = long.MaxValue;
-            }); 
+            });
         }).UseDefaultServiceProvider(options => options.ValidateScopes = false);

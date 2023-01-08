@@ -11,5 +11,5 @@ public class Post : Entity
     public string Content { get; set; }
     public Guid AuthorId { get; set; }
     public Priest Author { get; set; }
-    public ICollection<PostFile> Files { get; set; }
+    public ICollection<PostFile>? Files { get; set; }
 }

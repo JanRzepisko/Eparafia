@@ -37,7 +37,8 @@ public static class CreatePost
                 Content = request.Content,
                 AuthorId = priest.Id,
                 Id = id,
-                PublishDate = DateTime.Now
+                PublishDate = DateTime.Now,
+                Files = new List<PostFile>()
             };
 
             foreach (var item in request.Base64Files)

@@ -1,9 +1,11 @@
+using System.Reflection;
 using Eparafia.Application;
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
 using Eparafia.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Eparafia.Infrastructure.DataAccess;
 
@@ -13,7 +15,7 @@ public sealed class DataContext: DbContext, IUnitOfWork
     private DbSet<Parish> _Parishes { get; set; }
     private DbSet<Priest> _Priests { get; set; }
     private DbSet<Announcement> _Announcement { get; set; }
-    private DbSet<AnnouncementsRecords> _AnnouncementsRecords { get; set; }
+    private DbSet<AnnouncementRecord> _AnnouncementsRecords { get; set; }
     private DbSet<Post> _Post { get; set; }
     private DbSet<PostFile> _PostFile { get; set; }
     
@@ -24,7 +26,7 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IAnnouncementRecordRepository AnnouncementsRecords => new AnnouncementRecordRepository(_AnnouncementsRecords);
     public IPostRepository Posts => new PostRepository(_Post);
     public IBaseRepository<PostFile> PostFiles => new BaseRepository<PostFile>(_PostFile);
-
+    
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
         

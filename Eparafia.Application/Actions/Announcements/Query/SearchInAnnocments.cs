@@ -8,9 +8,9 @@ namespace Eparafia.Application.Actions.Parish;
 
 public static class SearchInAnnouncements
 {
-    public sealed record Query(Guid ParishId, string? query, int Page) : IRequest<List<AnnouncementsRecords>>;
+    public sealed record Query(Guid ParishId, string? query, int Page) : IRequest<List<AnnouncementRecord>>;
 
-    public class Handler : IRequestHandler<Query, List<AnnouncementsRecords>>
+    public class Handler : IRequestHandler<Query, List<AnnouncementRecord>>
     {
         private readonly int _pageSize;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +21,7 @@ public static class SearchInAnnouncements
             _pageSize = configuration.GetValue<int>("PageSize");
         }
 
-        public Task<List<AnnouncementsRecords>> Handle(Query request, CancellationToken cancellationToken)
+        public Task<List<AnnouncementRecord>> Handle(Query request, CancellationToken cancellationToken)
         {
             string query = request.query ?? string.Empty;
             return _unitOfWork.AnnouncementsRecords.SearchInAnnouncements(request.ParishId, query ,request.Page, _pageSize, cancellationToken);

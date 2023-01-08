@@ -1,6 +1,5 @@
 using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.Expressions.Internal;
 
 namespace Eparafia.Application.DTOs.Rezluts;
 

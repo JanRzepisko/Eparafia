@@ -6,7 +6,7 @@ public class Announcement : Entity
 {
     public string Title { get; set; }
     public DateTime PublishDate { get; set; }
-    public ICollection<AnnouncementsRecords> AnnouncementsRecords { get; set; }
+    public ICollection<AnnouncementRecord> AnnouncementsRecords { get; set; }
     public Guid ParishId { get; set; }
     public Parish Parish { get; set; }
     public Guid AuthorId { get; set; }
