@@ -85,6 +85,12 @@ public class Startup
             config.AddPolicy(JwtPolicies.User, JwtPolicies.UserPolicy());
             config.AddPolicy(JwtPolicies.Priest, JwtPolicies.PriestPolicy());
         });
+        
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
 
         
         services.AddCors(options =>
@@ -96,26 +102,27 @@ public class Startup
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
+        app.UseRouting();
+
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseRouting();
-
-        app.UseAuthentication();
-        app.UseAuthorization();
         
-        //app.UseHttpsRedirection();
-        app.UseStaticFiles();
+        app.UseHttpsRedirection();
         app.UseCors(c => c
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
-        
         app.UseForwardedHeaders(new ForwardedHeadersOptions
         {
             ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
         });
-        
-        app.UseHsts();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseMiddleware<SetUserMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {
@@ -126,13 +133,8 @@ public class Startup
                 await context.Response.WriteAsync("Hello World!");
             });
         });
-        app.UseForwardedHeaders();
 
-        //app.UseRouting();
         
-        app.UseMiddleware<ExceptionHandlerMiddleware>();
-        app.UseMiddleware<SetUserMiddleware>();
-
     }
 }
 

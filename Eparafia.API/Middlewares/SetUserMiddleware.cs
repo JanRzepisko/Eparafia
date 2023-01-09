@@ -17,7 +17,6 @@ public class SetUserMiddleware
 
     public async Task InvokeAsync(HttpContext context, IUserProvider userProvider)
     {
-        Console.WriteLine(JsonConvert.SerializeObject(context.GetEndpoint()));
         bool hasAuthorizations = context.GetEndpoint()!.Metadata.Any(c => c.GetType() == typeof(AuthorizeAttribute));
         bool forAnonymous = context.GetEndpoint()!.Metadata.Any(c => c.GetType() == typeof(AllowAnonymousAttribute));
         if (!hasAuthorizations || forAnonymous)
