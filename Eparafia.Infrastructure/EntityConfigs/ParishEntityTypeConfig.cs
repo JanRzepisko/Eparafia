@@ -25,6 +25,17 @@ internal sealed class ParishEntityTypeConfig : IEntityTypeConfiguration<Parish>
         builder.HasMany(c => c.Posts)
             .WithOne(c => c.Parish)
             .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.Cascade); 
+        
+        builder.HasMany(c => c.SpecialEvents)
+            .WithOne(c => c.Parish)
+            .HasForeignKey(c => c.ParishId)
             .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasMany(c => c.CommonWeek)
+            .WithOne(c => c.Parish)
+            .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
     }
 }

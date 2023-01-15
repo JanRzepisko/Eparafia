@@ -11,4 +11,6 @@ public class Parish : Entity
     public ICollection<Priest>? Priests { get; set; }
     public ICollection<Announcement>? Announcements { get; set; }
     public ICollection<Post>? Posts { get; set; }
+    public ICollection<CommonEvent> CommonWeek { get; set; }
+    public ICollection<SpecialEvent> SpecialEvents { get; set; }
 }
