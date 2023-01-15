@@ -3,7 +3,7 @@ using Eparafia.Application.Entities;
 
 namespace Eparafia.Application.Repository;
 
-public interface IAnnouncementRecordRepository : IBaseRepository<AnnouncementsRecords>
+public interface IAnnouncementRecordRepository : IBaseRepository<AnnouncementRecord>
 {
-    Task<List<AnnouncementsRecords>> SearchInAnnouncements(Guid parishId, string query, int page, int pageSize, CancellationToken cancellationToken);
+    Task<List<AnnouncementRecord>> SearchInAnnouncements(Guid parishId, string query, int page, int pageSize, CancellationToken cancellationToken);
 }

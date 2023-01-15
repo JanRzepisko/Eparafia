@@ -1,9 +1,11 @@
+using System.Data.Common;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Eparafia.API.Extensions;
 using Eparafia.API.Middlewares;
+using Eparafia.Application;
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services.FileManager;
 using Eparafia.Application.Services.Jwt;
@@ -12,9 +14,10 @@ using Eparafia.Infrastructure.DataAccess;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using MySqlConnector;
 
 namespace Eparafia.API;
 
@@ -32,19 +35,32 @@ public class Startup
         services.AddSwagger();
         services.AddOptions();
 
-        
+        services.AddEndpointsApiExplorer();
         services.AddMediatR(typeof(Application.AssemblyEntryPoint).GetTypeInfo().Assembly);
         services.AddFluentValidators(typeof(Application.AssemblyEntryPoint).Assembly);
         services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviour<,>));
         services.Configure<string>(Configuration);
-        services.AddDbContext<DataContext>(options => { options.UseNpgsql(Configuration["ConnectionString"]!); });
 
+        services.AddDbContext<DataContext>(options =>
+        {
+            options.UseMySql(Configuration["ConnectionString"], ServerVersion.AutoDetect(Configuration["ConnectionString"]));
+        });
+        
         services.AddScoped<DbContext, DataContext>();
         services.AddScoped<IUnitOfWork>(provider => provider.GetService<DataContext>()!);
         services.AddScoped<IJwtAuth, JwtAuth>();
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
+
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
         
+        Console.WriteLine("Token: " + Configuration["Jwt:Key"]);
+        Console.WriteLine("ConnectionString: " + Configuration["ConnectionString"]);
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -69,6 +85,12 @@ public class Startup
             config.AddPolicy(JwtPolicies.User, JwtPolicies.UserPolicy());
             config.AddPolicy(JwtPolicies.Priest, JwtPolicies.PriestPolicy());
         });
+        
+        services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders =
+                ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+        });
 
         
         services.AddCors(options =>
@@ -80,29 +102,39 @@ public class Startup
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
+        app.UseRouting();
+
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseRouting();
-
-        app.UseAuthentication();
-        app.UseAuthorization();
         
-        //app.UseHttpsRedirection();
-
-        app.UseMiddleware<ExceptionHandlerMiddleware>();
-        app.UseMiddleware<SetUserMiddleware>();
-
+        app.UseHttpsRedirection();
         app.UseCors(c => c
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader());
-        // app.UseDeveloperExceptionPage();
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
+
+        app.UseAuthentication();
+        app.UseAuthorization();
+
+        app.UseMiddleware<SetUserMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
             endpoints.MapSwagger();
+            endpoints.MapGet("/" , async context =>
+            {
+                await context.Response.WriteAsync("Hello World!");
+            });
         });
+
+        
     }
 }
 

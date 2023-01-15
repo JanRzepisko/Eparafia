@@ -35,7 +35,7 @@ public static class AnnouncementsCreate
                 PublishDate = request.Date,
                 ParishId = author.Parish.Id,
                 Title = request.Title,
-                AnnouncementsRecords = request.Records.Select(c => new AnnouncementsRecords()
+                AnnouncementsRecords = request.Records.Select(c => new AnnouncementRecord()
                 {
                     AnnouncementId = id,
                     Content = c,

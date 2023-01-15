@@ -12,7 +12,8 @@ internal sealed class PriestEntityTypeConfig : IEntityTypeConfiguration<Priest>
 
         builder.HasOne(c => c.Parish)
             .WithMany(c => c.Priests)
-            .HasForeignKey(c => c.ParishId);
+            .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.SetNull);
         
     }
 }

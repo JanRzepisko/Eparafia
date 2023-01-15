@@ -12,7 +12,7 @@ namespace Eparafia.API.Controllers;
 [ApiController]
 [Authorize(JwtPolicies.Priest)]
 [Produces("application/json")]
-[Route("Parish")]
+[Route("Announcement")]
 public class AnnouncementController : Controller
 {
     private readonly IMediator _mediator;
@@ -22,26 +22,26 @@ public class AnnouncementController : Controller
         _mediator = mediator;
     }
     
-    [HttpPost("Announcement")]
+    [HttpPost]
     public async Task<IActionResult> CreateAnnouncement(AnnouncementsCreate.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
-    [HttpPut("Announcement")]
+    [HttpPut]
     public async Task<IActionResult> UpdateAnnouncement(AnnouncementsUpdate.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
-    [HttpDelete("Announcement")]
+    [HttpDelete]
     public async Task<IActionResult> UpdateAnnouncement(AnnouncementsRemove.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
     [AllowAnonymous]
-    [HttpGet("Announcement")]
+    [HttpGet]
     public async Task<IActionResult> GetAnnouncement(Guid parishId, int page, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new AnnouncementsGet.Query(parishId, page), cancellationToken);
@@ -52,6 +52,6 @@ public class AnnouncementController : Controller
     public async Task<IActionResult> SearchInAnnouncement(Guid parishId, string? query, int page, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new SearchInAnnouncements.Query(parishId, query, page), cancellationToken);
-        return Ok(ApiResponse.Success(200, AnnouncementsRecordDTO.FromEntity(result)));
+        return Ok(ApiResponse.Success(200, AnnouncementRecordDTO.FromEntity(result)));
     }
 }

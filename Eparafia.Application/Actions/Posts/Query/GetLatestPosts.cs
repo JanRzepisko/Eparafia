@@ -6,14 +6,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.Parish;
 
-public static class SearchInAnnouncements
+public static class GetLatestPosts
 {
-    public sealed record Query(Guid ParishId, string? query, int Page) : IRequest<List<AnnouncementRecord>>;
+    public sealed record Query(Guid ParishId, int Page) : IRequest<List<Post>>;
 
-    public class Handler : IRequestHandler<Query, List<AnnouncementRecord>>
+    public class Handler : IRequestHandler<Query, List<Post>>
     {
-        private readonly int _pageSize;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly int _pageSize;
 
         public Handler(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
@@ -21,17 +21,16 @@ public static class SearchInAnnouncements
             _pageSize = configuration.GetValue<int>("PageSize");
         }
 
-        public Task<List<AnnouncementRecord>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<List<Post>> Handle(Query request, CancellationToken cancellationToken)
         {
-            string query = request.query ?? string.Empty;
-            return _unitOfWork.AnnouncementsRecords.SearchInAnnouncements(request.ParishId, query ,request.Page, _pageSize, cancellationToken);
+            return await _unitOfWork.Posts.GetLatestPosts(request.ParishId, request.Page, _pageSize, cancellationToken);
         }
 
         public sealed class Validator : AbstractValidator<Query>
         {
             public Validator()
             {
-
+                
             }
         }
     }

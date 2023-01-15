@@ -10,6 +10,8 @@ public interface    IUnitOfWork
     public IParishRepository Parishes { get; }
     public IAnnouncementRepository Announcements { get; }
     public IAnnouncementRecordRepository AnnouncementsRecords { get; }
+    public IPostRepository Posts { get; }
+    public IBaseRepository<PostFile> PostFiles { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

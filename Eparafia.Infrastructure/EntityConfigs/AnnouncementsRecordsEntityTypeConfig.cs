@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Eparafia.Infrastructure.EntityConfigs;
 
-internal sealed class AnnouncementsRecordsEntityTypeConfig : IEntityTypeConfiguration<AnnouncementsRecords>
+internal sealed class AnnouncementsRecordsEntityTypeConfig : IEntityTypeConfiguration<AnnouncementRecord>
 {
-    public void Configure(EntityTypeBuilder<AnnouncementsRecords> builder)
+    public void Configure(EntityTypeBuilder<AnnouncementRecord> builder)
     {
         builder.HasKey(c => c.Id);
         builder.HasIndex(c => c.Id);

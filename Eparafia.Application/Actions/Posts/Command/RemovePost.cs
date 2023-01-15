@@ -1,14 +1,14 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Infrastructure.Exceptions;
+using Eparafia.Application.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.Parish;
 
-public static class RemoveParish
+public static class RemovePost
 {
-    public sealed record Command(Guid ParishId) : IRequest<Unit>;
+    public sealed record Command(Guid PostId) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -21,20 +21,14 @@ public static class RemoveParish
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            if (!await _unitOfWork.Parishes.ExistsAsync(request.ParishId, cancellationToken))
+            var post = await _unitOfWork.Posts.GetByIdAsync(request.PostId, cancellationToken);
+            if (post is null) 
             {
-                throw new EntityNotFoundException("Parish not found");
+                throw new InvalidRequestException("Post not found");
             }
             
-            var parish = await _unitOfWork.Parishes.GetByIdAsync(request.ParishId, cancellationToken);
-
-            foreach (var priest in parish.Priests)
-            {
-                priest.ParishId = null;
-            }
-            
-            _unitOfWork.Parishes.Remove(parish);
-            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            _unitOfWork.Posts.Remove(post);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);  
             
             return Unit.Value;
         }
@@ -43,7 +37,7 @@ public static class RemoveParish
         {
             public Validator()
             {
-                
+
             }
         }
     }
