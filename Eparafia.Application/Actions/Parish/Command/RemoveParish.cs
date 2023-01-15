@@ -33,7 +33,7 @@ public static class RemoveParish
                 priest.ParishId = null;
             }
             
-            _unitOfWork.Parishes.RemoveById(request.ParishId);
+            _unitOfWork.Parishes.Remove(parish);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             
             return Unit.Value;

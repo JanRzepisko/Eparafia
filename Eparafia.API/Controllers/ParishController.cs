@@ -24,19 +24,19 @@ public class ParishController : Controller
         _mediator = mediator;
     }
 
-    [HttpPost("Parish")]
+    [HttpPost]
     public async Task<IActionResult> CreateParish(CreateParish.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }
-    [HttpDelete("Parish")]
+    [HttpDelete]
     public async Task<IActionResult> RemoveParish(RemoveParish.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
-    [HttpPut("Parish")]
+    [HttpPut]
     public async Task<IActionResult> UpdateParish(UpdateParish.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);

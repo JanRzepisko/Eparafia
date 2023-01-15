@@ -22,26 +22,26 @@ public class PostController : Controller
         _mediator = mediator;
     }
     
-    [HttpPost("Post")]
+    [HttpPost]
     public async Task<IActionResult> CreatePost(CreatePost.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
-    [HttpPut("Post")]
+    [HttpPut]
     public async Task<IActionResult> UpdatePost(UpdatePost.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
-    [HttpDelete("Post")]
+    [HttpDelete]
     public async Task<IActionResult> UpdatePost(RemovePost.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
     [AllowAnonymous]
-    [HttpGet("Post")]
+    [HttpGet]
     public async Task<IActionResult> GetPost(Guid parishId, int page, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new GetLatestPosts.Query(parishId, page), cancellationToken);
