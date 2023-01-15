@@ -18,6 +18,8 @@ public sealed class DataContext: DbContext, IUnitOfWork
     private DbSet<AnnouncementRecord> _AnnouncementsRecords { get; set; }
     private DbSet<Post> _Post { get; set; }
     private DbSet<PostFile> _PostFile { get; set; }
+    private DbSet<SpecialEvent> _SpecialEvent { get; set; }
+    private DbSet<CommonEvent> _CommonWeek { get; set; }
     
     public IUserRepository<User> Users => new UserRepository<User>(_Users);
     public IPriestRepository Priests => new PriestRepository(_Priests);
@@ -26,6 +28,8 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IAnnouncementRecordRepository AnnouncementsRecords => new AnnouncementRecordRepository(_AnnouncementsRecords);
     public IPostRepository Posts => new PostRepository(_Post);
     public IBaseRepository<PostFile> PostFiles => new BaseRepository<PostFile>(_PostFile);
+    public IBaseRepository<CommonEvent> CommonWeek => new BaseRepository<CommonEvent>(_CommonWeek);
+    public IBaseRepository<SpecialEvent> SpecialEvents => new BaseRepository<SpecialEvent>(_SpecialEvent);
     
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
@@ -38,6 +42,8 @@ public sealed class DataContext: DbContext, IUnitOfWork
         modelBuilder.Entity<Parish>().OwnsOne(x => x.Address);
         modelBuilder.Entity<Parish>().OwnsOne(x => x.Contact);
         modelBuilder.Entity<Priest>().OwnsOne(x => x.Contact);
+        modelBuilder.Entity<CommonEvent>().OwnsOne(x => x.Event);
+        modelBuilder.Entity<SpecialEvent>().OwnsOne(x => x.Event);
     }
 }
 //create migration use this

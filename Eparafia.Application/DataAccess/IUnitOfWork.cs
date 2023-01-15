@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
 
@@ -12,6 +13,8 @@ public interface    IUnitOfWork
     public IAnnouncementRecordRepository AnnouncementsRecords { get; }
     public IPostRepository Posts { get; }
     public IBaseRepository<PostFile> PostFiles { get; }
+    public IBaseRepository<CommonEvent> CommonWeek { get; }
+    public IBaseRepository<SpecialEvent> SpecialEvents { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
