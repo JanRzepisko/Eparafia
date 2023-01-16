@@ -3,7 +3,7 @@ using Eparafia.Application.Entities;
 
 namespace Eparafia.Application.Repository;
 
-public interface IParishRepository : IBaseRepository<Parish>
+public interface ICommonWeekRepository : IBaseRepository<CommonEvent>
 {
-    Task<Parish?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<List<CommonEvent>> GetByParishId(Guid id, CancellationToken cancellationToken);
 }

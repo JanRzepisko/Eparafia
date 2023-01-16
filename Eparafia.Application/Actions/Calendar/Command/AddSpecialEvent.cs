@@ -1,6 +1,62 @@
+using Eparafia.Application.DataAccess;
+using Eparafia.Application.Entities;
+using Eparafia.Application.Enums;
+using Eparafia.Application.Services.UserProvider;
+using Eparafia.Application.ValueObjects;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.Configuration;
+
 namespace Eparafia.Application.Actions.Parish;
 
-public class AddSpecialEvent
+public static class AddSpecialEvent
 {
-    
+    public sealed record Command(string Name, string Description, EventType Type, int Duration, DateTime Date) : IRequest<Unit>;
+
+    public class CommonWeekModel
+    {
+        
+    }
+
+    public class Handler : IRequestHandler<Command, Unit>
+    {
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUserProvider _userProvider;
+
+        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IUserProvider userProvider)
+        {
+            _unitOfWork = unitOfWork;
+            _userProvider = userProvider;
+        }
+
+        public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+        {
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var newEvent = new SpecialEvent
+            {
+                Date = request.Date,
+                Event = new Event()
+                {
+                    Description = request.Description,
+                    Type = request.Type,
+                    Name = request.Name,
+                    Duration = request.Duration
+                },
+                ParishId = (Guid)priest.ParishId
+            };
+
+            await _unitOfWork.SpecialEvents.AddAsync(newEvent, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
+            
+            return Unit.Value;
+        }
+
+        public sealed class Validator : AbstractValidator<Command>
+        {
+            public Validator()
+            {
+
+            }
+        }
+    }
 }

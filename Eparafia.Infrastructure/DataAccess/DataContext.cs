@@ -28,8 +28,8 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IAnnouncementRecordRepository AnnouncementsRecords => new AnnouncementRecordRepository(_AnnouncementsRecords);
     public IPostRepository Posts => new PostRepository(_Post);
     public IBaseRepository<PostFile> PostFiles => new BaseRepository<PostFile>(_PostFile);
-    public IBaseRepository<CommonEvent> CommonWeek => new BaseRepository<CommonEvent>(_CommonWeek);
-    public IBaseRepository<SpecialEvent> SpecialEvents => new BaseRepository<SpecialEvent>(_SpecialEvent);
+    public ICommonWeekRepository CommonWeek => new CommonWeekRepository(_CommonWeek);
+    public ISpecialEventRepository SpecialEvents => new SpecialEventRepository(_SpecialEvent);
     
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {

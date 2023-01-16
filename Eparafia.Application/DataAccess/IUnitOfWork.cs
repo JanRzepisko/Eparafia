@@ -13,8 +13,8 @@ public interface    IUnitOfWork
     public IAnnouncementRecordRepository AnnouncementsRecords { get; }
     public IPostRepository Posts { get; }
     public IBaseRepository<PostFile> PostFiles { get; }
-    public IBaseRepository<CommonEvent> CommonWeek { get; }
-    public IBaseRepository<SpecialEvent> SpecialEvents { get; }
+    public ICommonWeekRepository CommonWeek { get; }
+    public ISpecialEventRepository SpecialEvents { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

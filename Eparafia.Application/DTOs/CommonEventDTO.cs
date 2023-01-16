@@ -3,19 +3,23 @@ using Eparafia.Application.ValueObjects;
 
 namespace Eparafia.Application.DTOs;
 
-public class EventDTO
+public class CommonEventDTO
 {
-    public DateTime Date { get; set; }
+    public DayOfWeek DayOfWeek { get; set; }
+    public int Hour { get; set; }
+    public int Minute { get; set; }
     public Event Event { get; set; }
     public Guid Id { get; set; }
     
     
-    public static EventDTO FromEntity(SpecialEvent @event)
+    public static CommonEventDTO FromEntity(CommonEvent @event)
     {
-        return new EventDTO
+        return new CommonEventDTO
         {
             Id = @event.Id,
-            Date = @event.Date,
+            DayOfWeek = @event.DayOfWeek,
+            Hour = @event.Time.Hours,
+            Minute = @event.Time.Minutes,
             Event = new Event
             {
                 Name = @event.Event.Name,
