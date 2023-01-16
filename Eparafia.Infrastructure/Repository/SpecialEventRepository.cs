@@ -5,15 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eparafia.Infrastructure.Repository;
 
-public class CommonWeekRepository : BaseRepository<CommonEvent>, ICommonWeekRepository
+public class SpecialEventRepository : BaseRepository<SpecialEvent>, ISpecialEventRepository
 {
-    public CommonWeekRepository(DbSet<CommonEvent>? entities) : base(entities)
+    public SpecialEventRepository(DbSet<SpecialEvent>? entities) : base(entities)
     {
     }
- 
 
-    public Task<List<CommonEvent>> GetByParishId(Guid id, CancellationToken cancellationToken)
+    public Task<List<SpecialEvent>> GetForWeek(Guid requestParishId, DateTime startDate, CancellationToken cancellationToken)
     {
-        return _entities.Where(c => c.ParishId == id).ToListAsync(cancellationToken);
+        return _entities.Where(x => x.ParishId == requestParishId && x.Date > startDate).ToListAsync(cancellationToken);
     }
 }

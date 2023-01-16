@@ -3,6 +3,7 @@ using System;
 using Eparafia.Infrastructure.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eparafia.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230115212514_calenda3")]
+    partial class calenda3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -326,9 +329,6 @@ namespace Eparafia.Infrastructure.Migrations
                                 .IsRequired()
                                 .HasColumnType("longtext");
 
-                            b1.Property<int>("Duration")
-                                .HasColumnType("int");
-
                             b1.Property<string>("Name")
                                 .IsRequired()
                                 .HasColumnType("longtext");
@@ -492,9 +492,6 @@ namespace Eparafia.Infrastructure.Migrations
                             b1.Property<string>("Description")
                                 .IsRequired()
                                 .HasColumnType("longtext");
-
-                            b1.Property<int>("Duration")
-                                .HasColumnType("int");
 
                             b1.Property<string>("Name")
                                 .IsRequired()

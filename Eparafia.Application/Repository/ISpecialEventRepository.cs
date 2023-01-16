@@ -3,7 +3,7 @@ using Eparafia.Application.Entities;
 
 namespace Eparafia.Application.Repository;
 
-public interface ICommonWeekRepository : IBaseRepository<CommonEvent>
+public interface ISpecialEventRepository : IBaseRepository<SpecialEvent>
 {
-    Task<List<CommonEvent>> GetByParishId(Guid id, CancellationToken cancellationToken);
+    Task<List<SpecialEvent>> GetForWeek(Guid requestParishId,  DateTime startDate, CancellationToken cancellationToken);
 }
