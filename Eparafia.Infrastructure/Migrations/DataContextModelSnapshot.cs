@@ -92,6 +92,41 @@ namespace Eparafia.Infrastructure.Migrations
                     b.ToTable("_CommonWeek");
                 });
 
+            modelBuilder.Entity("Eparafia.Application.Entities.Intention", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsNovena")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsStaticDate")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("ParishId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParishId");
+
+                    b.ToTable("_Intention");
+                });
+
             modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
                 {
                     b.Property<Guid>("Id")
@@ -350,6 +385,17 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Navigation("Parish");
                 });
 
+            modelBuilder.Entity("Eparafia.Application.Entities.Intention", b =>
+                {
+                    b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
+                        .WithMany("Intentions")
+                        .HasForeignKey("ParishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Parish");
+                });
+
             modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
                 {
                     b.OwnsOne("Address", "Address", b1 =>
@@ -536,6 +582,8 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Navigation("Announcements");
 
                     b.Navigation("CommonWeek");
+
+                    b.Navigation("Intentions");
 
                     b.Navigation("Posts");
 

@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Eparafia.Infrastructure.EntityConfigs;
 
-internal sealed class PostFileEntityTypeConfig : IEntityTypeConfiguration<PostFile>
+internal sealed class IntentionEntityTypeConfig : IEntityTypeConfiguration<Intention>
 {
-    public void Configure(EntityTypeBuilder<PostFile> builder)
+    public void Configure(EntityTypeBuilder<Intention> builder)
     {
         builder.HasKey(c => c.Id);
 
-        builder.HasOne(c => c.Post)
-            .WithMany(c => c.Files)
-            .HasForeignKey(c => c.PostId)
+        builder.HasOne(c => c.Parish)
+            .WithMany(c => c.Intentions)
+            .HasForeignKey(c => c.ParishId)
             .OnDelete(DeleteBehavior.Cascade);
         
     }

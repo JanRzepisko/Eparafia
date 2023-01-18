@@ -1,3 +1,4 @@
+using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
 
 namespace Eparafia.Application.ValueObjects;
@@ -14,6 +15,6 @@ public class Event : ValueObject
         yield return Type;
         yield return Description;
         yield return Name;
-        
+
     }
 }
