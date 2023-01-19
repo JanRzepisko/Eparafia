@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eparafia.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230115150550_calendar")]
-    partial class calendar
+    [Migration("20230119174626_init2")]
+    partial class init2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -82,6 +82,9 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Property<int>("EventInWeekId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("IntentionId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid>("ParishId")
                         .HasColumnType("char(36)");
 
@@ -90,9 +93,46 @@ namespace Eparafia.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IntentionId");
+
                     b.HasIndex("ParishId");
 
                     b.ToTable("_CommonWeek");
+                });
+
+            modelBuilder.Entity("Eparafia.Application.Entities.Intention", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("AutomaticAllocation")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsNovena")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("IsVerified")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("ParishId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParishId");
+
+                    b.ToTable("_Intention");
                 });
 
             modelBuilder.Entity("Eparafia.Application.Entities.Parish", b =>
@@ -226,10 +266,15 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<Guid>("IntentionId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid>("ParishId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IntentionId");
 
                     b.HasIndex("ParishId");
 
@@ -314,6 +359,10 @@ namespace Eparafia.Infrastructure.Migrations
 
             modelBuilder.Entity("Eparafia.Application.Entities.CommonEvent", b =>
                 {
+                    b.HasOne("Eparafia.Application.Entities.Intention", "Intention")
+                        .WithMany()
+                        .HasForeignKey("IntentionId");
+
                     b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
                         .WithMany("CommonWeek")
                         .HasForeignKey("ParishId")
@@ -325,9 +374,12 @@ namespace Eparafia.Infrastructure.Migrations
                             b1.Property<Guid>("CommonEventId")
                                 .HasColumnType("char(36)");
 
-                            b1.Property<string>("EventDescription")
+                            b1.Property<string>("Description")
                                 .IsRequired()
                                 .HasColumnType("longtext");
+
+                            b1.Property<int>("Duration")
+                                .HasColumnType("int");
 
                             b1.Property<string>("Name")
                                 .IsRequired()
@@ -345,6 +397,19 @@ namespace Eparafia.Infrastructure.Migrations
                         });
 
                     b.Navigation("Event")
+                        .IsRequired();
+
+                    b.Navigation("Intention");
+
+                    b.Navigation("Parish");
+                });
+
+            modelBuilder.Entity("Eparafia.Application.Entities.Intention", b =>
+                {
+                    b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
+                        .WithMany("Intentions")
+                        .HasForeignKey("ParishId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Parish");
@@ -478,6 +543,12 @@ namespace Eparafia.Infrastructure.Migrations
 
             modelBuilder.Entity("Eparafia.Application.Entities.SpecialEvent", b =>
                 {
+                    b.HasOne("Eparafia.Application.Entities.Intention", "Intention")
+                        .WithMany()
+                        .HasForeignKey("IntentionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
                         .WithMany("SpecialEvents")
                         .HasForeignKey("ParishId")
@@ -489,9 +560,12 @@ namespace Eparafia.Infrastructure.Migrations
                             b1.Property<Guid>("SpecialEventId")
                                 .HasColumnType("char(36)");
 
-                            b1.Property<string>("EventDescription")
+                            b1.Property<string>("Description")
                                 .IsRequired()
                                 .HasColumnType("longtext");
+
+                            b1.Property<int>("Duration")
+                                .HasColumnType("int");
 
                             b1.Property<string>("Name")
                                 .IsRequired()
@@ -510,6 +584,8 @@ namespace Eparafia.Infrastructure.Migrations
 
                     b.Navigation("Event")
                         .IsRequired();
+
+                    b.Navigation("Intention");
 
                     b.Navigation("Parish");
                 });
@@ -533,6 +609,8 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Navigation("Announcements");
 
                     b.Navigation("CommonWeek");
+
+                    b.Navigation("Intentions");
 
                     b.Navigation("Posts");
 

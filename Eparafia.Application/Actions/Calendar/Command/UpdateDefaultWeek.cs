@@ -60,8 +60,10 @@ public static class UpdateDefaultWeek
                         Type = commonEvent.Type,
                         Duration = commonEvent.Duration,
                     },
+                    EventInWeekId = indexOfEvent,
                     ParishId = (Guid)priest.ParishId,
-                    
+                    Intention = null,
+                    IntentionId = null
                 }, cancellationToken);
                 
                 indexOfEvent++;

@@ -31,7 +31,7 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IBaseRepository<PostFile> PostFiles => new BaseRepository<PostFile>(_PostFile);
     public ICommonWeekRepository CommonWeek => new CommonWeekRepository(_CommonWeek);
     public ISpecialEventRepository SpecialEvents => new SpecialEventRepository(_SpecialEvent);
-    public IBaseRepository<Intention> Intentions => new BaseRepository<Intention>(_Intention);
+    public IIntentionRepository Intentions => new IntentionRepository(_Intention);
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {

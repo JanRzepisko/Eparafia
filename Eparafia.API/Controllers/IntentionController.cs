@@ -14,7 +14,7 @@ namespace Eparafia.API.Controllers;
 [ApiController]
 [Authorize(JwtPolicies.Priest)]
 [Produces("application/json")]
-[Route("Event")]
+[Route("Intention")]
 public class IntentionController : Controller
 {
     private readonly IMediator _mediator;
@@ -25,7 +25,26 @@ public class IntentionController : Controller
     }
     
     [HttpPost]
-    public async Task<IActionResult> CreateEvent(AddSpecialEvent.Command command, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> CreateIntention(AddIntention.Command command, CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(command, cancellationToken);
+        return Ok(ApiResponse.Success(200));
+    }    
+    [Authorize(JwtPolicies.User)]
+    [HttpPost("BuyIntention")]
+    public async Task<IActionResult> BuyIntention(BuyIntention.Command command, CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(command, cancellationToken);
+        return Ok(ApiResponse.Success(200));
+    }    
+    [HttpPut]
+    public async Task<IActionResult> EditIntention(UpdateIntention.Command command, CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(command, cancellationToken);
+        return Ok(ApiResponse.Success(200));
+    }    
+    [HttpDelete]
+    public async Task<IActionResult> RemoveIntention(RemoveIntention.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));

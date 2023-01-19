@@ -11,5 +11,6 @@ public class CommonEvent : Entity
     public Event Event { get; set; }
     public TimeSpan Time { get; set; }
     public DayOfWeek DayOfWeek { get; set; }
+    public Guid? IntentionId { get; set; }
     public Intention Intention { get; set; }
 }

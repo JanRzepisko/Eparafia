@@ -15,7 +15,7 @@ public interface    IUnitOfWork
     public IBaseRepository<PostFile> PostFiles { get; }
     public ICommonWeekRepository CommonWeek { get; }
     public ISpecialEventRepository SpecialEvents { get; }
-    public IBaseRepository<Intention> Intentions { get; }
+    public IIntentionRepository Intentions { get; }
     int SaveChanges();
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

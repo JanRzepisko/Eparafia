@@ -43,6 +43,32 @@ namespace Eparafia.Infrastructure.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "_Intention",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Content = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Type = table.Column<int>(type: "int", nullable: false),
+                    AutomaticAllocation = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsNovena = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IsVerified = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ParishId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__Intention", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__Intention__Parishes_ParishId",
+                        column: x => x.ParishId,
+                        principalTable: "_Parishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "_Priests",
                 columns: table => new
                 {
@@ -110,6 +136,74 @@ namespace Eparafia.Infrastructure.Migrations
                         column: x => x.ParishId,
                         principalTable: "_Parishes",
                         principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "_CommonWeek",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ParishId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EventInWeekId = table.Column<int>(type: "int", nullable: false),
+                    EventType = table.Column<int>(name: "Event_Type", type: "int", nullable: false),
+                    EventDescription = table.Column<string>(name: "Event_Description", type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EventName = table.Column<string>(name: "Event_Name", type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EventDuration = table.Column<int>(name: "Event_Duration", type: "int", nullable: false),
+                    Time = table.Column<TimeSpan>(type: "time(6)", nullable: false),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false),
+                    IntentionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__CommonWeek", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__CommonWeek__Intention_IntentionId",
+                        column: x => x.IntentionId,
+                        principalTable: "_Intention",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK__CommonWeek__Parishes_ParishId",
+                        column: x => x.ParishId,
+                        principalTable: "_Parishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "_SpecialEvent",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    ParishId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
+                    EventType = table.Column<int>(name: "Event_Type", type: "int", nullable: false),
+                    EventDescription = table.Column<string>(name: "Event_Description", type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EventName = table.Column<string>(name: "Event_Name", type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EventDuration = table.Column<int>(name: "Event_Duration", type: "int", nullable: false),
+                    Date = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    IntentionId = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK__SpecialEvent", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK__SpecialEvent__Intention_IntentionId",
+                        column: x => x.IntentionId,
+                        principalTable: "_Intention",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK__SpecialEvent__Parishes_ParishId",
+                        column: x => x.ParishId,
+                        principalTable: "_Parishes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -234,6 +328,21 @@ namespace Eparafia.Infrastructure.Migrations
                 column: "AnnouncementId");
 
             migrationBuilder.CreateIndex(
+                name: "IX__CommonWeek_IntentionId",
+                table: "_CommonWeek",
+                column: "IntentionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX__CommonWeek_ParishId",
+                table: "_CommonWeek",
+                column: "ParishId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX__Intention_ParishId",
+                table: "_Intention",
+                column: "ParishId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX__Post_AuthorId",
                 table: "_Post",
                 column: "AuthorId");
@@ -254,6 +363,16 @@ namespace Eparafia.Infrastructure.Migrations
                 column: "ParishId");
 
             migrationBuilder.CreateIndex(
+                name: "IX__SpecialEvent_IntentionId",
+                table: "_SpecialEvent",
+                column: "IntentionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX__SpecialEvent_ParishId",
+                table: "_SpecialEvent",
+                column: "ParishId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX__Users_ParishId",
                 table: "_Users",
                 column: "ParishId");
@@ -266,7 +385,13 @@ namespace Eparafia.Infrastructure.Migrations
                 name: "_AnnouncementsRecords");
 
             migrationBuilder.DropTable(
+                name: "_CommonWeek");
+
+            migrationBuilder.DropTable(
                 name: "_PostFile");
+
+            migrationBuilder.DropTable(
+                name: "_SpecialEvent");
 
             migrationBuilder.DropTable(
                 name: "_Users");
@@ -276,6 +401,9 @@ namespace Eparafia.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "_Post");
+
+            migrationBuilder.DropTable(
+                name: "_Intention");
 
             migrationBuilder.DropTable(
                 name: "_Priests");
