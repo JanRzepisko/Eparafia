@@ -13,7 +13,7 @@ public class SpecialEventRepository : BaseRepository<SpecialEvent>, ISpecialEven
 
     public Task<List<SpecialEvent>?> GetForWeek(Guid requestParishId, DateTime startDate, CancellationToken cancellationToken)
     {
-        return _entities.Where(x => x.ParishId == requestParishId && x.Date > startDate).ToListAsync(cancellationToken);
+        return _entities.Where(x => x.ParishId == requestParishId && x.Date > startDate && x.Date < startDate.AddDays(7)).ToListAsync(cancellationToken);
     }
 
     public Task<List<SpecialEvent>?> GetForDay(Guid parishId, DateTime day, CancellationToken cancellationToken)
@@ -21,6 +21,7 @@ public class SpecialEventRepository : BaseRepository<SpecialEvent>, ISpecialEven
         return _entities.Where(c =>
             c.Date.Year == day.Year &&
             c.Date.Month == day.Month &&
-            c.Date.Day == day.Day).ToListAsync(cancellationToken: cancellationToken);
+            c.Date.Day == day.Day &&
+            c.ParishId == parishId).ToListAsync(cancellationToken: cancellationToken);
     }
 }

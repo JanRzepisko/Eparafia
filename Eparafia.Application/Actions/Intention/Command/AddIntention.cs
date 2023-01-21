@@ -56,24 +56,22 @@ public static class AddIntention
                 var startOfWeek =
                     DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)(DayOfWeek.Monday) + (i - 1) * 7);
                 DateTime resultDate;
-                for (var j = 0; i != 6; i++)
+
+                var specialEventForWeek = await _unitOfWork.SpecialEvents.GetForWeek(parishId, startOfWeek, cancellationToken);
+                foreach (var @event in specialEventForWeek)
                 {
-                    var specialEventsForDay =
-                        await _unitOfWork.SpecialEvents.GetForDay(parishId, startOfWeek.AddDays(j), cancellationToken);
-                    if (specialEventsForDay is null)
+                    var existInDaySpecialEvent = await _unitOfWork.Intentions.ExistContentInDay(parishId, @event.Date, content, cancellationToken);
+                    if (!existInDaySpecialEvent)
                     {
-                        break;
-                    }
-                    foreach (var item in specialEventsForDay)
-                    {
-                        var intentionInSpecial = await _unitOfWork.Intentions.GetByDate(parishId, item.Date, cancellationToken);
-                        if (intentionInSpecial is null) continue;
-                        var intentionInDayExist = await _unitOfWork.Intentions.ExistContentInDay(parishId, intentionInSpecial.Date, content, cancellationToken);
-                        if (intentionInDayExist) continue;
-                        resultDate = intentionInSpecial.Date;
-                        return resultDate;
+                        var exist = await _unitOfWork.Intentions.GetByDate(parishId, @event.Date, cancellationToken);
+                        if (exist is null)
+                        {
+                            resultDate = @event.Date;
+                            return resultDate;
+                        }
                     }
                 }
+                
                 foreach (var @event in week)
                 {
                     var intention = await _unitOfWork.Intentions.GetByDate(parishId,
