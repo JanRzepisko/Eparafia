@@ -1,4 +1,5 @@
 using Eparafia.Application.DataAccess;
+using Eparafia.Application.DTOs;
 using Eparafia.Application.Entities;
 using Eparafia.Application.ValueObjects;
 using FluentValidation;
@@ -23,7 +24,7 @@ public static class GetCalendar
         public async Task<List<SpecialEvent>> Handle(Query request, CancellationToken cancellationToken)
         {
             var commonWeek = await _unitOfWork.CommonWeek.GetByParishId(request.ParishId, cancellationToken);
-            var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)(DayOfWeek.Monday) + ((request.Week - 1) * 7));
+            var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)(DayOfWeek.Monday) + ((request.Week) * 7));
             var specialEvents = await _unitOfWork.SpecialEvents.GetForWeek(request.ParishId, startOfWeek, cancellationToken);
 
             var calendar = commonWeek.Select(c => new SpecialEvent()
@@ -34,13 +35,20 @@ public static class GetCalendar
                 {
                     Description = c.Event.Description,
                     Name = c.Event.Name,
-                    Type = c.Event.Type
-                }
+                    Type = c.Event.Type,
+                },
             }).ToList();
 
             foreach (var specialEvent in specialEvents)
             {
                 calendar.Add(specialEvent);
+            }
+
+            foreach (var @event in calendar)
+            {
+                @event.Intention =
+                    await _unitOfWork.Intentions.GetByDate(@event.ParishId, @event.Date, cancellationToken);
+
             }
             
             return calendar.OrderBy(c => c.Date).ToList();
