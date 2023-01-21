@@ -37,7 +37,7 @@ public static class BuyIntention
                 //var date = result
             }
             
-            var intention = new Intention
+            var intention = new Entities.Intention
             {
                 Content = request.Content,
                 Date = request.Date,

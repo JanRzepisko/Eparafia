@@ -1,6 +1,12 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3b833525_002D5612_002D47c5_002D98c5_002Dcad60c497899/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Register_Priest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;TestAncestor&gt;&#xD;
-    &lt;TestId&gt;xUnit::79B7EDE9-5B70-4B37-B6AD-0BBB51795489::net7.0::Eparafia.UnitTests.PriestAuthTests.Register_Priest&lt;/TestId&gt;&#xD;
-  &lt;/TestAncestor&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=3b833525_002D5612_002D47c5_002D98c5_002Dcad60c497899/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Register_Priest" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;xUnit::79B7EDE9-5B70-4B37-B6AD-0BBB51795489::net7.0::Eparafia.UnitTests.PriestAuthTests.Register_Priest&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8be0ed67_002D73f8_002D481f_002Dbc3b_002Dac65e0ea7e3e/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;Eparafia.UnitTest&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/janrzepisko/RiderProjects/EparafiaAPI/Eparafia.UnitTest" Presentation="&amp;lt;Eparafia.UnitTest&amp;gt;" /&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=9ed4142f_002Ddfac_002D4f28_002Db909_002D0dd227409294/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from &amp;lt;Eparafia.UnitTest&amp;gt; #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;Project Location="/Users/janrzepisko/RiderProjects/EparafiaAPI/Eparafia.UnitTest" Presentation="&amp;lt;Eparafia.UnitTest&amp;gt;" /&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

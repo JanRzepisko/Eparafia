@@ -7,16 +7,11 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Calendar.Command;
 
 public static class AddSpecialEvent
 {
     public sealed record Command(string Name, string Description, EventType Type, int Duration, DateTime Date) : IRequest<Unit>;
-
-    public class CommonWeekModel
-    {
-        
-    }
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -40,9 +35,10 @@ public static class AddSpecialEvent
                     Description = request.Description,
                     Type = request.Type,
                     Name = request.Name,
-                    Duration = request.Duration
+                    Duration = request.Duration,
                 },
-                ParishId = (Guid)priest.ParishId
+                ParishId = (Guid)priest.ParishId,
+                Intention = null
             };
 
             await _unitOfWork.SpecialEvents.AddAsync(newEvent, cancellationToken);

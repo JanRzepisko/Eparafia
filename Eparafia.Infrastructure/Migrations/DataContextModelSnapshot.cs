@@ -263,7 +263,7 @@ namespace Eparafia.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<Guid>("IntentionId")
+                    b.Property<Guid?>("IntentionId")
                         .HasColumnType("char(36)");
 
                     b.Property<Guid>("ParishId")
@@ -542,9 +542,7 @@ namespace Eparafia.Infrastructure.Migrations
                 {
                     b.HasOne("Eparafia.Application.Entities.Intention", "Intention")
                         .WithMany()
-                        .HasForeignKey("IntentionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("IntentionId");
 
                     b.HasOne("Eparafia.Application.Entities.Parish", "Parish")
                         .WithMany("SpecialEvents")
