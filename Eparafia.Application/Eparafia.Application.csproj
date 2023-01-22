@@ -28,4 +28,8 @@
       <PackageReference Include="System.Runtime.Serialization.Json" Version="4.0.3" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Actions\Intention\Query" />
+    </ItemGroup>
+
 </Project>

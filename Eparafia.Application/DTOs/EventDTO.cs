@@ -7,15 +7,17 @@ public class EventDTO
 {
     public DateTime Date { get; set; }
     public Event Event { get; set; }
-    public Guid Id { get; set; }
+    public bool IsSpecial { get; set; }
+    public IntentionDTO? Intention { get; set; }
     
     
     public static EventDTO FromEntity(SpecialEvent @event)
     {
         return new EventDTO
         {
-            Id = @event.Id,
             Date = @event.Date,
+            IsSpecial = @event.Id != Guid.Empty,
+            Intention = IntentionDTO.FromEntity(@event.Intention),
             Event = new Event
             {
                 Name = @event.Event.Name,

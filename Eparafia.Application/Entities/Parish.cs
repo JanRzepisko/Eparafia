@@ -13,4 +13,5 @@ public class Parish : Entity
     public ICollection<Post>? Posts { get; set; }
     public ICollection<CommonEvent> CommonWeek { get; set; }
     public ICollection<SpecialEvent> SpecialEvents { get; set; }
+    public ICollection<Intention> Intentions { get; set; }
 }
