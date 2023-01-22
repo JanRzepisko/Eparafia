@@ -3,7 +3,7 @@ using Eparafia.Application.DTOs;
 
 namespace Eparafia.Application.Repository;
 
-public interface IBaseRepository<TEntity> where TEntity : Entity
+public interface IBaseRepository<TEntity>
 {
     Task AddAsync(TEntity entity, CancellationToken cancellationToken = default);
     void Update(TEntity entity);

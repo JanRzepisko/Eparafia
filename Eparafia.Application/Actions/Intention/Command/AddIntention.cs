@@ -1,5 +1,7 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Enums;
+using Eparafia.Application.Exceptions;
+using Eparafia.Application.Services;
 using Eparafia.Application.Services.UserProvider;
 using FluentValidation;
 using MediatR;
@@ -15,11 +17,13 @@ public static class AddIntention
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserProvider _userProvider;
+        private readonly IIntentionService _intentionService;
 
-        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IUserProvider userProvider)
+        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IUserProvider userProvider, IIntentionService intentionService)
         {
             _unitOfWork = unitOfWork;
             _userProvider = userProvider;
+            _intentionService = intentionService;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -30,7 +34,21 @@ public static class AddIntention
 
             if (request.AutomaticAllocation)
             {
-                resultDate = await CalculateDate(parishId, request.Content, cancellationToken);
+                resultDate = await _intentionService.CalculateNextIntentionDateAsync(parishId, request.Content,_unitOfWork, cancellationToken);
+            }
+            else
+            {
+                var oldIntentionOnDate =
+                    await _unitOfWork.Intentions.GetByDateAsync(parishId, request.Date, cancellationToken);
+                if (!oldIntentionOnDate.AutomaticAllocation)
+                {
+                    throw new InvalidRequestException("Date is already taken");
+                }
+                else
+                {
+                    oldIntentionOnDate.Date = await _intentionService.CalculateNextIntentionDateAsync(parishId, oldIntentionOnDate.Content, _unitOfWork, cancellationToken,2);
+                    resultDate = request.Date;
+                }
             }
 
             var intention = new Entities.Intention
@@ -44,57 +62,6 @@ public static class AddIntention
             await _unitOfWork.Intentions.AddAsync(intention, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
-        }
-
-        //Automatic allocation system
-        private async Task<DateTime> CalculateDate(Guid parishId, string content, CancellationToken cancellationToken)
-        {
-            var week = await _unitOfWork.CommonWeek.GetByParishId(parishId, cancellationToken);
-            for (var i = 1; true; i++)
-            {
-                var existInDay = new bool[7];
-                var startOfWeek =
-                    DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)(DayOfWeek.Monday) + (i - 1) * 7);
-                DateTime resultDate;
-
-                var specialEventForWeek = await _unitOfWork.SpecialEvents.GetForWeek(parishId, startOfWeek, cancellationToken);
-                foreach (var @event in specialEventForWeek)
-                {
-                    var existInDaySpecialEvent = await _unitOfWork.Intentions.ExistContentInDay(parishId, @event.Date, content, cancellationToken);
-                    if (!existInDaySpecialEvent)
-                    {
-                        var exist = await _unitOfWork.Intentions.GetByDate(parishId, @event.Date, cancellationToken);
-                        if (exist is null)
-                        {
-                            resultDate = @event.Date;
-                            return resultDate;
-                        }
-                    }
-                }
-                
-                foreach (var @event in week)
-                {
-                    var intention = await _unitOfWork.Intentions.GetByDate(parishId,
-                        startOfWeek.AddDays((int)@event.DayOfWeek).AddHours(@event.Time.Hours)
-                            .AddMinutes(@event.Time.Minutes), cancellationToken);
-                    if (intention is null && !await _unitOfWork.Intentions.ExistContentInDay(parishId,
-                            startOfWeek.AddDays((int)@event.DayOfWeek),
-                            content, cancellationToken))
-                    {
-                        DateTime date = startOfWeek.AddDays((int)@event.DayOfWeek).AddHours(@event.Time.Hours)
-                            .AddMinutes(@event.Time.Minutes);
-                        if (date > DateTime.Now)
-                        {
-                            resultDate = date;
-                            return resultDate;
-                        }
-                    }
-                    else
-                    {
-                        existInDay[(int)@event.DayOfWeek] = true;
-                    }
-                }
-            }
         }
 
         public sealed class Validator : AbstractValidator<Command>

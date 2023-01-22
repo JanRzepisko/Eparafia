@@ -47,7 +47,7 @@ public static class GetCalendar
             foreach (var @event in calendar)
             {
                 @event.Intention =
-                    await _unitOfWork.Intentions.GetByDate(@event.ParishId, @event.Date, cancellationToken);
+                    await _unitOfWork.Intentions.GetByDateAsync(@event.ParishId, @event.Date, cancellationToken);
 
             }
             

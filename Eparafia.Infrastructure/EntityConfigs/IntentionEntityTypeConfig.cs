@@ -14,6 +14,5 @@ internal sealed class IntentionEntityTypeConfig : IEntityTypeConfiguration<Inten
             .WithMany(c => c.Intentions)
             .HasForeignKey(c => c.ParishId)
             .OnDelete(DeleteBehavior.Cascade);
-        
     }
 }

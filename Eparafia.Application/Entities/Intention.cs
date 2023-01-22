@@ -3,7 +3,7 @@ using Eparafia.Application.Enums;
 
 namespace Eparafia.Application.Entities;
 
-public class Intention : Entity
+public class Intention : Entity 
 {
     public DateTime Date { get; set; }
     public string Content { get; set; }

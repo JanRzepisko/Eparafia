@@ -1,19 +1,19 @@
+using Eparafia.Application.DataAccess.Abstract;
 using Eparafia.Application.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Eparafia.Infrastructure.EntityConfigs;
 
-internal sealed class PostFileEntityTypeConfig : IEntityTypeConfiguration<PostFile>
+internal sealed class PaymentEntityTypeConfig : IEntityTypeConfiguration<Payment>
 {
-    public void Configure(EntityTypeBuilder<PostFile> builder)
+    public void Configure(EntityTypeBuilder<Payment> builder)
     {
         builder.HasKey(c => c.Id);
 
-        builder.HasOne(c => c.Post)
-            .WithMany(c => c.Files)
-            .HasForeignKey(c => c.PostId)
-            .OnDelete(DeleteBehavior.Cascade);
-        
+        builder.HasOne(c => c.Parish)
+            .WithMany(c => c.Payments)
+            .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }
