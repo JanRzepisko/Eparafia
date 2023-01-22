@@ -1,6 +1,7 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
+using Eparafia.Application.Services;
 using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
@@ -8,17 +9,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.Parish;
 
-public static class UpdateIntention
+public static class RefreshIntentionDate
 {
-    public sealed record Command(Guid IntentionId, string? Content, IntentionType? Type, DateTime? Date) : IRequest<Unit>;
+    public sealed record Command(Guid IntentionId) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IIntentionService _intentionService;
 
-        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration)
+        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IIntentionService intentionService)
         {
             _unitOfWork = unitOfWork;
+            _intentionService = intentionService;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -30,14 +33,7 @@ public static class UpdateIntention
                 throw new EntityNotFoundException(nameof(Intention), request.IntentionId);
             }
             
-            intention.Content = request.Content ?? intention.Content;
-            intention.Type = request.Type ?? intention.Type;
-            intention.Date = request.Date ?? intention.Date;
-            if(request.Date != null || intention.Date != request.Date)
-            {
-                intention.AutomaticAllocation = false;
-            }
-            
+            intention.Date = await _intentionService.CalculateNextIntentionDateAsync(intention.ParishId, intention.Content, _unitOfWork, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
@@ -46,7 +42,7 @@ public static class UpdateIntention
         {
             public Validator()
             {
-                RuleFor(c => c.Date > DateTime.Now);
+                
             }
         }
     }

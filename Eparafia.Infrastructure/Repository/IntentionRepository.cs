@@ -11,7 +11,7 @@ public class IntentionRepository : BaseRepository<Intention>, IIntentionReposito
     {
     }
 
-    public Task<Intention?> GetByDate(Guid parishId, DateTime date, CancellationToken cancellationToken)
+    public Task<Intention?> GetByDateAsync(Guid parishId, DateTime date, CancellationToken cancellationToken)
     {
         return _entities.Where(x => x.ParishId == parishId && x.Date == date).FirstOrDefaultAsync(cancellationToken);
     }

@@ -10,13 +10,15 @@ public class IntentionDTO
     public IntentionType Type { get; set; }
     public bool AutomaticAllocation { get; set; }
     public bool IsNovena { get; set; }
-    
+    public Guid Id { get; set; }
+
     public static IntentionDTO FromEntity(Intention intention)
     {
         if(intention is null)
             return null;
         return new IntentionDTO
         {
+            Id = intention.Id,
             Date = intention.Date,
             Content = intention.Content,
             Type = intention.Type,
@@ -24,4 +26,5 @@ public class IntentionDTO
             IsNovena = intention.IsNovena
         };
     }
+
 }

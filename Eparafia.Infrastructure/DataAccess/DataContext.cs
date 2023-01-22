@@ -21,6 +21,7 @@ public sealed class DataContext: DbContext, IUnitOfWork
     private DbSet<SpecialEvent> _SpecialEvent { get; set; }
     private DbSet<CommonEvent> _CommonWeek { get; set; }
     private DbSet<Intention> _Intention { get; set; }
+    private DbSet<Payment> _Payment { get; set; }
     
     public IUserRepository<User> Users => new UserRepository<User>(_Users);
     public IPriestRepository Priests => new PriestRepository(_Priests);
@@ -31,6 +32,7 @@ public sealed class DataContext: DbContext, IUnitOfWork
     public IBaseRepository<PostFile> PostFiles => new BaseRepository<PostFile>(_PostFile);
     public ICommonWeekRepository CommonWeek => new CommonWeekRepository(_CommonWeek);
     public ISpecialEventRepository SpecialEvents => new SpecialEventRepository(_SpecialEvent);
+    public IBaseRepository<Payment> Payments => new BaseRepository<Payment>(_Payment);
     public IIntentionRepository Intentions => new IntentionRepository(_Intention);
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)

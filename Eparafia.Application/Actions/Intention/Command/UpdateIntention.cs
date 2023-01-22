@@ -10,7 +10,7 @@ namespace Eparafia.Application.Actions.Parish;
 
 public static class UpdateIntention
 {
-    public sealed record Command(Guid IntentionId, string? Content, IntentionType? Type, DateTime? Date, bool AutomaticAllocation) : IRequest<Unit>;
+    public sealed record Command(Guid IntentionId, string? Content, IntentionType? Type, DateTime? Date) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -33,10 +33,14 @@ public static class UpdateIntention
             intention.Content = request.Content ?? intention.Content;
             intention.Type = request.Type ?? intention.Type;
             intention.Date = request.Date ?? intention.Date;
-            intention.AutomaticAllocation = request.AutomaticAllocation;
+            if(request.Date != null || intention.Date != request.Date)
+            {
+                intention.AutomaticAllocation = false;
+            }
             
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            return Unit.Value;        }
+            return Unit.Value;
+        }
 
         public sealed class Validator : AbstractValidator<Command>
         {
