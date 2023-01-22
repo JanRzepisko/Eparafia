@@ -1,23 +1,19 @@
-using System.Data.Common;
 using System.Reflection;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using Eparafia.API.Extensions;
 using Eparafia.API.Middlewares;
-using Eparafia.Application;
 using Eparafia.Application.DataAccess;
+using Eparafia.Application.Services;
 using Eparafia.Application.Services.FileManager;
 using Eparafia.Application.Services.Jwt;
 using Eparafia.Application.Services.UserProvider;
 using Eparafia.Infrastructure.DataAccess;
-using FluentValidation.AspNetCore;
+using Eparafia.Infrastructure.Services;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using MySqlConnector;
 
 namespace Eparafia.API;
 
@@ -51,6 +47,7 @@ public class Startup
         services.AddScoped<IJwtAuth, JwtAuth>();
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
+        services.AddScoped<IIntentionService, IntentionService>();
 
         services.Configure<ForwardedHeadersOptions>(options =>
         {

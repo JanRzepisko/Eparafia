@@ -43,6 +43,12 @@ public class IntentionController : Controller
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
+    }      
+    [HttpPut("RefreshDate")]
+    public async Task<IActionResult> RefreshIntentionDate(RefreshIntentionDate.Command command, CancellationToken cancellationToken = default)
+    {
+        await _mediator.Send(command, cancellationToken);
+        return Ok(ApiResponse.Success(200));
     }    
     [HttpDelete]
     public async Task<IActionResult> RemoveIntention(RemoveIntention.Command command, CancellationToken cancellationToken = default)
