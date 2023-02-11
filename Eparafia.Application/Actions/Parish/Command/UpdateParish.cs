@@ -1,12 +1,14 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Enums;
-using Eparafia.Application.Exceptions;
-using Eparafia.Application.Services.UserProvider;
+using Eparafia.Domain.Enums;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Parish.Command;
 
 public static class UpdateParish
 {

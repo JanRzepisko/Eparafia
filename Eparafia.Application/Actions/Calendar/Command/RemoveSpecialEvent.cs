@@ -1,10 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Calendar.Command;
 
 public static class RemoveSpecialEvent
 {

@@ -1,11 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Services.Jwt;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Jwt;
 
-namespace Eparafia.Application.Actions.PriestAuth.Command;
+namespace Eparafia.Application.Actions.Priest.Command;
 
 public static class RegisterPriest
 {
@@ -28,7 +27,7 @@ public static class RegisterPriest
                 throw new Exception("Priest already exists");
             }
 
-            var newPriest = new Priest
+            var newPriest = new Domain.Entities.Priest
             {
                 Email = request.Email,
                 Id = Guid.NewGuid(),

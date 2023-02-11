@@ -1,13 +1,11 @@
-using System.Data;
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Exceptions;
-using Eparafia.Application.Services.UserProvider;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Announcements.Command;
 
 public static class AnnouncementsRemove
 {

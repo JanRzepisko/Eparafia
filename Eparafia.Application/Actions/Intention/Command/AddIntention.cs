@@ -1,11 +1,12 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Enums;
-using Eparafia.Application.Exceptions;
 using Eparafia.Application.Services;
-using Eparafia.Application.Services.UserProvider;
+using Eparafia.Domain.Enums;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Application.Actions.Intention.Command;
 
@@ -51,7 +52,7 @@ public static class AddIntention
                 }
             }
 
-            var intention = new Entities.Intention
+            var intention = new Domain.Entities.Intention
             {
                 Content = request.Content,
                 Date = resultDate,

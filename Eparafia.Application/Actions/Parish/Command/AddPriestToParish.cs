@@ -1,11 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Repository;
-using Eparafia.Application.Services.UserProvider;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Parish.Command;
 
 public static class AddPriestToParish
 {

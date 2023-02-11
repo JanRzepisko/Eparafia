@@ -1,12 +1,12 @@
 using System.Buffers.Text;
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
-using Eparafia.Application.Exceptions;
 using Eparafia.Application.Services.FileManager;
+using Eparafia.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 
 namespace Eparafia.Application.Actions.Parish;
 

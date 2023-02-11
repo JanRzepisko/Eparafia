@@ -1,11 +1,11 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Enums;
-using Eparafia.Application.Services.UserProvider;
-using Eparafia.Application.ValueObjects;
+using Eparafia.Domain.Entities;
+using Eparafia.Domain.Enums;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Application.Actions.Calendar.Command;
 

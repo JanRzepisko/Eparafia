@@ -1,11 +1,12 @@
-using Eparafia.API.Models;
 using Eparafia.Application.Actions.Parish;
-using Eparafia.Application.DTOs;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Services.Jwt;
+using Eparafia.Application.Actions.Posts.Command;
+using Eparafia.Application.Actions.Posts.Query;
+using Eparafia.Domain.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.BaseModels.ApiControllerModels;
+using Shared.BaseModels.Jwt;
 
 namespace Eparafia.API.Controllers;
 

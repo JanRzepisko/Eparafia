@@ -1,8 +1,8 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 
 namespace Eparafia.Application.Actions.Parish;
 

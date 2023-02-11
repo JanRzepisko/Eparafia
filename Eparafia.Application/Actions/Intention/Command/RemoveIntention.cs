@@ -1,11 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
-using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Intention.Command;
 
 public static class RemoveIntention
 {

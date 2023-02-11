@@ -1,13 +1,11 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Services.Jwt;
-using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
+using Shared.BaseModels.Jwt;
 
-namespace Eparafia.Application.Actions.UserAuth.Command;
+namespace Eparafia.Application.Actions.User.Command;
 
 public static class RegisterUser
 {
@@ -30,7 +28,7 @@ public static class RegisterUser
                 throw new EntityNotFoundException("User already exists");
             }
 
-            var newUser = new User
+            var newUser = new Domain.Entities.User
             {
                 Email = request.Email,
                 Id = Guid.NewGuid(),

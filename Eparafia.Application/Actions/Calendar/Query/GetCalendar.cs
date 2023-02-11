@@ -1,12 +1,11 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.DTOs;
-using Eparafia.Application.Entities;
-using Eparafia.Application.ValueObjects;
+using Eparafia.Domain.Entities;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Calendar.Query;
 
 public static class GetCalendar
 {

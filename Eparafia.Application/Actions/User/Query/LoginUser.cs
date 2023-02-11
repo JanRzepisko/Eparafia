@@ -1,9 +1,10 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services.Jwt;
-using Eparafia.Infrastructure.Exceptions;
 using MediatR;
+using Shared.BaseModels.Exceptions;
+using Shared.BaseModels.Jwt;
 
-namespace Eparafia.Application.Actions.UserAuth.Query;
+namespace Eparafia.Application.Actions.User.Query;
 
 public static class LoginUser
 {

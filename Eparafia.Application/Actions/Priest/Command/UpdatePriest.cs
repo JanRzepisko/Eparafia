@@ -1,14 +1,14 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
 using Eparafia.Application.Services.FileManager;
-using Eparafia.Application.Services.UserProvider;
-using Eparafia.Infrastructure.Exceptions;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.PriestAuth.Command;
+namespace Eparafia.Application.Actions.Priest.Command;
 
 public static class UpdatePriest
 {

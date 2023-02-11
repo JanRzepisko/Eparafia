@@ -1,12 +1,13 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
-using Eparafia.Application.Services.UserProvider;
+using Eparafia.Domain.Enums;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Parish.Command;
 
 public static class CreateParish
 {
@@ -25,15 +26,15 @@ public static class CreateParish
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            Priest priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            Domain.Entities.Priest priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
 
             Guid id = Guid.NewGuid();
             
-            Entities.Parish parish = new Entities.Parish()
+            Domain.Entities.Parish parish = new Domain.Entities.Parish()
             {
                 CallName = request.CallName,
                 Contact = request.Contact,
-                Priests = new List<Priest> { priest },
+                Priests = new List<Domain.Entities.Priest> { priest },
                 Address = request.Address,
                 Id = id
             };

@@ -1,0 +1,17 @@
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.csproj.AssemblyReference.cache
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.AssemblyInfoInputs.cache
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.AssemblyInfo.cs
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.csproj.CoreCompileInputs.cache
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\bin\Debug\net7.0\Eparafia.Domain.deps.json
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\bin\Debug\net7.0\Eparafia.Domain.runtimeconfig.json
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\bin\Debug\net7.0\Eparafia.Domain.dll
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\bin\Debug\net7.0\Eparafia.Domain.pdb
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\bin\Debug\net7.0\Shared.dll
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\bin\Debug\net7.0\Shared.pdb
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.csproj.CopyComplete
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.dll
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\refint\Eparafia.Domain.dll
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.pdb
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\Eparafia.Domain.genruntimeconfig.cache
+C:\Users\rzeja\EparafiaAPI\Eparafia.Domain\obj\Debug\net7.0\ref\Eparafia.Domain.dll

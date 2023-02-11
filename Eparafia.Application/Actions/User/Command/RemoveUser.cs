@@ -1,10 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Services.UserProvider;
-using Eparafia.Infrastructure.Exceptions;
 using FluentValidation;
 using MediatR;
+using Shared.BaseModels.Exceptions;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.UserAuth.Command;
+namespace Eparafia.Application.Actions.User.Command;
 
 public static class RemoveUser
 {

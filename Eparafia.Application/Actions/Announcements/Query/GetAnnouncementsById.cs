@@ -1,11 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.DTOs;
-using Eparafia.Application.Entities;
+using Eparafia.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Announcements.Query;
 
 public static class GetAnnouncementsById
 {

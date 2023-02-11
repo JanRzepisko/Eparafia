@@ -1,5 +1,5 @@
-using Eparafia.Application.DataAccess.Abstract;
-using Eparafia.Application.Entities;
+using Eparafia.Domain.Objects;
+using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Application.Repository;
 
