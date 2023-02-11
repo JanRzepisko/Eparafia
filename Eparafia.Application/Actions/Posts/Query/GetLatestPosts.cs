@@ -1,10 +1,10 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
+using Eparafia.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Posts.Query;
 
 public static class GetLatestPosts
 {

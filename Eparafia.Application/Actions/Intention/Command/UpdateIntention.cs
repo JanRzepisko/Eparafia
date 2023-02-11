@@ -1,12 +1,12 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
-using Eparafia.Infrastructure.Exceptions;
+using Eparafia.Domain.Enums;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Intention.Command;
 
 public static class UpdateIntention
 {

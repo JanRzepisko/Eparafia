@@ -1,13 +1,11 @@
-using System.Data;
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.DTOs.Rezluts;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Exceptions;
+using Eparafia.Domain.Objects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Priest.Command;
 
 public static class GetFreePriests
 {

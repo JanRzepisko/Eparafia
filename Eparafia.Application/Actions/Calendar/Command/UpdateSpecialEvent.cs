@@ -1,5 +1,6 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Enums;
+using Eparafia.Domain.Enums;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;

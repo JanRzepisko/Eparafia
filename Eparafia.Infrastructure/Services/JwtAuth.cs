@@ -1,8 +1,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Eparafia.Application.DataAccess.Abstract;
-using Eparafia.Application.Entities;
+using Eparafia.Domain.Objects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 

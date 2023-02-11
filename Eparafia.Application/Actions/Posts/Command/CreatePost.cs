@@ -1,13 +1,13 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Enums;
 using Eparafia.Application.Services.FileManager;
-using Eparafia.Application.Services.UserProvider;
+using Eparafia.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.Parish;
+namespace Eparafia.Application.Actions.Posts.Command;
 
 public static class CreatePost
 {

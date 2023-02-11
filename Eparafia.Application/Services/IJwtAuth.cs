@@ -1,5 +1,4 @@
-using Eparafia.Application.DataAccess.Abstract;
-using Eparafia.Application.Entities;
+using Eparafia.Domain.Objects;
 
 namespace Eparafia.Application.Services.Jwt;
 

@@ -5,31 +5,15 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
+    
     <ItemGroup>
-      <PackageReference Include="BCrypt-Official" Version="0.1.109" />
-      <PackageReference Include="EntityFramework" Version="6.4.4" />
-      <PackageReference Include="FluentValidation" Version="11.4.0" />
-      <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.2" />
-      <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.4.0" />
-      <PackageReference Include="FluentValidation.ValidatorAttribute" Version="8.6.1" />
-      <PackageReference Include="MediatR" Version="11.1.0" />
-      <PackageReference Include="MediatR.Contracts" Version="1.0.1" />
-      <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
-      <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.0" />
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.0" />
-      <PackageReference Include="System.Runtime.Serialization.Json" Version="4.0.3" />
+      <Folder Include="Actions\Intention\Query" />
+      <Folder Include="DataAccess\Abstract" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Actions\Intention\Query" />
+      <ProjectReference Include="..\Eparafia.Domain\Eparafia.Domain.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

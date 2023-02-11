@@ -1,12 +1,10 @@
-using Eparafia.API.Models;
 using Eparafia.Application.Actions.Parish;
-using Eparafia.Application.Actions.PriestAuth.Command;
-using Eparafia.Application.Actions.PriestAuth.Query;
-using Eparafia.Application.Actions.UserAuth.Command;
-using Eparafia.Application.Actions.UserAuth.Query;
+using Eparafia.Application.Actions.Priest.Command;
+using Eparafia.Application.Actions.Priest.Query;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.BaseModels.ApiControllerModels;
 
 namespace Eparafia.API.Controllers;
 

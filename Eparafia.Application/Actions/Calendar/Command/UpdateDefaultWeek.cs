@@ -1,11 +1,11 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
-using Eparafia.Application.Enums;
-using Eparafia.Application.Services.UserProvider;
-using Eparafia.Application.ValueObjects;
+using Eparafia.Domain.Entities;
+using Eparafia.Domain.Enums;
+using Eparafia.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Application.Actions.Calendar.Command;
 
@@ -49,7 +49,7 @@ public static class UpdateDefaultWeek
             int indexOfEvent = 0;
             foreach (var commonEvent in commonWeek)
             {
-                await _unitOfWork.CommonWeek.AddAsync(new Entities.CommonEvent()
+                await _unitOfWork.CommonWeek.AddAsync(new CommonEvent()
                 {
                     DayOfWeek = commonEvent.Day,
                     Time = new TimeSpan(commonEvent.Hour, commonEvent.Minute, 0),

@@ -1,5 +1,5 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
+using Eparafia.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;

@@ -1,12 +1,11 @@
-using Eparafia.API.Models;
 using Eparafia.Application.Actions.Calendar.Command;
 using Eparafia.Application.Actions.Calendar.Query;
-using Eparafia.Application.Actions.Parish;
-using Eparafia.Application.DTOs;
-using Eparafia.Application.Services.Jwt;
+using Eparafia.Domain.DTOs;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.BaseModels.ApiControllerModels;
+using Shared.BaseModels.Jwt;
 
 namespace Eparafia.API.Controllers;
 

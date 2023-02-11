@@ -1,11 +1,11 @@
-using Eparafia.Application.DataAccess.Abstract;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
+using Eparafia.Domain.Objects;
 using Microsoft.EntityFrameworkCore;
+using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Infrastructure.Repository;
 
-public class UserRepository<TEntity> : BaseRepository<TEntity>, IUserRepository<TEntity> where TEntity : UserModel, new()
+public class UserRepository<TEntity> : BaseRepository<TEntity?>, IUserRepository<TEntity> where TEntity : UserModel, new()
 {
     public UserRepository(DbSet<TEntity>? entities) : base(entities)
     {

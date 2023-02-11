@@ -1,5 +1,5 @@
-using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
+using Eparafia.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Eparafia.Infrastructure.Repository;

@@ -1,6 +1,7 @@
 using System.Linq.Expressions;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
+using Eparafia.Domain.Entities;
+using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Application.DataAccess;
 

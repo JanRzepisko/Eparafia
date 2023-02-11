@@ -1,7 +1,7 @@
-using Eparafia.Application.DataAccess.Abstract;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
+using Eparafia.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Infrastructure.Repository;
 

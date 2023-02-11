@@ -1,10 +1,11 @@
 using System.Reflection;
 using Eparafia.Application;
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Entities;
 using Eparafia.Application.Repository;
+using Eparafia.Domain.Entities;
 using Eparafia.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
+using Shared.BaseModels.BaseEntities;
 
 
 namespace Eparafia.Infrastructure.DataAccess;
