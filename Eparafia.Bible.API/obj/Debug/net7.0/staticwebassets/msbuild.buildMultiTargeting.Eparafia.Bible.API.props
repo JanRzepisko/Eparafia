@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\Eparafia.Bible.API.props" />
+</Project>

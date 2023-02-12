@@ -8,7 +8,6 @@
     
     <ItemGroup>
       <Folder Include="Actions\Intention\Query" />
-      <Folder Include="DataAccess\Abstract" />
     </ItemGroup>
 
     <ItemGroup>
