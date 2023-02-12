@@ -1,4 +1,3 @@
-using Eparafia.Application.Actions.Parish;
 using Eparafia.Application.Actions.Priest.Command;
 using Eparafia.Application.Actions.Priest.Query;
 using MediatR;
@@ -25,12 +24,12 @@ public class PriestController : Controller
         var result = await _mediator.Send(query, cancellationToken);
         return Ok(ApiResponse.Success(200, result));
     }    
-    [HttpPost("RefreshToken")]
-    public async Task<IActionResult> RefreshToken(RefreshToken.Query query, CancellationToken cancellationToken = default)
-    {
-        var result = await _mediator.Send(query, cancellationToken);
-        return Ok(ApiResponse.Success(200, result));
-    }
+    //[HttpPost("RefreshToken")]
+    //public async Task<IActionResult> RefreshToken(RefreshToken.Query query, CancellationToken cancellationToken = default)
+    //{
+    //    var result = await _mediator.Send(query, cancellationToken);
+    //    return Ok(ApiResponse.Success(200, result));
+    //}
     [HttpPost("Register")]
     public async Task<IActionResult> RegisterPriest(RegisterPriest.Command command, CancellationToken cancellationToken = default)
     {

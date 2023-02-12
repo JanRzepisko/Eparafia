@@ -1,9 +1,9 @@
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.Exceptions;
 using Eparafia.Application.Services.Jwt;
-using Eparafia.Application.Services.UserProvider;
-using Eparafia.Infrastructure.Exceptions;
 using MediatR;
+using Shared.BaseModels.Exceptions;
+using Shared.BaseModels.Jwt;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Application.Actions.PriestAuth.Query;
 

@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+  eparafia.api:
+    container_name: "ParishAPI"
+    image: ${DOCKER_REGISTRY-}eparafiaapi
+    ports:
+      - 5001:80
+    build:
+      context: .
+      dockerfile: Eparafia.API/Dockerfile
+
+  eparafia.bible.api:
+    container_name: "BibleAPI"
+    image: ${DOCKER_REGISTRY-}eparafiabibleapi
+    ports:
+      - 5002:80
+    build:
+      context: .
+      dockerfile: Eparafia.Bible.API/Dockerfile
+
