@@ -1,4 +1,5 @@
 using Eparafia.Application.Enums;
+using Eparafia.Application.Services.FileManager;
 using Eparafia.Domain.Entities;
 using Eparafia.Domain.Enums;
 
@@ -8,9 +9,7 @@ public class PublicPriestProfile
 {
     public Guid Id { get; set; }
     public string Name { get; set; }
-    public string Surname { get; set; }
-    public string PhotoPath { get; set; }
-    public string PhotoPathMin { get; set; }
+    public PhotoPath Photo { get; set; }
     public FunctionParish FunctionParish { get; set; }
 
 
@@ -19,10 +18,8 @@ public class PublicPriestProfile
         return new PublicPriestProfile
         {
             Id = priest.Id,
-            Name = priest.Name,
-            Surname = priest.Surname,
-            PhotoPath = priest.PhotoPath,
-            PhotoPathMin = priest.PhotoPathMin,
+            Name= priest.Name,
+            Photo = priest.PhotoPath,
             FunctionParish = priest.FunctionParish
         };
     }

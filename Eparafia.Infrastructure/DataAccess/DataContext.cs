@@ -2,6 +2,7 @@ using System.Reflection;
 using Eparafia.Application;
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Repository;
+using Eparafia.Application.Services.FileManager;
 using Eparafia.Domain.Entities;
 using Eparafia.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -43,10 +44,12 @@ public sealed class DataContext: DbContext, IUnitOfWork
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         //I don't know why it only works here xd
         modelBuilder.Entity<Parish>().OwnsOne(x => x.Address);
         modelBuilder.Entity<Parish>().OwnsOne(x => x.Contact);
-        modelBuilder.Entity<Priest>().OwnsOne(x => x.Contact);
+        modelBuilder.Entity<Priest>().OwnsOne(x => x.PhotoPath);
+        modelBuilder.Entity<User>().OwnsOne(x => x.PhotoPath);
         modelBuilder.Entity<CommonEvent>().OwnsOne(x => x.Event);
         modelBuilder.Entity<SpecialEvent>().OwnsOne(x => x.Event);
     }

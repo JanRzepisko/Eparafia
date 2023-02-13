@@ -15,8 +15,5 @@ public class UserRepository<TEntity> : BaseRepository<TEntity?>, IUserRepository
     {
         return _entities.Include(c => c.Parish).FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
-    public Task<TEntity?> GetByLoginAsync(string email, CancellationToken cancellationToken)
-    {
-        return _entities.FirstOrDefaultAsync(x => x.Email == email, cancellationToken);
-    }
+
 }

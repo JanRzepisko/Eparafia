@@ -39,7 +39,7 @@ public static partial class AddSwaggerExtension
                     new string[] { }
                 }
             });
-            c.CustomSchemaIds(s => s.FullName!.Replace("+", "."));
+            c.CustomSchemaIds(s => s.Name!.Replace("+", "."));
             c.CustomOperationIds(apiDesc =>
             {
                 var controllerName = apiDesc.TryGetMethodInfo(out MethodInfo methodInfo)

@@ -8,6 +8,5 @@ namespace Eparafia.Domain.Entities;
 public class Priest : UserModel
 {
     public FunctionParish FunctionParish { get; set; }
-    public Contact Contact { get; set; }
     public ICollection<Announcement> CreatedAnnouncements { get; set; }
 }

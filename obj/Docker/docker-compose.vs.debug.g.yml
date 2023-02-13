@@ -3,7 +3,6 @@ version: '3.4'
 services:
   eparafia.api:
     image: eparafiaapi:dev
-    container_name: Eparafia.API
     build:
       target: base
       labels:
@@ -29,20 +28,19 @@ services:
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
     tty: true
-  eparafia.bible.api:
-    image: eparafiabibleapi:dev
-    container_name: Eparafia.Bible.API
+  eparafia.identity.api:
+    image: eparafiaidentityapi:dev
     build:
       target: base
       labels:
         com.microsoft.created-by: "visual-studio"
-        com.microsoft.visual-studio.project-name: "Eparafia.Bible.API"
+        com.microsoft.visual-studio.project-name: "Eparafia.Identity.API"
     environment:
       - DOTNET_USE_POLLING_FILE_WATCHER=1
       - ASPNETCORE_LOGGING__CONSOLE__DISABLECOLORS=true
       - NUGET_FALLBACK_PACKAGES=/root/.nuget/fallbackpackages
     volumes:
-      - C:\Users\rzeja\EparafiaAPI\Eparafia.Bible.API:/app
+      - C:\Users\rzeja\EparafiaAPI\Eparafia.Identity.API:/app
       - C:\Users\rzeja\EparafiaAPI:/src
       - C:\Users\rzeja\vsdbg\vs2017u5:/remote_debugger:rw
       - C:\Users\rzeja\.nuget\packages\:/root/.nuget/packages:ro
@@ -53,7 +51,7 @@ services:
     entrypoint: tail -f /dev/null
     labels:
       com.microsoft.visualstudio.debuggee.program: "dotnet"
-      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages --additionalProbingPath /root/.nuget/fallbackpackages  \"/app/bin/Debug/net7.0/Eparafia.Bible.API.dll\""
+      com.microsoft.visualstudio.debuggee.arguments: " --additionalProbingPath /root/.nuget/packages --additionalProbingPath /root/.nuget/fallbackpackages  \"/app/bin/Debug/net7.0/Eparafia.Identity.API.dll\""
       com.microsoft.visualstudio.debuggee.workingdirectory: "/app"
       com.microsoft.visualstudio.debuggee.killprogram: "/bin/sh -c \"if PID=$$(pidof dotnet); then kill $$PID; fi\""
     tty: true

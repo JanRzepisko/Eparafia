@@ -10,19 +10,22 @@ public class PriestRepository : UserRepository<Priest>, IPriestRepository
     {
     }
 
-    public Task<List<Priest>> GetFreePriestAsync(string query, int page, int pageSize,
-        CancellationToken cancellationToken)
+    public Task<List<Priest>> GetFreePriestAsync(string query, int page, int pageSize, CancellationToken cancellationToken)
     {
         if (query != String.Empty)
         {
             return _entities
-                .Where(c => (c.Name.ToLower().Contains(query.ToLower()) || c.Surname.ToLower().Contains(query.ToLower())) && c.ParishId == null).Skip(page * pageSize).Take(pageSize)
+                .Where(c => c.Name.Contains(query.ToLower()) && c.ParishId == null)
+                .Skip(page * pageSize)
+                .Take(pageSize)
                 .ToListAsync(cancellationToken);
         }
         else
         {
             return _entities
-                .Where(c => c.ParishId == null).Skip(page * pageSize).Take(pageSize)
+                .Where(c => c.ParishId == null)
+                .Skip(page * pageSize)
+                .Take(pageSize)
                 .ToListAsync(cancellationToken);
         }
     }

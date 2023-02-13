@@ -12,8 +12,8 @@ public class RabbitMQLogin
     {
         return new RabbitMQLogin
         {
-            Host =configuration["RabbitMQ:Host"],
-            Username = configuration["RabbitMQ:Username"],
+            Host =configuration["RabbitMQ:HostName"],
+            Username = configuration["RabbitMQ:UserName"],
             Password = configuration["RabbitMQ:Password"]
         };
     }

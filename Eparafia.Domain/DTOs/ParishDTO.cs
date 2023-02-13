@@ -24,9 +24,7 @@ public class ParishDTO
             {
                 Id = c.Id,
                 Name = c.Name,
-                Surname = c.Surname,
-                PhotoPath = c.PhotoPath,
-                PhotoPathMin = c.PhotoPathMin,
+                Photo = c.PhotoPath,
                 FunctionParish = c.FunctionParish,
             }).ToList()
         };

@@ -1,20 +1,26 @@
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Shared.BaseModels.Jwt;
 
 namespace Shared.Extensions;
 
 public static partial class RabbitMQExtension
 {
-    public static void CreateQueue<T>(this IRabbitMqBusFactoryConfigurator cfg, string serviceName, IRegistrationContext ctx) where T : class, IConsumer
+    public static IBusRegistrationConfigurator BuildRabbitMQ(this IBusRegistrationConfigurator conf, RabbitMQLogin login)
     {
-        cfg.ReceiveEndpoint("hello", e =>
+        conf.UsingRabbitMq((ctx, cfg) =>
         {
-            e.ConfigureConsumer<T>(ctx);
+            cfg.Host(login.Host, h =>
+            {
+                h.Username(login.Username);
+                h.Password(login.Password);
+            });
+                
+            //Add All Consumers
+            cfg.ConfigureEndpoints(ctx);
         });
-    }
-    
-    public static void Subscribe<T>(this IBusRegistrationConfigurator bus) where T : class, IConsumer
-    {
-        bus.AddConsumer<T>();
+        
+        return conf;
     }
 }
