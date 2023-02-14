@@ -12,12 +12,11 @@ public static partial class ConfigureApplicationExtensions
     public static IApplicationBuilder ConfigureApplication(this IApplicationBuilder app, IConfiguration cfg)
     {
         app.UseMiddleware<ExceptionMiddleware>();
-        
+
         app.UseRouting();
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHttpsRedirection();
-        
         app.UseCors(c => c
             .AllowAnyOrigin()
             .AllowAnyMethod()
@@ -30,8 +29,6 @@ public static partial class ConfigureApplicationExtensions
 
         app.UseAuthentication();
         app.UseAuthorization();
-        
-        app.UseDeveloperExceptionPage();
 
         app.UseMiddleware<UserProviderMiddleware>();
 
