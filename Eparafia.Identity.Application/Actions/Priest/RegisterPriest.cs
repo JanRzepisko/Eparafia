@@ -2,6 +2,9 @@ using Eparafia.Identity.Application.DataAccess;
 using Eparafia.Identity.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
+using Microsoft.OpenApi.Models;
+using Shared.EventBus;
+using Shared.Messages;
 
 namespace Eparafia.Identity.Application.Actions.Priest;
 
@@ -12,10 +15,12 @@ public static class RegisterPriest
     public class Handler : IRequestHandler<Command, Unit>
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IEventBus _eventBus;
 
-        public Handler(IUnitOfWork unitOfWork)
+        public Handler(IUnitOfWork unitOfWork, IEventBus eventBus)
         {
             _unitOfWork = unitOfWork;
+            _eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -26,10 +31,11 @@ public static class RegisterPriest
                 throw new Exception("Priest already exists");
             }
 
+            Guid id = Guid.NewGuid();
             var newPriest = new Eparafia.Identity.Domain.Entities.Priest
             {
                 Email = request.Email,
-                Id = Guid.NewGuid(),
+                Id = id,
                 Name = request.Name,
                 Surname = request.Surname,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
@@ -41,6 +47,15 @@ public static class RegisterPriest
 
             await _unitOfWork.Priests.AddAsync(newPriest, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+            await _eventBus.PublishAsync(new PriestCreatedBusEvent()
+            {
+                PriestId = id,
+                Name = request.Name + " " + request.Surname,
+                PhotoPath = String.Empty,
+                PhotoPathMin = String.Empty
+            }, cancellationToken);
+            
             return Unit.Value;
         }
 
