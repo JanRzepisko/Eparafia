@@ -20,7 +20,7 @@ public static partial class AddSharedServicesExtension
     public static IServiceCollection AddSharedServices<AssemblyEntryPoint, DataContext, UnitOfWork>(this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName) 
         where DataContext : DbContext, UnitOfWork where UnitOfWork : class
     {
-        services.AddMediatR(typeof(AssemblyEntryPoint).GetTypeInfo().Assembly);
+        services.AddMediatR(typeof(AssemblyEntryPoint).Assembly);
         services.AddFluentValidators(typeof(AssemblyEntryPoint).Assembly);
         services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviour<,>));
 
