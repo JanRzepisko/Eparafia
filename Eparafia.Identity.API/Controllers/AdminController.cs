@@ -14,6 +14,7 @@ public class AdminController : BaseApiController
     [HttpPost]
     [Route("Login")]
     public Task<IActionResult> Login(LoginPriest.Query request) => Endpoint(request);
+    
     [HttpPost]
     [Route("RefreshToken")]
     public Task<IActionResult> RefreshToken(RefreshToken.Query request) => Endpoint(request);
