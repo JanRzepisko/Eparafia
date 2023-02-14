@@ -17,8 +17,8 @@ public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest,
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         //Request
-        var ServiceName = typeof(TRequest).GetTypeInfo().Name.Split(".Actions.")[0];
-        var FeatrueName = typeof(TRequest).GetTypeInfo().Name.Split(".Actions.")[1];
+        var ServiceName = typeof(TRequest).GetTypeInfo().FullName.Split(".Actions.")[0];
+        var FeatrueName = typeof(TRequest).GetTypeInfo().FullName.Split(".Actions.")[1];
 
         _logger.LogInformation($"| {ServiceName} | {FeatrueName} | Request | {JsonConvert.SerializeObject(request)}");
         
