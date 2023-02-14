@@ -6,7 +6,7 @@ using Shared.BaseModels.ApiControllerModels;
 namespace Eparafia.Identity.API.Controllers;
 
 [ApiController]
-[Route("Admin")]
+[Route("Priest")]
 public class AdminController : BaseApiController
 {
     public AdminController(IMediator mediator) : base(mediator) { }
