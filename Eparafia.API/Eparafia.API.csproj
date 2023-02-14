@@ -11,8 +11,11 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+<<<<<<< HEAD
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0" />
 
+=======
+>>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e
     </ItemGroup>
 
     <ItemGroup>
