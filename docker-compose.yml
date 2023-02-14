@@ -1,18 +1,18 @@
 version: '3.4'
 
 services:
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: 'RabbitMQ'
-    ports:
-      - 5672:5672
-      - 15672:15672
-    environment:
-      - "RABBITMQ_DEFAULT_PASS=!Malinka@pass"
-      - "RABBITMQ_DEFAULT_USER=Eparafia"
-    volumes:
-      - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-      - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  #rabbitmq:
+  #  image: rabbitmq:3-management-alpine
+  #  container_name: 'RabbitMQ'
+  #  ports:
+  #    - 5672:5672
+  #    - 15672:15672
+  #  environment:
+  #    - "RABBITMQ_DEFAULT_PASS=!Malinka@pass"
+  #    - "RABBITMQ_DEFAULT_USER=Eparafia"
+  #  volumes:
+  #    - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+  #    - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
   eparafia.api:
     container_name: "ParishAPI"

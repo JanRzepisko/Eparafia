@@ -11,6 +11,7 @@ public static partial class AddSwaggerExtension
     {
         services.AddSwaggerGen(c =>
         {
+            c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First()); //This line
 
             c.SwaggerDoc("v1", new OpenApiInfo
             {
@@ -39,7 +40,7 @@ public static partial class AddSwaggerExtension
                     new string[] { }
                 }
             });
-            c.CustomSchemaIds(s => s.Name!.Replace("+", "."));
+            c.CustomSchemaIds(s => s.FullName!.Replace("+", "."));
             c.CustomOperationIds(apiDesc =>
             {
                 var controllerName = apiDesc.TryGetMethodInfo(out MethodInfo methodInfo)
@@ -49,6 +50,7 @@ public static partial class AddSwaggerExtension
             });
             //!!!
         });
+        
         return services;
     }
 }
