@@ -3,17 +3,10 @@
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
-<<<<<<< HEAD
     <ProjectGuid>97a10bb1-b53f-4fcc-a65b-74e3aebc0b54</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/{Scheme}://{ServiceHost}:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>eparafia.identity.api</DockerServiceName>
-=======
-    <ProjectGuid>97aaaa18-f605-4262-aa7e-d6b5ce6e5319</ProjectGuid>
-    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
-    <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>eparafia.api</DockerServiceName>
->>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">

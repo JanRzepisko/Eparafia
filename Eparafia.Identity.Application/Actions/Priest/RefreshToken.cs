@@ -1,11 +1,6 @@
-<<<<<<< HEAD:Eparafia.Identity.Application/Actions/Priest/RefreshToken.cs
-using Eparafia.Application.Services.Jwt;
 using Eparafia.Identity.Application.DataAccess;
 using Eparafia.Identity.Application.Services;
-=======
-using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services.Jwt;
->>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e:Eparafia.Application/Actions/Priest/Query/RefreshToken.cs
 using MediatR;
 using Shared.BaseModels.Exceptions;
 using Shared.BaseModels.Jwt;
