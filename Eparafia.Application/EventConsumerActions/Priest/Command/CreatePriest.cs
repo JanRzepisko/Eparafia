@@ -1,5 +1,6 @@
 using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services.FileManager;
+using Eparafia.Domain.Enums;
 using FluentValidation;
 using MediatR;
 
@@ -26,7 +27,7 @@ public static class CreatePriest
                 Name = request.Name,
                 ParishId = null,
                 PhotoPath = new PhotoPath(request.PhotoPath, request.PhotoPathMin),
-                
+                FunctionParish = FunctionParish.Default,
             };
 
             await _unitOfWork.Priests.AddAsync(newPriest, cancellationToken);
