@@ -3,6 +3,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Shared.BaseModels.Exceptions;
+using Shared.EventBus;
 
 namespace Eparafia.Application.Actions.Priest.Command;
 
@@ -18,7 +19,6 @@ public static class RemovePriest
         {
             _unitOfWork = unitOfWork;
         }
-
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
             _unitOfWork.Priests.RemoveById(request.PriestId);

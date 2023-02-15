@@ -1,4 +1,5 @@
 using Eparafia.Application.DataAccess;
+using Eparafia.Application.EventConsumers;
 using Eparafia.Application.Services;
 using Eparafia.Infrastructure.DataAccess;
 using Eparafia.Infrastructure.Services;
@@ -32,6 +33,13 @@ public class Startup
         services.AddMassTransit(c =>
         { 
             //Add All Consumers
+            c.AddConsumer<PriestCreatedConsumer>();
+            c.AddConsumer<PriestUpdatedConsumer>();
+            c.AddConsumer<PriestRemovedConsumer>();
+            c.AddConsumer<UserCreatedConsumer>();
+            c.AddConsumer<UserUpdatedConsumer>();
+            c.AddConsumer<UserRemovedConsumer>();
+            
             c.BuildRabbitMQ(rabbitMQLogin);
         });
         

@@ -6,6 +6,8 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Shared.BaseModels.Exceptions;
+using Shared.EventBus;
+using Shared.Messages;
 using Shared.Service.Interfaces;
 
 namespace Eparafia.Identity.Application.Actions.Priest;
@@ -19,12 +21,14 @@ public static class UpdatePriest
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserProvider _userProvider;
         private readonly IFileManager _fileManager;
+        private readonly IEventBus _eventBus;
 
-        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IUserProvider userProvider, IFileManager fileManager)
+        public Handler(IUnitOfWork unitOfWork, IUserProvider userProvider, IFileManager fileManager, IEventBus eventBus)
         {
             _unitOfWork = unitOfWork;
             _userProvider = userProvider;
             _fileManager = fileManager;
+            _eventBus = eventBus;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -57,6 +61,14 @@ public static class UpdatePriest
             }
             
             await _unitOfWork.SaveChangesAsync(cancellationToken);
+            await _eventBus.PublishAsync(new PriestUpdatedBusEvent()
+            {
+                PriestId = _userProvider.Id,
+                Name = request.Name + " " + request.Surname,
+                PhotoPath = String.Empty,
+                PhotoPathMin = String.Empty
+            }, cancellationToken);
+            
             return Unit.Value;
         }
 

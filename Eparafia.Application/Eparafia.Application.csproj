@@ -5,11 +5,6 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
-    <ItemGroup>
-      <Folder Include="Actions\Intention\Query" />
-      <Folder Include="EventConsumerActions" />
-    </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Eparafia.Domain\Eparafia.Domain.csproj" />

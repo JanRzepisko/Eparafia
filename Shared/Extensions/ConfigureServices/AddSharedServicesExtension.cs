@@ -20,15 +20,13 @@ public static partial class AddSharedServicesExtension
     public static IServiceCollection AddSharedServices<AssemblyEntryPoint, DataContext, UnitOfWork>(this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName) 
         where DataContext : DbContext, UnitOfWork where UnitOfWork : class
     {
-        services.AddEndpointsApiExplorer();
-        services.AddMediatR(typeof(AssemblyEntryPoint).GetTypeInfo().Assembly);
+        services.AddMediatR(typeof(AssemblyEntryPoint).Assembly);
         services.AddFluentValidators(typeof(AssemblyEntryPoint).Assembly);
         services.AddTransient(typeof(IPipelineBehavior<,>),typeof(ValidationBehaviour<,>));
 
         services.AddDatabase<DataContext, UnitOfWork>(connectionString);
         services.AddFluentValidators(typeof(AssemblyEntryPoint).Assembly);
         services.AddJwtAuthorization(jwtLogin);
-        services.AddSwagger(serviceName);
         services.AddOptions();
 
         services.Configure<ForwardedHeadersOptions>(options =>
@@ -47,15 +45,14 @@ public static partial class AddSharedServicesExtension
         //Add Logging
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
-        services.AddControllers();
-
+        services.AddControllers();;
+        services.AddSwagger(serviceName);
         
         
         //Add Services
         services.AddTransient<IEventBus, EventBus.EventBus>();
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
-        //services.AddScoped<IFileManager, FileManager>();
         
         return services;
     }

@@ -14,18 +14,29 @@ public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest,
         _logger = logger;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         //Request
-        var ServiceName = typeof(TRequest).GetTypeInfo().Name.Split(".Actions.")[0];
-        var FeatrueName = typeof(TRequest).GetTypeInfo().Name.Split(".Actions.")[1];
-
+        string ServiceName = String.Empty;
+        string FeatrueName = String.Empty;
+        if (typeof(TRequest).GetTypeInfo().FullName.Contains(".Actions."))
+        {
+            ServiceName = typeof(TRequest).GetTypeInfo().FullName.Split(".Actions.")[0];
+            FeatrueName = typeof(TRequest).GetTypeInfo().FullName.Split(".Actions.")[1];
+        }
+        else if (typeof(TRequest).GetTypeInfo().FullName.Contains(".EventConsumerActions."))
+        {
+            ServiceName = typeof(TRequest).GetTypeInfo().FullName.Split(".EventConsumerActions.")[0];
+            FeatrueName = typeof(TRequest).GetTypeInfo().FullName.Split(".EventConsumerActions.")[1];
+        }
+        
         _logger.LogInformation($"| {ServiceName} | {FeatrueName} | Request | {JsonConvert.SerializeObject(request)}");
         
         try
         {
             return await next();
-            
+
         }
         catch (Exception ex)
         {
