@@ -1,6 +1,7 @@
 using Eparafia.Identity.Application.Actions.Priest;
 using Eparafia.Identity.Application.Actions.User;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.BaseModels.ApiControllerModels;
 
@@ -8,15 +9,17 @@ namespace Eparafia.Identity.API.Controllers;
 
 [ApiController]
 [Route("User")]
+[Authorize]
 public class UserController : BaseApiController
 {
     public UserController(IMediator mediator) : base(mediator) { }
 
     [HttpPost]
+    [AllowAnonymous]
     [Route("Login")]
     public Task<IActionResult> Login(LoginUser.Query request) => base.Endpoint(request);
     
-    [HttpPost]
+    [HttpPost, AllowAnonymous]
     [Route("RefreshToken")]
     public Task<IActionResult> RefreshToken(RefreshToken.Query request) => base.Endpoint(request);
     
