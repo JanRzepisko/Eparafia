@@ -64,9 +64,9 @@ public static class UpdatePriest
             await _eventBus.PublishAsync(new PriestUpdatedBusEvent()
             {
                 PriestId = _userProvider.Id,
-                Name = request.Name + " " + request.Surname,
-                PhotoPath = String.Empty,
-                PhotoPathMin = String.Empty
+                Name = priest.Name + " " + priest.Surname,
+                PhotoPath = priest.PhotoPath,
+                PhotoPathMin = priest.PhotoPathMin
             }, cancellationToken);
             
             return Unit.Value;

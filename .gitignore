@@ -7,3 +7,9 @@
 /Eparafia.API/Properties
 /.vs/Eparafia
 /.idea
+*/bin
+*/obj
+/.vs
+/.idea
+/bin
+/obj
