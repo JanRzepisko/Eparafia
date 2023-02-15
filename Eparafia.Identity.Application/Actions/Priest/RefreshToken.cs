@@ -10,7 +10,7 @@ namespace Eparafia.Identity.Application.Actions.Priest;
 
 public static class RefreshToken
 {
-    public sealed record Query(string Email, string Password) : IRequest<GeneratedToken>;
+    public sealed record Query() : IRequest<GeneratedToken>;
 
     public class Handler : IRequestHandler<Query, GeneratedToken>
     {
@@ -32,7 +32,6 @@ public static class RefreshToken
             {
                 throw new EntityNotFoundException("Priest not found");
             }
-
             return await _jwtAuth.GenerateJwt(priest, JwtPolicies.Priest);
         }
     }
