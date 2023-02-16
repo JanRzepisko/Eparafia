@@ -6,7 +6,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace Eparafia.Application.Actions.Parish;
 
-public static class AnnouncementsGet
+public static class 
+    
+    
+    
+    
+    
+    AnnouncementsGet
 {
     public sealed record Query(Guid ParishId, int Page) : IRequest<List<Announcement>>;
 

@@ -4,7 +4,7 @@ using MediatR;
 using Microsoft.Extensions.Configuration;
 using Shared.Service.Interfaces;
 
-namespace Eparafia.Application.Actions.Parish.Command;
+namespace Eparafia.Application.Actions.Priest;
 
 public static class AddPriestToParish
 {

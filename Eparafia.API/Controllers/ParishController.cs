@@ -40,16 +40,11 @@ public class ParishController : Controller
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }    
-    [HttpPut("AddPriestToParish")]
-    public async Task<IActionResult> AddPriestToParish(AddPriestToParish.Command command, CancellationToken cancellationToken = default)
+
+    [HttpGet]
+    public async Task<IActionResult> GetParish(CancellationToken cancellationToken = default)
     {
-        await _mediator.Send(command, cancellationToken);
-        return Ok(ApiResponse.Success(200));
-    }
-    [HttpGet("{Id}")]
-    public async Task<IActionResult> GetParish(Guid Id, CancellationToken cancellationToken = default)
-    {
-        var result = await _mediator.Send(new GetParishById.Query(Id), cancellationToken);
+        var result = await _mediator.Send(new GetParishById.Query(), cancellationToken);
         return Ok(ApiResponse.Success(200, result));
     }
 }
