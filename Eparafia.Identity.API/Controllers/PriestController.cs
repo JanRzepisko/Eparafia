@@ -9,9 +9,9 @@ namespace Eparafia.Identity.API.Controllers;
 [ApiController]
 [Route("Priest")]
 [Authorize]
-public class AdminController : BaseApiController
+public class PriestController : BaseApiController
 {
-    public AdminController(IMediator mediator) : base(mediator) { }
+    public PriestController(IMediator mediator) : base(mediator) { }
 
     [HttpPost, AllowAnonymous]
     [Route("Login")]

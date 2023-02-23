@@ -1,20 +1,24 @@
 using Eparafia.Application.Actions.Priest;
 using Eparafia.Application.Actions.Priest.Query;
 using Eparafia.Application.EventConsumerActions.Priest.Command;
+using Eparafia.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.BaseModels.ApiControllerModels;
+using Shared.BaseModels.Jwt;
 
 namespace Eparafia.API.Controllers;
 
 [Route("Priest")]
 [ApiController]
+[Authorize(JwtPolicies.Priest)]
 public class PriestController : BaseApiController
 {
     public PriestController(IMediator mediator) : base(mediator){}
         
     [HttpGet]
-    public async Task<IActionResult> GetById() => await base.Endpoint(new GetPriestById.Query());
+    public async Task<IActionResult> GetById() => await base.Endpoint<Priest>(new GetPriestById.Query());
     
     [HttpGet("FreePriests")]
     public async Task<IActionResult> GetFreePriests(string query, int page) => await base.Endpoint(new GetFreePriests.Query(query, page));    

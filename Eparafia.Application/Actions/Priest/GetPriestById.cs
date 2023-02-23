@@ -22,7 +22,8 @@ public static class GetPriestById
 
         public async Task<Domain.Entities.Priest> Handle(Query request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            return priest;
         }
 
         public sealed class Validator : AbstractValidator<Query>
