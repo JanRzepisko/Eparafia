@@ -33,6 +33,7 @@ public static class CreateParish
             Domain.Entities.Parish parish = new Domain.Entities.Parish()
             {
                 CallName = request.CallName,
+                ShortName = request.CallName.ToLower().Trim(' ') + request.Address.City.ToLower().Trim(' '),
                 Contact = request.Contact,
                 Priests = new List<Domain.Entities.Priest> { priest },
                 Address = request.Address,

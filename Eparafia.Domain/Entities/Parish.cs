@@ -6,6 +6,7 @@ namespace Eparafia.Domain.Entities;
 public class Parish : Entity
 {
     public string? CallName { get; set; }
+    public string? ShortName { get; set; }
     public Address Address { get; set; }
     public Contact Contact { get; set; }
     public ICollection<User>? Users { get; set; }

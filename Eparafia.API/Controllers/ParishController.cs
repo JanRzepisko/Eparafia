@@ -47,4 +47,12 @@ public class ParishController : Controller
         var result = await _mediator.Send(new GetParishById.Query(), cancellationToken);
         return Ok(ApiResponse.Success(200, result));
     }
+    
+    [AllowAnonymous]
+    [HttpGet("GetParishByShortName")]
+    public async Task<IActionResult> GetParishByShortName(string shortName, CancellationToken cancellationToken = default)
+    {
+        var result = await _mediator.Send(new GetParishByShortName.Query(shortName), cancellationToken);
+        return Ok(ApiResponse.Success(200, result));
+    }
 }

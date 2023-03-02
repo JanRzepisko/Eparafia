@@ -8,6 +8,7 @@ public class ParishDTO
 {
     public Guid Id { get; set; }
     public string CallName { get; set; }
+    public string ShortName { get; set; }
     public Contact Contact { get; set; }
     public Address Address { get; set; }
     public List<PublicPriestProfile> Priests { get; set; }
@@ -17,6 +18,7 @@ public class ParishDTO
         return new ParishDTO
         {
             Id = parish.Id,
+            ShortName = parish.ShortName,
             CallName = parish.CallName,
             Contact = parish.Contact,
             Address = parish.Address,

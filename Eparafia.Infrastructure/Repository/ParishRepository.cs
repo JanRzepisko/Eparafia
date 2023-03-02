@@ -15,4 +15,9 @@ public class ParishRepository : BaseRepository<Parish>, IParishRepository
     {
         return _entities.Include(c => c.Priests).FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
+
+    public Task<Parish?> GetByShortName(string shortName, CancellationToken cancellationToken)
+    {
+        return _entities.Include(c => c.Priests).FirstOrDefaultAsync(c => c.ShortName == shortName, cancellationToken);
+    }
 }
