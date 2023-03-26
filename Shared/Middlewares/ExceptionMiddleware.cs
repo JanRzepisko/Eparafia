@@ -26,8 +26,7 @@ public class ExceptionMiddleware
         }
         catch (Exception exception)
         {
-            await ThrowError(context, 500,
-                new Dictionary<string, string[]> { { "Message", new[] { exception.Message } } });
+            await ThrowError(context, 500, new Dictionary<string, string[]> { { "Message", new[] { exception.Message } } });
         }
     }
 
