@@ -5,7 +5,8 @@ using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Identity.Infrastructure.Repository;
 
-public class UserRepository<TEntity> : BaseRepository<TEntity?>, IUserRepository<TEntity> where TEntity : UserModel, new()
+public class UserRepository<TEntity> : BaseRepository<TEntity?>, IUserRepository<TEntity>
+    where TEntity : UserModel, new()
 {
     public UserRepository(DbSet<TEntity>? entities) : base(entities)
     {

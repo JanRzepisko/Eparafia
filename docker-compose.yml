@@ -2,16 +2,16 @@ version: '3.4'
 
 services:
   eparafia.api:
-    container_name: "ParishAPI"
+    container_name: "Eparafia.Parish.API"
     image: ${DOCKER_REGISTRY-}eparafiaapi
     ports:
       - 5002:80
     build:
       context: .
-      dockerfile: Eparafia.API/Dockerfile
+      dockerfile: Eparafia.Parish.API/Dockerfile
 
   eparafia.identity.api:
-    container_name: "IdentityAPI"
+    container_name: "Eparafia.Identity.API"
     image: ${DOCKER_REGISTRY-}eparafiaidentityapi
     ports:
       - 5001:80

@@ -10,5 +10,5 @@ public interface IBaseRepository<TEntity>
     void RemoveById(Guid id);
     void Remove(TEntity entity);
     Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken = default);
-    Task<List<TEntity>> GetPage (int pageNumber, int pageSize, CancellationToken cancellationToken = default);
+    Task<List<TEntity>> GetPage(int pageNumber, int pageSize, CancellationToken cancellationToken = default);
 }

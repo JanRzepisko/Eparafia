@@ -7,12 +7,14 @@ using Shared.BaseModels.Exceptions;
 
 namespace Shared.Extensions;
 
-public static partial class AddFluentValidation
+public static class AddFluentValidation
 {
-    public static IServiceCollection AddFluentValidators(this IServiceCollection services, params Assembly[] validatorsAssemblies)
+    public static IServiceCollection AddFluentValidators(this IServiceCollection services,
+        params Assembly[] validatorsAssemblies)
     {
         services.AddMvc()
-            .AddJsonOptions(c => {
+            .AddJsonOptions(c =>
+            {
                 c.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
                 c.JsonSerializerOptions.MaxDepth = 32;
                 c.JsonSerializerOptions.PropertyNamingPolicy = null;
@@ -20,13 +22,16 @@ public static partial class AddFluentValidation
                 c.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 c.JsonSerializerOptions.WriteIndented = true;
             })
-            .ConfigureApiBehaviorOptions(c => {
-                c.InvalidModelStateResponseFactory = c => {
+            .ConfigureApiBehaviorOptions(c =>
+            {
+                c.InvalidModelStateResponseFactory = c =>
+                {
                     throw new InvalidRequestException(c.ModelState.Keys.Select(a => a)
                         .ToDictionary(a => a, a => c.ModelState[a].Errors.Select(a => a.ErrorMessage).ToArray()));
                 };
             })
-            .AddFluentValidation(c=> {
+            .AddFluentValidation(c =>
+            {
                 c.ImplicitlyValidateChildProperties = true;
                 c.ImplicitlyValidateRootCollectionElements = true;
                 c.RegisterValidatorsFromAssemblies(validatorsAssemblies);

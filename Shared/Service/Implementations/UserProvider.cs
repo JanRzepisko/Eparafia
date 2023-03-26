@@ -1,5 +1,3 @@
-using MySql.Data.MySqlClient;
-using Shared.BaseModels.Exceptions;
 using Shared.Service.Interfaces;
 
 namespace Shared.Service.Implementations;

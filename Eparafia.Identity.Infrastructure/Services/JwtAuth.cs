@@ -11,7 +11,7 @@ namespace Eparafia.Application.Services.Jwt;
 public class JwtAuth : IJwtAuth
 {
     private readonly IConfiguration _configuration;
-    
+
     public JwtAuth(IConfiguration configuration)
     {
         _configuration = configuration;
@@ -19,11 +19,11 @@ public class JwtAuth : IJwtAuth
 
     public Task<GeneratedToken> GenerateJwt(UserModel user, string role)
     {
-        byte[] key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
+        var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
 
         //tu add claims
         //TODO GET CONFIGURATION FORM APPSETINGS    
-        SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(new[]
             {
@@ -40,8 +40,8 @@ public class JwtAuth : IJwtAuth
             (new SymmetricSecurityKey(key),
                 SecurityAlgorithms.HmacSha512Signature)
         };
-        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-        SecurityToken? token = tokenHandler.CreateToken(tokenDescriptor);
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var token = tokenHandler.CreateToken(tokenDescriptor);
         return Task.FromResult(new GeneratedToken(tokenHandler.WriteToken(token)));
     }
 }

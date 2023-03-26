@@ -2,13 +2,12 @@ using Eparafia.Identity.API;
 
 CreateHostBuilder(args).Build().Run();
 
-static IHostBuilder CreateHostBuilder(string[] args) =>
-    Host.CreateDefaultBuilder(args)
+static IHostBuilder CreateHostBuilder(string[] args)
+{
+    return Host.CreateDefaultBuilder(args)
         .ConfigureWebHostDefaults(webBuilder =>
         {
             webBuilder.UseStartup<Startup>();
-            webBuilder.UseKestrel(c =>
-            {
-                c.Limits.MaxRequestBodySize = long.MaxValue;
-            });
+            webBuilder.UseKestrel(c => { c.Limits.MaxRequestBodySize = long.MaxValue; });
         }).UseDefaultServiceProvider(options => options.ValidateScopes = false);
+}

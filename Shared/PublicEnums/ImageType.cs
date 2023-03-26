@@ -6,5 +6,5 @@ public enum ImageType
     PriestAvatar,
     ParishAvatar,
     AnnouncementsPhoto,
-    PostPhoto,
+    PostPhoto
 }
