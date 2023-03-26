@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eparafia.Identity.Domain", 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Identity.UnitTest", "Eparafia.Identity.UnitTest\Eparafia.Identity.UnitTest.csproj", "{FAF377E4-75E2-4F2F-B539-9316EEACDC49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +161,14 @@ Global
 		{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}.Release|x64.ActiveCfg = Release|Any CPU
 		{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}.Release|x64.Build.0 = Release|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Debug|x64.Build.0 = Debug|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Release|x64.ActiveCfg = Release|Any CPU
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +187,7 @@ Global
 		{FC86EAFF-3DDD-498A-8E25-9A231036F5B6} = {8DDC6889-2637-47AF-8827-65A1C167501B}
 		{D1552B98-0CBE-4D29-8E6F-8D56074F00EB} = {8DDC6889-2637-47AF-8827-65A1C167501B}
 		{E2251709-BABA-4A5B-B914-AFF0E5AD8E5D} = {8DDC6889-2637-47AF-8827-65A1C167501B}
+		{FAF377E4-75E2-4F2F-B539-9316EEACDC49} = {8DDC6889-2637-47AF-8827-65A1C167501B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41D0044D-F505-4022-8B69-F04BDBA07675}
