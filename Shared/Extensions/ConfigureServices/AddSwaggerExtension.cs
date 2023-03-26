@@ -1,11 +1,10 @@
-using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Shared.Extensions;
 
-public static partial class AddSwaggerExtension
+public static class AddSwaggerExtension
 {
     public static IServiceCollection AddSwagger(this IServiceCollection services, string serviceName)
     {
@@ -17,7 +16,7 @@ public static partial class AddSwaggerExtension
             {
                 Title = $"Eparafia - {serviceName}", Version = "v1"
             });
-            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey,
@@ -43,7 +42,7 @@ public static partial class AddSwaggerExtension
             c.CustomSchemaIds(s => s.FullName!.Replace("+", "."));
             c.CustomOperationIds(apiDesc =>
             {
-                var controllerName = apiDesc.TryGetMethodInfo(out MethodInfo methodInfo)
+                var controllerName = apiDesc.TryGetMethodInfo(out var methodInfo)
                     ? methodInfo.DeclaringType!.Name
                     : null;
                 return controllerName + "_" + apiDesc.HttpMethod;

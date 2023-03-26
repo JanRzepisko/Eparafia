@@ -8,7 +8,7 @@ namespace Eparafia.Identity.Application.Actions.User;
 
 public static class RemoveUser
 {
-    public sealed record Command() : IRequest<Unit>;
+    public sealed record Command : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -23,11 +23,8 @@ public static class RemoveUser
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            bool exist = await _unitOfWork.Users.ExistsAsync(_userProvider.Id, cancellationToken);
-            if (!exist)
-            {
-                throw new EntityNotFoundException("User not found");
-            }
+            var exist = await _unitOfWork.Users.ExistsAsync(_userProvider.Id, cancellationToken);
+            if (!exist) throw new EntityNotFoundException("User not found");
 
             _unitOfWork.Users.RemoveById(_userProvider.Id);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
@@ -36,10 +33,6 @@ public static class RemoveUser
 
         public sealed class Validator : AbstractValidator<Command>
         {
-            public Validator()
-            {
-                
-            }
         }
     }
 }

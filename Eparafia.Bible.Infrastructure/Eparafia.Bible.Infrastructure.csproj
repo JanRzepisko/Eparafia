@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Eparafia.Bible.Application\Eparafia.Bible.Application.csproj" />
-      <ProjectReference Include="..\Shared\Shared.csproj" />
+        <ProjectReference Include="..\Eparafia.Bible.Application\Eparafia.Bible.Application.csproj"/>
+        <ProjectReference Include="..\Shared\Shared.csproj"/>
     </ItemGroup>
 
 </Project>

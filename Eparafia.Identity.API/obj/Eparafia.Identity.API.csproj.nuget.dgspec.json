@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj": {}
+    "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj": {
+    "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj",
+        "projectUniqueName": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj",
         "projectName": "Eparafia.Identity.API",
-        "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj",
+        "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.API\\Eparafia.Identity.API.csproj",
         "packagesPath": "C:\\Users\\rzeja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.API\\obj\\",
+        "outputPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -27,20 +27,21 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\rzeja\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj"
               },
-              "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj"
               },
-              "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj"
               }
             }
           }
@@ -87,14 +88,14 @@
         }
       }
     },
-    "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj": {
+    "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj",
+        "projectUniqueName": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj",
         "projectName": "Eparafia.Identity.Application",
-        "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj",
+        "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj",
         "packagesPath": "C:\\Users\\rzeja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\obj\\",
+        "outputPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -110,17 +111,18 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\rzeja\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj"
               },
-              "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj"
               }
             }
           }
@@ -154,14 +156,14 @@
         }
       }
     },
-    "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj": {
+    "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj",
+        "projectUniqueName": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj",
         "projectName": "Eparafia.Identity.Domain",
-        "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj",
+        "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj",
         "packagesPath": "C:\\Users\\rzeja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\obj\\",
+        "outputPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -177,14 +179,15 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\rzeja\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj"
               }
             }
           }
@@ -218,14 +221,14 @@
         }
       }
     },
-    "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj": {
+    "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj",
         "projectName": "Eparafia.Identity.Infrastructure",
-        "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj",
+        "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Infrastructure\\Eparafia.Identity.Infrastructure.csproj",
         "packagesPath": "C:\\Users\\rzeja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -241,20 +244,21 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\rzeja\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Application\\Eparafia.Identity.Application.csproj"
               },
-              "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Eparafia.Identity.Domain\\Eparafia.Identity.Domain.csproj"
               },
-              "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj": {
-                "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj"
+              "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj": {
+                "projectPath": "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj"
               }
             }
           }
@@ -288,14 +292,14 @@
         }
       }
     },
-    "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj": {
+    "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj",
+        "projectUniqueName": "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\Shared.csproj",
+        "projectPath": "C:\\Users\\rzeja\\Eparafia\\Shared\\Shared.csproj",
         "packagesPath": "C:\\Users\\rzeja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\rzeja\\EparafiaAPI\\Shared\\obj\\",
+        "outputPath": "C:\\Users\\rzeja\\Eparafia\\Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -311,6 +315,7 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Users\\rzeja\\AppData\\Roaming\\Cosmos User Kit\\packages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -402,6 +407,10 @@
             "Microsoft.EntityFrameworkCore.Relational": {
               "target": "Package",
               "version": "[7.0.0, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.32, )"
             },
             "Newtonsoft.Json": {
               "target": "Package",

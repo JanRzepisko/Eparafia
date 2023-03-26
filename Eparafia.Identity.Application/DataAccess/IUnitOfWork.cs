@@ -5,7 +5,6 @@ namespace Eparafia.Identity.Application.DataAccess;
 
 public interface IUnitOfWork
 {
-    
     IUserRepository<User> Users { get; }
     IUserRepository<Priest> Priests { get; }
     int SaveChanges();

@@ -5,7 +5,8 @@ using Newtonsoft.Json;
 
 namespace Shared.Behaviours;
 
-public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : MediatR.IRequest<TResponse> where TResponse : new ()
+public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : IRequest<TResponse> where TResponse : new()
 {
     private readonly ILogger<LoggingBehaviour<TRequest, TResponse>> _logger;
 
@@ -14,18 +15,28 @@ public class LoggingBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest,
         _logger = logger;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+        CancellationToken cancellationToken)
     {
         //Request
-        var ServiceName = typeof(TRequest).GetTypeInfo().Name.Split(".Actions.")[0];
-        var FeatrueName = typeof(TRequest).GetTypeInfo().Name.Split(".Actions.")[1];
+        var ServiceName = string.Empty;
+        var FeatrueName = string.Empty;
+        if (typeof(TRequest).GetTypeInfo().FullName.Contains(".Actions."))
+        {
+            ServiceName = typeof(TRequest).GetTypeInfo().FullName.Split(".Actions.")[0];
+            FeatrueName = typeof(TRequest).GetTypeInfo().FullName.Split(".Actions.")[1];
+        }
+        else if (typeof(TRequest).GetTypeInfo().FullName.Contains(".EventConsumerActions."))
+        {
+            ServiceName = typeof(TRequest).GetTypeInfo().FullName.Split(".EventConsumerActions.")[0];
+            FeatrueName = typeof(TRequest).GetTypeInfo().FullName.Split(".EventConsumerActions.")[1];
+        }
 
         _logger.LogInformation($"| {ServiceName} | {FeatrueName} | Request | {JsonConvert.SerializeObject(request)}");
-        
+
         try
         {
             return await next();
-            
         }
         catch (Exception ex)
         {

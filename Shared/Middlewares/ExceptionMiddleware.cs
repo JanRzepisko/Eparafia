@@ -1,12 +1,14 @@
 using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Shared.BaseModels.ApiControllerModels;
 using Shared.BaseModels.Exceptions;
-using Newtonsoft.Json;
 
 namespace Shared.PublicMiddlewares;
+
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
+
     public ExceptionMiddleware(RequestDelegate next)
     {
         _next = next;
@@ -18,21 +20,22 @@ public class ExceptionMiddleware
         {
             await _next(context);
         }
-        catch(BaseException baseAppException)
+        catch (BaseException baseAppException)
         {
             await ThrowError(context, baseAppException.StatusCodeToRise, baseAppException.Errors);
         }
-        catch(Exception exception)
+        catch (Exception exception)
         {
-            await ThrowError(context, 500, new Dictionary<string, string[]> { { "Message", new string[] { exception.Message } } });
+            await ThrowError(context, 500,
+                new Dictionary<string, string[]> { { "Message", new[] { exception.Message } } });
         }
     }
 
-    private static Task ThrowError(HttpContext context, int statusCode, Dictionary<string,string[]> errors)
+    private static Task ThrowError(HttpContext context, int statusCode, Dictionary<string, string[]> errors)
     {
         var response = context.Response;
         response.ContentType = "application/json";
         response.StatusCode = statusCode;
-        return response.WriteAsync(JsonConvert.SerializeObject(ApiResponse.Failure(statusCode,errors)));
+        return response.WriteAsync(JsonConvert.SerializeObject(ApiResponse.Failure(statusCode, errors)));
     }
 }

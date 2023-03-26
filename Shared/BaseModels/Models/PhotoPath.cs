@@ -10,12 +10,13 @@ public class PhotoPath : ValueObject
 
     public PhotoPath()
     {
-        PathMin = String.Empty;
-        Path = String.Empty;
+        PathMin = string.Empty;
+        Path = string.Empty;
     }
 
     public string Path { get; set; }
     public string PathMin { get; set; }
+
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Path;

@@ -1,4 +1,5 @@
 namespace Eparafia.Identity.Domain.ValueObjects;
+
 public sealed class Contact : ValueObject
 {
     public Contact(string phoneNumber, string email)
@@ -14,6 +15,5 @@ public sealed class Contact : ValueObject
     {
         yield return PhoneNumber;
         yield return Email;
-
     }
 }

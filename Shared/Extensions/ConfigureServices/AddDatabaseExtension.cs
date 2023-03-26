@@ -3,9 +3,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Shared.Extensions;
 
-public static partial class AddDatabaseExtension
+public static class AddDatabaseExtension
 {
-    public static IServiceCollection AddDatabase<DataContext, UnitOfWork>(this IServiceCollection services, string connectionString) 
+    public static IServiceCollection AddDatabase<DataContext, UnitOfWork>(this IServiceCollection services,
+        string connectionString)
         where DataContext : DbContext, UnitOfWork where UnitOfWork : class
     {
         services.AddDbContext<DataContext>(options =>
@@ -14,7 +15,7 @@ public static partial class AddDatabaseExtension
         });
         services.AddScoped<DbContext, DataContext>();
         services.AddScoped<UnitOfWork>(provider => provider.GetService<DataContext>()!);
-        
+
         return services;
     }
 }

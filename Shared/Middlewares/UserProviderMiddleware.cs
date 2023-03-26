@@ -1,8 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Shared.BaseModels.ApiControllerModels;
-using Shared.BaseModels.Exceptions;
-using Newtonsoft.Json;
 using Shared.Service.Interfaces;
 
 namespace Shared.PublicMiddlewares;

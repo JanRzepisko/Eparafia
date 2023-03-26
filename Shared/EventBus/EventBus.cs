@@ -11,5 +11,8 @@ public class EventBus : IEventBus
         _publishEndpoint = publishEndpoint;
     }
 
-    public Task PublishAsync<T>(T message, CancellationToken cancellationToken) where T : class => _publishEndpoint.Publish<T>(message, cancellationToken);
+    public Task PublishAsync<T>(T message, CancellationToken cancellationToken) where T : class
+    {
+        return _publishEndpoint.Publish(message, cancellationToken);
+    }
 }

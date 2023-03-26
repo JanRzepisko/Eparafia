@@ -1,17 +1,12 @@
-using System.Reflection;
 using System.Text;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Shared.BaseModels.Jwt;
 
 namespace Shared.Extensions;
 
-public static partial class AddJwtAuthorizationExtension
+public static class AddJwtAuthorizationExtension
 {
     public static IServiceCollection AddJwtAuthorization(this IServiceCollection services, JwtLogin jwtLogin)
     {
