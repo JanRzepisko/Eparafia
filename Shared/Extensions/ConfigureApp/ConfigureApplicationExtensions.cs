@@ -21,15 +21,16 @@ public static class ConfigureApplicationExtensions
             ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
         });
 
-        app.UseAuthentication();
-        app.UseAuthorization();
         app.UseDeveloperExceptionPage();
-        app.UseMiddleware<ExceptionMiddleware>();
 
-        app.UseMiddleware<UserProviderMiddleware>();
         app.UseRouting();
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<UserProviderMiddleware>();
+
 
         app.UseEndpoints(endpoints =>
         {
