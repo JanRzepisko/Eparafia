@@ -70,8 +70,14 @@ public static class UpdatePriest
             return Unit.Value;
         }
 
-        public sealed class Validator : AbstractValidator<Command>
+        public class Validator : AbstractValidator<Command>
         {
+            public Validator()
+            {
+                RuleFor(c => c.Name).MinimumLength(3).MaximumLength(20).NotNull().NotEmpty();
+                RuleFor(c => c.Surname).MinimumLength(3).MaximumLength(20).NotNull().NotEmpty();
+                RuleFor(c => c.Email).EmailAddress().NotNull().NotEmpty();
+            }
         }
     }
 }

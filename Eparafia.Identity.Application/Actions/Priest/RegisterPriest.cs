@@ -56,20 +56,21 @@ public static class RegisterPriest
             return Unit.Value;
         }
 
-        public sealed class Validator : AbstractValidator<Command>
+        public class Validator : AbstractValidator<Command>
         {
             public Validator()
             {
-                RuleFor(c => c.Name).MinimumLength(3).MaximumLength(20);
-                RuleFor(c => c.Surname).MinimumLength(3).MaximumLength(20);
-                RuleFor(c => c.Email).EmailAddress();
-                RuleFor(c => c.Password).Equal(c => c.ConfirmPassword);
+                RuleFor(c => c.Name).MinimumLength(3).MaximumLength(20).NotNull().NotEmpty();
+                RuleFor(c => c.Surname).MinimumLength(3).MaximumLength(20).NotNull().NotEmpty();
+                RuleFor(c => c.Email).EmailAddress().NotNull().NotEmpty();
+                RuleFor(c => c.Password).Equal(c => c.ConfirmPassword).NotNull().NotEmpty();
                 RuleFor(c => c.Password)
                     .MinimumLength(8)
                     .Matches("[A-Z]")
                     .Matches("[a-z]")
                     .Matches("[0-9]")
-                    .Matches("[^a-zA-Z0-9]");
+                    .Matches("[^a-zA-Z0-9]")
+                    .NotNull().NotEmpty();
             }
         }
     }

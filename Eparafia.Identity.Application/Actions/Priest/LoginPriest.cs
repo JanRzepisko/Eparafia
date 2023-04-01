@@ -29,9 +29,8 @@ public static class LoginPriest
             if (!BCrypt.Net.BCrypt.Verify(request.Password, priest.PasswordHash)) throw new BadPassword("Bad password");
             if (!priest.IsActive)
             {
-                //throw new InvalidRequestException("Priest is not active");
+                throw new InvalidRequestException("Priest is not active");
             }
-
 
             return await _jwtAuth.GenerateJwt(priest, JwtPolicies.Priest);
         }
