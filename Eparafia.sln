@@ -39,6 +39,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eparafia.Identity.Domain", 
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Administration", "Administration", "{6883A9BF-EC93-461A-9C3D-258BBF0C2931}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Administration.Application", "Eparafia.Administration.Application\Eparafia.Administration.Application.csproj", "{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Administration.Infrastructure", "Eparafia.Administration.Infrastructure\Eparafia.Administration.Infrastructure.csproj", "{8C0565B1-74DB-4301-AFB5-E6996298006A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Administration.Domain", "Eparafia.Administration.Domain\Eparafia.Administration.Domain.csproj", "{589A2B2B-193C-43EF-9843-DA285D0D4D22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eparafia.Administration.API", "Eparafia.Administration.API\Eparafia.Administration.API.csproj", "{FF220299-AA8C-49F7-8DE6-1B39B046FF78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -159,6 +169,38 @@ Global
 		{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}.Release|Any CPU.Build.0 = Release|Any CPU
 		{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}.Release|x64.ActiveCfg = Release|Any CPU
 		{97A10BB1-B53F-4FCC-A65B-74E3AEBC0B54}.Release|x64.Build.0 = Release|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Debug|x64.Build.0 = Debug|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Release|x64.ActiveCfg = Release|Any CPU
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A}.Release|x64.Build.0 = Release|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Debug|x64.Build.0 = Debug|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Release|x64.ActiveCfg = Release|Any CPU
+		{8C0565B1-74DB-4301-AFB5-E6996298006A}.Release|x64.Build.0 = Release|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Debug|x64.Build.0 = Debug|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Release|x64.ActiveCfg = Release|Any CPU
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22}.Release|x64.Build.0 = Release|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Debug|x64.Build.0 = Debug|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Release|x64.ActiveCfg = Release|Any CPU
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -177,6 +219,10 @@ Global
 		{FC86EAFF-3DDD-498A-8E25-9A231036F5B6} = {8DDC6889-2637-47AF-8827-65A1C167501B}
 		{D1552B98-0CBE-4D29-8E6F-8D56074F00EB} = {8DDC6889-2637-47AF-8827-65A1C167501B}
 		{E2251709-BABA-4A5B-B914-AFF0E5AD8E5D} = {8DDC6889-2637-47AF-8827-65A1C167501B}
+		{3DE89BF5-EBD3-4DD5-A133-C23D5254311A} = {6883A9BF-EC93-461A-9C3D-258BBF0C2931}
+		{8C0565B1-74DB-4301-AFB5-E6996298006A} = {6883A9BF-EC93-461A-9C3D-258BBF0C2931}
+		{589A2B2B-193C-43EF-9843-DA285D0D4D22} = {6883A9BF-EC93-461A-9C3D-258BBF0C2931}
+		{FF220299-AA8C-49F7-8DE6-1B39B046FF78} = {6883A9BF-EC93-461A-9C3D-258BBF0C2931}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41D0044D-F505-4022-8B69-F04BDBA07675}
