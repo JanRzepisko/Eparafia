@@ -7,8 +7,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="MassTransit" Version="8.0.13-develop.918" />
+        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0" />
+    </ItemGroup>
+    
+    <ItemGroup>
       <ProjectReference Include="..\Eparafia.Administration.Application\Eparafia.Administration.Application.csproj" />
       <ProjectReference Include="..\Eparafia.Administration.Infrastructure\Eparafia.Administration.Infrastructure.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>

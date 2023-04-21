@@ -1,11 +1,11 @@
 using Eparafia.Administration.Application;
 using Eparafia.Administration.Application.DataAccess;
-using Eparafia.Administration.Infrastructure.DataAccess;
+using Eparafia.Administration.Infrastructure;
 using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
-
-namespace Eparafia.API;
+//TODO remove package get form shared
+namespace Eparafia.Administration.API;
 
 public class Startup
 {
@@ -32,6 +32,5 @@ public class Startup
             c.BuildRabbitMQ(rabbitMQLogin);
         });
     }
-
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) => app.ConfigureApplication(Configuration);
 }

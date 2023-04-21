@@ -1,5 +1,5 @@
 
-using Eparafia.API;
+using Eparafia.Administration.API;
 
 CreateHostBuilder(args).Build().Run();
 

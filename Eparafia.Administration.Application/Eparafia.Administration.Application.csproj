@@ -8,10 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Eparafia.Administration.Domain\Eparafia.Administration.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Actions" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>
