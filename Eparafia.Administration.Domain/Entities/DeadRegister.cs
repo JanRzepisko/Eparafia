@@ -5,6 +5,6 @@ namespace Eparafia.Administration.Domain.Entities;
 
 public class DeadRegister : RegisterModel
 {
-    public Person Client { get; set; }
+    public BaptismParent Client { get; set; }
     
 }

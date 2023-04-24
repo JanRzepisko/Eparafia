@@ -5,6 +5,6 @@ namespace Eparafia.Administration.Domain.Entities;
 
 public class WeddingRegister : RegisterModel
 {
-    public Person Bride { get; set; }
-    public Person Groom { get; set; }
+    public BaptismParent Bride { get; set; }
+    public BaptismParent Groom { get; set; }
 }

@@ -7,5 +7,5 @@ public class RegisterModel : Entity
 {
     public DateTime DateOfSacrament { get; set; }
     public string Comments { get; set; }
-    public Person Priest { get; set; }
+    public BaptismParent Priest { get; set; }
 }

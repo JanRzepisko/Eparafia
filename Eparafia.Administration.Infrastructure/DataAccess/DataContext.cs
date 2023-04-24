@@ -3,14 +3,14 @@ using Eparafia.Administration.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Shared.BaseModels.BaseEntities;
 
-namespace Eparafia.Administration.Infrastructure;
+namespace Eparafia.Administration.Infrastructure.DataAccess;
 
 public sealed class DataContext : DbContext, IUnitOfWork
 {
     private DbSet<BaptismRegister> _baptismRegister { get; set; }
     private DbSet<WeddingRegister> _weddingRegister { get; set; }
     private DbSet<DeadRegister> _deadRegister { get; set; }
-    private DbSet<Parish> _parish { get; set; 
+    private DbSet<Parish> _parish { get; set; }
 
     public DataContext(DbContextOptions<DataContext> options) : base(options)
     {
@@ -28,6 +28,9 @@ public sealed class DataContext : DbContext, IUnitOfWork
         modelBuilder.Entity<BaptismRegister>().OwnsOne(x => x.Mother);
         modelBuilder.Entity<BaptismRegister>().OwnsOne(x => x.Godfather);
         modelBuilder.Entity<BaptismRegister>().OwnsOne(x => x.Godmother);
+        modelBuilder.Entity<BaptismRegister>().OwnsOne(x => x.ActId);
+        modelBuilder.Entity<BaptismRegister>().OwnsOne(x => x.SacramentalApprove);
+
         modelBuilder.Entity<WeddingRegister>().OwnsOne(x => x.Bride);
         modelBuilder.Entity<WeddingRegister>().OwnsOne(x => x.Groom);
         modelBuilder.Entity<DeadRegister>().OwnsOne(x => x.Client);

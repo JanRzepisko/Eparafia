@@ -2,13 +2,15 @@ using Eparafia.Administration.Domain.Enums;
 
 namespace Eparafia.Administration.Domain.ValueObjects;
 
-public class Person : ValueObject
+public class BaptismParent : ValueObject
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public DateOnly DateOfBirth { get; set; }
     public string CityOfBirth { get; set; }
     public Confession Confession { get; set; }
+    public string Job { get; set; }
+    public string Address { get; set; }
     
     protected override IEnumerable<object> GetEqualityComponents()
     {
@@ -17,5 +19,7 @@ public class Person : ValueObject
         yield return DateOfBirth;
         yield return CityOfBirth;
         yield return Confession;
+        yield return Job;
+        yield return Address;
     }
 }

@@ -1,6 +1,7 @@
 using Eparafia.Administration.Application;
 using Eparafia.Administration.Application.DataAccess;
 using Eparafia.Administration.Infrastructure;
+using Eparafia.Administration.Infrastructure.DataAccess;
 using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
