@@ -1,9 +1,12 @@
+using System.Net;
+using System.Text;
 using Eparafia.Application.Enums;
 using Eparafia.Application.Services.FileManager;
 using Microsoft.Extensions.Configuration;
 using Rebex.Net;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
+using System;
 
 namespace Shared.Service.Implementations;
 
@@ -73,14 +76,25 @@ public class FileManager : IFileManager
 
     private async Task UploadFiles(ImageType imageType, Guid imageId)
     {
-        Sftp client = new Sftp();
-        client.Connect("localhost", 22);
-        client.Login("malinkaftp", "!Malinka@pass");
         
-        client.PutFileAsync(FactoryLocalFilePath(imageType, imageId), FactoryFilePath(imageType, imageId));
-        client.PutFileAsync(FactoryLocalFilePathMin(imageType, imageId), FactoryLocalFilePathMin(imageType, imageId));
+        var ftpRequest = (FtpWebRequest)WebRequest.Create("ftp://localhost:21/var/www/html/eparafia");
 
-        client.Disconnect();
+        ftpRequest.Credentials = new NetworkCredential("malinkaftp", "!Malinka@pass");
+        ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+
+        byte[] fileContent;
+
+        using (var sr = new StreamReader(FactoryLocalFilePath(imageType, imageId)))
+        {
+            fileContent = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync()); 
+        }
+
+        await using (var sw = ftpRequest.GetRequestStream())
+        {
+            await sw.WriteAsync(fileContent);
+        }
+
+        await ftpRequest.GetResponseAsync();
     }
 
     private string FactoryFilePath(ImageType imageType, Guid imageId) => $"{_imagePath}/{_DictionaryNames[imageType]}/{imageId}.{_imageExtension}";
