@@ -77,7 +77,7 @@ public class FileManager : IFileManager
     private async Task UploadFiles(ImageType imageType, Guid imageId)
     {
         
-        var ftpRequest = (FtpWebRequest)WebRequest.Create("ftp://localhost:21/var/www/html/eparafia");
+        var ftpRequest = (FtpWebRequest)WebRequest.Create("ftp://192.168.1.100:21/var/www/html/eparafia");
 
         ftpRequest.Credentials = new NetworkCredential("malinkaftp", "!Malinka@pass");
         ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
