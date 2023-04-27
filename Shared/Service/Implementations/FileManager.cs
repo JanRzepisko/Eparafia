@@ -7,6 +7,7 @@ using Rebex.Net;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Processing;
 using System;
+using Renci.SshNet;
 
 namespace Shared.Service.Implementations;
 
@@ -56,7 +57,7 @@ public class FileManager : IFileManager
 
         await image.SaveAsWebpAsync(FactoryLocalFilePathMin(imageType, imageId), cancellationToken);
 
-        await UploadFiles(imageType, imageId);
+        await UploadFile(imageType, imageId);
         RemoveLocalImage(imageType, imageId);
         
         return Tuple.Create(FactoryFilePath(imageType, imageId), FactoryFilePathMin(imageType, imageId));
@@ -74,11 +75,9 @@ public class FileManager : IFileManager
         File.Delete(FactoryLocalFilePathMin(imageType, imageId));
     }
 
-    private async Task UploadFiles(ImageType imageType, Guid imageId)
+    private async Task UploadFile(ImageType imageType, Guid imageId)
     {
-        
-        var ftpRequest = (FtpWebRequest)WebRequest.Create("ftp://192.168.1.100:21/../../var/www/html/eparafia");
-
+        var ftpRequest = (FtpWebRequest)WebRequest.Create($"ftp://192.168.1.100:21/{FactoryFilePath(imageType, imageId)}");
         ftpRequest.Credentials = new NetworkCredential("malinkaftp", "!Malinka@pass");
         ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
 
@@ -93,8 +92,15 @@ public class FileManager : IFileManager
         {
             await sw.WriteAsync(fileContent);
         }
+        
+        ///
 
-        await ftpRequest.GetResponseAsync();
+        using(var ssh = new SshClient("192.168.1.100", "ubuntu", "!Malinka@pass"))
+        {
+            ssh.Connect();
+            var result = ssh.RunCommand($"sudo chmod 777 {FactoryFilePath(imageType, imageId)}");
+            ssh.Disconnect();
+        }
     }
 
     private string FactoryFilePath(ImageType imageType, Guid imageId) => $"{_imagePath}/{_DictionaryNames[imageType]}/{imageId}.{_imageExtension}";
