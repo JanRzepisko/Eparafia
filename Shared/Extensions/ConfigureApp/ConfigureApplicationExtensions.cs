@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Shared.PublicMiddlewares;
 
-namespace Shared.Extensions;
+namespace Shared.Extensions.ConfigureApp;
 
 public static class ConfigureApplicationExtensions
 {

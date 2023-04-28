@@ -7,6 +7,7 @@ using Eparafia.Infrastructure.Services;
 using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
+using Shared.Extensions.ConfigureApp;
 
 namespace Eparafia.API;
 
@@ -23,6 +24,7 @@ public class Startup
     {
         var connectionString = Configuration["ConnectionString"];
         var serviceName = Configuration["ServiceName"];
+        
         var rabbitMQLogin = RabbitMQLogin.FromConfiguration(Configuration);
 
         //Configure Service
