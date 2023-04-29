@@ -22,6 +22,7 @@ public static class ConfigureApplicationExtensions
         });
 
         app.UseDeveloperExceptionPage();
+        app.UseMiddleware<ExceptionMiddleware>();
 
         app.UseRouting();
         app.UseSwagger();
@@ -30,7 +31,6 @@ public static class ConfigureApplicationExtensions
         app.UseAuthorization();
         app.UseMiddleware<ExceptionMiddleware>();
         app.UseMiddleware<UserProviderMiddleware>();
-
 
         app.UseEndpoints(endpoints =>
         {
