@@ -12,7 +12,7 @@ public class FtpLogin
         new()
         {
             Username = cfg["Ftp:UserName"]!,
-            Password = cfg["Password"]!,
-            HostName = cfg["HostName"]!
+            Password = cfg["Ftp:Password"]!,
+            HostName = cfg["Ftp:HostName"]!,
         };
 }

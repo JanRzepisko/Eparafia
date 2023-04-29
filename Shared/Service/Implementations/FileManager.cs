@@ -1,5 +1,4 @@
 using System.Net;
-using System.Text;
 using Eparafia.Application.Enums;
 using Microsoft.Extensions.Configuration;
 using SixLabors.ImageSharp;
@@ -46,7 +45,7 @@ public class FileManager : IFileManager
             image = await Image.LoadAsync(ms, cancellationToken);
         }
 
-        await image.SaveAsWebpAsync(FactoryLocalFilePath(imageType, imageId), cancellationToken);
+        await image.SaveAsJpegAsync(FactoryLocalFilePath(imageType, imageId), cancellationToken);
         image.Mutate(x => x
             .Resize(new ResizeOptions
             {
@@ -54,12 +53,13 @@ public class FileManager : IFileManager
                 Size = new Size(ImageSizeMin, ImageSizeMin)
             }));
 
-        await image.SaveAsWebpAsync(FactoryLocalFilePathMin(imageType, imageId), cancellationToken);
+        await image.SaveAsJpegAsync(FactoryLocalFilePathMin(imageType, imageId), cancellationToken);
 
         await UploadFile(imageType, imageId);
+        await UploadFileMin(imageType, imageId);
         RemoveLocalImage(imageType, imageId);
         
-        return Tuple.Create(FactoryFilePath(imageType, imageId), FactoryFilePathMin(imageType, imageId));
+        return Tuple.Create(FactoryOutPutPath(FactoryFilePath(imageType, imageId), imageType), FactoryOutPutPath(FactoryFilePathMin(imageType, imageId), imageType));
     }
 
     public void RemoveImage(ImageType imageType, Guid imageId, CancellationToken cancellationToken)
@@ -79,30 +79,47 @@ public class FileManager : IFileManager
         var ftpRequest = (FtpWebRequest)WebRequest.Create($"{_ftpLogin.HostName}/{FactoryFilePath(imageType, imageId)}");
         ftpRequest.Credentials = new NetworkCredential(_ftpLogin.Username, _ftpLogin.Password);
         ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
-
-        byte[] fileContent;
-
-        using (var sr = new StreamReader(FactoryLocalFilePath(imageType, imageId)))
-        {
-            fileContent = Encoding.UTF8.GetBytes(await sr.ReadToEndAsync()); 
-        }
-
-        await using (var sw = ftpRequest.GetRequestStream())
-        {
-            await sw.WriteAsync(fileContent);
-        }
         
+        var file = await File.ReadAllBytesAsync(FactoryLocalFilePath(imageType, imageId));
+        var sr = ftpRequest.GetRequestStream();
+        sr.WriteAsync(file, 0, file.Length);
+        sr.Close();
+        var response = (FtpWebResponse)ftpRequest.GetResponse();
+        response.Close();
+
         //Use ssh to add perms for nginx
 
-        using(var ssh = new SshClient("192.168.1.100", "ubuntu", "!Malinka@pass"))
-        {
-            ssh.Connect();
-            ssh.RunCommand($"sudo chmod 777 {FactoryFilePath(imageType, imageId)}");
-            ssh.Disconnect();
-        }
+        using var ssh = new SshClient("192.168.1.100", "ubuntu", "!Malinka@pass");
+        ssh.Connect();
+        ssh.RunCommand($"sudo chmod 777 {FactoryFilePath(imageType, imageId)}");
+        ssh.Disconnect();
     }
+    
+    
+    private async Task UploadFileMin(ImageType imageType, Guid imageId)
+    {
+        var ftpRequest = (FtpWebRequest)WebRequest.Create($"{_ftpLogin.HostName}/{FactoryFilePathMin(imageType, imageId)}");
+        ftpRequest.Credentials = new NetworkCredential(_ftpLogin.Username, _ftpLogin.Password);
+        ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+        
+        var file = await File.ReadAllBytesAsync(FactoryLocalFilePathMin(imageType, imageId));
+        var sr = ftpRequest.GetRequestStream();
+        sr.WriteAsync(file, 0, file.Length);
+        sr.Close();
+        var response = (FtpWebResponse)ftpRequest.GetResponse();
+        response.Close();
+
+        //Use ssh to add perms for nginx
+
+        using var ssh = new SshClient("192.168.1.100", "ubuntu", "!Malinka@pass");
+        ssh.Connect();
+        ssh.RunCommand($"sudo chmod 777 {FactoryFilePathMin(imageType, imageId)}");
+        ssh.Disconnect();
+    }
+
+    private string FactoryOutPutPath(string fileName, ImageType imageType) => $"{_dictionaryNames[imageType]}{fileName.Split(_dictionaryNames[imageType])[1]}";
     private string FactoryFilePath(ImageType imageType, Guid imageId) => $"{_imagePath}/{_dictionaryNames[imageType]}/{imageId}.{_imageExtension}";
     private string FactoryFilePathMin(ImageType imageType, Guid imageId) => $"{_imagePath}/{_dictionaryNames[imageType]}/{imageId}{MinifiedImageName}.{_imageExtension}";
-    private string FactoryLocalFilePath(ImageType imageType, Guid imageId) => $"/{_dictionaryNames[imageType]}-{imageId}.{_imageExtension}";
+    private string FactoryLocalFilePath(ImageType imageType, Guid imageId) => $"{_dictionaryNames[imageType]}-{imageId}.{_imageExtension}";
     private string FactoryLocalFilePathMin(ImageType imageType, Guid imageId) => $"{_dictionaryNames[imageType]}-{imageId}{MinifiedImageName}.{_imageExtension}";
 }

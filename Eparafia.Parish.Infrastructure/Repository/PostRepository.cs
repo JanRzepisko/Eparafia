@@ -15,6 +15,8 @@ public class PostRepository : BaseRepository<Post>, IPostRepository
     {
         return _entities.Where(c => c.ParishId == parishId)
             .OrderByDescending(c => c.PublishDate)
+            .Include(c => c.Author)
+            .Include(c => c.Files)
             .Skip(page * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);

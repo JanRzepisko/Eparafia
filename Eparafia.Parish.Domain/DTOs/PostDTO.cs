@@ -20,7 +20,7 @@ public class PostDTO
             Content = post.Content,
             AuthorId = post.AuthorId,
             Author = post.Author,
-            Files = post.Files.Select(PostFileDTO.FromEntity).ToList()
+            Files = post.Files.Select(PostFileDTO.FromEntity).ToList(),
         };
     }
 }

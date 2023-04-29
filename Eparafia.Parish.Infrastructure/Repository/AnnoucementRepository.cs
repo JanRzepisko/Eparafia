@@ -23,4 +23,12 @@ public class AnnouncementRepository : BaseRepository<Announcement>, IAnnouncemen
             .Take(pageSize)
             .ToListAsync(cancellationToken);
     }
+    
+    public Task<Announcement> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return _entities
+            .Include(c => c.AnnouncementsRecords)
+            .AsQueryable()
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
+    }
 }

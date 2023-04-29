@@ -7,4 +7,6 @@ public interface IAnnouncementRepository : IBaseRepository<Announcement>
 {
     Task<List<Announcement>> GetLatestAnnouncements(Guid parishId, int page, int pageSize,
         CancellationToken cancellationToken);
+    
+    Task<Announcement> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 }
