@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Shared.PublicMiddlewares;
 
-namespace Shared.Extensions;
+namespace Shared.Extensions.ConfigureApp;
 
 public static class ConfigureApplicationExtensions
 {
@@ -21,15 +21,16 @@ public static class ConfigureApplicationExtensions
             ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
         });
 
-        app.UseAuthentication();
-        app.UseAuthorization();
         app.UseDeveloperExceptionPage();
         app.UseMiddleware<ExceptionMiddleware>();
 
-        app.UseMiddleware<UserProviderMiddleware>();
         app.UseRouting();
         app.UseSwagger();
         app.UseSwaggerUI();
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseMiddleware<UserProviderMiddleware>();
 
         app.UseEndpoints(endpoints =>
         {

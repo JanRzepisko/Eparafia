@@ -17,10 +17,18 @@ public class AnnouncementRepository : BaseRepository<Announcement>, IAnnouncemen
         return _entities
             .Include(c => c.AnnouncementsRecords)
             .AsQueryable()
-            .Where(c => c.ParishId == parishId && c.PublishDate < DateTime.Today)
+            .Where(c => c.ParishId == parishId && c.PublishDate < DateTime.Now)
             .OrderByDescending(c => c.PublishDate)
             .Skip(page * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);
+    }
+    
+    public Task<Announcement> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+    {
+        return _entities
+            .Include(c => c.AnnouncementsRecords)
+            .AsQueryable()
+            .FirstOrDefaultAsync(c => c.Id == id, cancellationToken);
     }
 }
