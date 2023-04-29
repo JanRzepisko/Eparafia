@@ -2,6 +2,7 @@ using Eparafia.Bible.Application.DataAccess;
 using Eparafia.Bible.Infrastructure.DataAccess;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
+using Shared.Extensions.ConfigureApp;
 
 namespace Eparafia.Bible.API;
 

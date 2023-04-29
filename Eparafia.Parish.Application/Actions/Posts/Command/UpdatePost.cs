@@ -6,6 +6,7 @@ using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
 using Shared.BaseModels.Exceptions;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Application.Actions.Parish;
 

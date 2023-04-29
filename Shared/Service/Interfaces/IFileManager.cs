@@ -1,6 +1,6 @@
 using Eparafia.Application.Enums;
 
-namespace Eparafia.Application.Services.FileManager;
+namespace Shared.Service.Interfaces;
 
 public interface IFileManager
 {

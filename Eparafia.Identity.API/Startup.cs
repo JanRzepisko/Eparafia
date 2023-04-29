@@ -6,6 +6,7 @@ using Eparafia.Identity.Infrastructure.DataAccess;
 using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
+using Shared.Extensions.ConfigureApp;
 
 namespace Eparafia.Identity.API;
 
