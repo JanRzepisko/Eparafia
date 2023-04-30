@@ -3,8 +3,8 @@ using Eparafia.Administration.Domain.ValueObjects;
 
 namespace Eparafia.Administration.Domain.Entities;
 
-public class DeadRegister : RegisterModel
+public class WeddingRegister : RegisterModel
 {
-    public BaptismParent Client { get; set; }
-    
+    public Guid Bride { get; set; }
+    public Guid Groom { get; set; }
 }
