@@ -34,6 +34,18 @@ public static class AnnouncementsUpdate
                 Id = c.Id,
                 AnnouncementId = announcements.Id
             }).ToList();
+
+            foreach (var item in announcements.AnnouncementsRecords)
+            {
+                _unitOfWork.AnnouncementsRecords.Remove(item);
+            }
+
+            foreach (var item in request.Records)
+            {
+                item.AnnouncementId = announcements.Id;
+                await _unitOfWork.AnnouncementsRecords.AddAsync(item, cancellationToken);
+            }
+            
             announcements.Title = request.Title ?? announcements.Title;
             announcements.PublishDate = request.Date ?? announcements.PublishDate;
             announcements.AuthorId = _userProvider.Id;
