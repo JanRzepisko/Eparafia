@@ -3,7 +3,7 @@ using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Domain.Entities.ParishRecord;
 
-public class Home : Entity
+public class HomeRecord : Entity
 {
     public Parish Parish { get; set; }
     public Guid ParishId { get; set; }

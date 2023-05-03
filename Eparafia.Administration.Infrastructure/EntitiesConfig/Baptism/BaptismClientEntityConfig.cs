@@ -1,5 +1,4 @@
 using Eparafia.Administration.Domain.Entities;
-using Eparafia.Administration.Domain.Entities.BaptismEntities;
 using Eparafia.Administration.Domain.Entities.BaptismParents;
 using Eparafia.Administration.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;

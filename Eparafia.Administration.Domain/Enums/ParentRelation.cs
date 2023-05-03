@@ -5,6 +5,5 @@ public enum ParentRelation
     CatholicMarriage,
     NonCatholicMarriage,
     CivilMarriage,
-    UnmarriedCouple,
-
+    UnmarriedCouple
 }

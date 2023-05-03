@@ -1,10 +1,9 @@
-using Eparafia.Administration.Domain.Entities;
 using Eparafia.Administration.Domain.Enums;
 using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Domain.DefaultModel;
 
-public class BaptismGodparent : Entity
+public class BaptismParent : Entity
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }

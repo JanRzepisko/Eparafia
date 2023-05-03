@@ -1,6 +1,4 @@
-using Eparafia.Administration.Domain.DefaultModel;
 using Eparafia.Administration.Domain.Enums;
-using Eparafia.Administration.Domain.ValueObjects;
 using Eparafia.Domain.ValueObjects;
 using Shared.BaseModels.BaseEntities;
 

@@ -1,9 +1,8 @@
 using Eparafia.Administration.Domain.DefaultModel;
-using Eparafia.Administration.Domain.ValueObjects;
 
 namespace Eparafia.Administration.Domain.Entities.BaptismParents;
 
-public class BaptismGodfather : BaptismGodparent
+public class BaptismGodfather : BaptismParent
 {
     public Guid BaptismRegisterId { get; set; }
     public BaptismRegister BaptismRegister { get; set; }

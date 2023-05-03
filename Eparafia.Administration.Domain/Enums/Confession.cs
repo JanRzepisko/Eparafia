@@ -2,6 +2,6 @@ namespace Eparafia.Administration.Domain.Enums;
 
 public enum Confession
 {
-    Christian, 
+    Christian,
     Muslim
 }

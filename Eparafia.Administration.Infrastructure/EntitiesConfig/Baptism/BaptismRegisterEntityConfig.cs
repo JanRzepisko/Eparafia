@@ -15,12 +15,12 @@ internal sealed class BaptismRegisterEntityConfig : IEntityTypeConfiguration<Bap
         builder.HasOne(c => c.Parish)
             .WithMany(c => c.BaptismRegisters)
             .HasForeignKey(c => c.ParishId)
-            .OnDelete(DeleteBehavior.SetNull);        
+            .OnDelete(DeleteBehavior.Cascade);        
         
         builder.HasOne(c => c.SacramentalMaker)
-            .WithMany(c => c.BaptismRegister)
+            .WithMany(c => c.BaptismRegisters)
             .HasForeignKey(c => c.SacramentalMakerId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.Cascade);
         
         builder.HasOne(c => c.Parents)
             .WithOne(c => c.BaptismRegister)

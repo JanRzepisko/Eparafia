@@ -1,10 +1,13 @@
 using Eparafia.Administration.Domain.DefaultModel;
-using Eparafia.Administration.Domain.ValueObjects;
 
 namespace Eparafia.Administration.Domain.Entities;
 
 public class WeddingRegister : RegisterModel
 {
-    public Guid Bride { get; set; }
-    public Guid Groom { get; set; }
+    public Men Men { get; set; }
+    public Guid MenId { get; set; }
+    public Women Women { get;set; } 
+    public Guid WomenId { get; set; }
+    public ICollection<Witness> Witnesses { get; set; }
+
 }

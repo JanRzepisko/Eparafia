@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Eparafia.Administration.Infrastructure.EntitiesConfig;
 
-internal sealed class HomeRecordEntityConfig : IEntityTypeConfiguration<HomeRecord>
+internal sealed class PerosnEntityConfig : IEntityTypeConfiguration<HomeRecord>
 {
     public void Configure(EntityTypeBuilder<HomeRecord> builder)
     {
@@ -21,7 +21,7 @@ internal sealed class HomeRecordEntityConfig : IEntityTypeConfiguration<HomeReco
         
         builder.HasMany(c => c.Persons)
             .WithOne(c => c.HomeRecord)
-            .HasForeignKey(c => c.HomeId)
+            .HasForeignKey(c => c.HomeRecordId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -14,8 +14,19 @@ internal sealed class ParishEntityConfig : IEntityTypeConfiguration<Parish>
         builder.HasMany(c => c.BaptismRegisters)
             .WithOne(c => c.Parish)
             .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.Cascade);        
+        builder.HasMany(c => c.WeddingRegisters)
+            .WithOne(c => c.Parish)
+            .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.Cascade);        
+        builder.HasMany(c => c.DeadRegisters)
+            .WithOne(c => c.Parish)
+            .HasForeignKey(c => c.ParishId)
+            .OnDelete(DeleteBehavior.Cascade);        
+        builder.HasMany(c => c.HomeRecords)
+            .WithOne(c => c.Parish)
+            .HasForeignKey(c => c.ParishId)
             .OnDelete(DeleteBehavior.Cascade);
-
         builder.HasMany(c => c.Priests)
             .WithOne(c => c.Parish)
             .HasForeignKey(c => c.ParishId)
