@@ -3,6 +3,7 @@ using Eparafia.Domain.Entities;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Shared.BaseModels.Exceptions;
 using Shared.Service.Interfaces;
 
 namespace Eparafia.Application.Actions.Announcements.Command;
@@ -10,7 +11,7 @@ namespace Eparafia.Application.Actions.Announcements.Command;
 public static class AnnouncementsUpdate
 {
     public sealed record Command
-        (List<AnnouncementRecord>? Records, string? Title, DateTime? Date, Guid Id) : IRequest<Unit>;
+        (List<string>? Records, string? Title, DateTime? Date, Guid Id) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -26,14 +27,10 @@ public static class AnnouncementsUpdate
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
             var announcements = await _unitOfWork.Announcements.GetByIdAsync(request.Id, cancellationToken);
-
-            announcements.AnnouncementsRecords = request.Records.Select(c => new AnnouncementRecord
+            if (announcements == null)
             {
-                Announcement = announcements,
-                Content = c.Content,
-                Id = c.Id,
-                AnnouncementId = announcements.Id
-            }).ToList();
+                throw new EntityNotFoundException("Announcement not found");
+            }
 
             foreach (var item in announcements.AnnouncementsRecords)
             {
@@ -42,8 +39,12 @@ public static class AnnouncementsUpdate
 
             foreach (var item in request.Records)
             {
-                item.AnnouncementId = announcements.Id;
-                await _unitOfWork.AnnouncementsRecords.AddAsync(item, cancellationToken);
+                var record = new AnnouncementRecord()
+                {
+                    AnnouncementId = announcements.Id,
+                    Content = item
+                };
+                await _unitOfWork.AnnouncementsRecords.AddAsync(record, cancellationToken);
             }
             
             announcements.Title = request.Title ?? announcements.Title;
