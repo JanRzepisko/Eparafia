@@ -1,10 +1,14 @@
 using Eparafia.Administration.Application;
 using Eparafia.Administration.Application.DataAccess;
+using Eparafia.Administration.Application.EventConsumers;
 using Eparafia.Administration.Infrastructure;
 using Eparafia.Administration.Infrastructure.DataAccess;
 using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
+using Shared.Extensions.ConfigureApp;
+using Shared.Messages;
+
 //TODO remove package get form shared
 namespace Eparafia.Administration.API;
 
@@ -30,6 +34,9 @@ public class Startup
         services.AddMassTransit(c =>
         {
             //Add All Consumers
+            c.AddConsumer<PriestCreatedConsumer>();
+            c.AddConsumer<PriestUpdatedConsumer>();
+            c.AddConsumer<PriestRemovedConsumer>();
             c.BuildRabbitMQ(rabbitMQLogin);
         });
     }
