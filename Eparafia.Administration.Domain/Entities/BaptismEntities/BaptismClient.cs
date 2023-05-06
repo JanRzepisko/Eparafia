@@ -1,7 +1,6 @@
-using Eparafia.Administration.Domain.Entities;
 using Shared.BaseModels.BaseEntities;
 
-namespace Eparafia.Administration.Domain.ValueObjects;
+namespace Eparafia.Administration.Domain.Entities.BaptismEntities;
 
 public class BaptismClient : Entity
 {

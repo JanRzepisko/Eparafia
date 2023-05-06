@@ -1,8 +1,8 @@
-using Eparafia.Administration.Domain.Entities;
+using Eparafia.Administration.Domain.Entities.WeddingEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Eparafia.Administration.Infrastructure.EntitiesConfig;
+namespace Eparafia.Administration.Infrastructure.EntitiesConfig.Wedding;
 
 internal sealed class MenEntityConfig : IEntityTypeConfiguration<Men>
 {

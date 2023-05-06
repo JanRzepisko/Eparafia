@@ -2,7 +2,7 @@ using Eparafia.Administration.Domain.Enums;
 using Eparafia.Domain.ValueObjects;
 using Shared.BaseModels.BaseEntities;
 
-namespace Eparafia.Administration.Domain.Entities.BaptismParents;
+namespace Eparafia.Administration.Domain.Entities.BaptismEntities;
 
 public class BaptismFather : Entity
 {

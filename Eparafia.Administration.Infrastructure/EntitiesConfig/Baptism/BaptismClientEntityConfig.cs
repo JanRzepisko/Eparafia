@@ -1,10 +1,8 @@
-using Eparafia.Administration.Domain.Entities;
-using Eparafia.Administration.Domain.Entities.BaptismParents;
-using Eparafia.Administration.Domain.ValueObjects;
+using Eparafia.Administration.Domain.Entities.BaptismEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Eparafia.Administration.Infrastructure.EntitiesConfig;
+namespace Eparafia.Administration.Infrastructure.EntitiesConfig.Baptism;
 
 internal sealed class BaptismClientEntityConfig : IEntityTypeConfiguration<BaptismClient>
 {

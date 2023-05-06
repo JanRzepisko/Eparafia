@@ -1,4 +1,5 @@
 using Eparafia.Administration.Domain.Entities;
+using Eparafia.Administration.Domain.Entities.WeddingEntities;
 using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Domain.DefaultModel;

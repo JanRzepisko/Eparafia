@@ -1,11 +1,11 @@
 ﻿using Eparafia.Administration.Application.DataAccess;
 using Eparafia.Administration.Domain.Entities;
-using Eparafia.Administration.Domain.Entities.BaptismParents;
+using Eparafia.Administration.Domain.Entities.BaptismEntities;
+using Eparafia.Administration.Domain.Entities.Dead;
 using Eparafia.Administration.Domain.Entities.ParishRecord;
-using Eparafia.Administration.Domain.ValueObjects;
+using Eparafia.Administration.Domain.Entities.WeddingEntities;
 using Eparafia.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
-using MySqlX.XDevAPI;
 using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Infrastructure.DataAccess;
@@ -37,7 +37,7 @@ public sealed class DataContext : DbContext, IUnitOfWork
     public IBaseRepository<WeddingRegister> WeddingRegister => new BaseRepository<WeddingRegister>(_weddingRegister);
     public IBaseRepository<DeadRegister> DeadRegister => new BaseRepository<DeadRegister>(_deadRegister);
     public IBaseRepository<Parish> Parish => new BaseRepository<Parish>(_parish);
-    public IBaseRepository<Priest> Priest => new BaseRepository<Priest>(_priest);
+    public IBaseRepository<Priest> Priests => new BaseRepository<Priest>(_priest);
     public IBaseRepository<SacramentalMaker> SacramentalMaker => new BaseRepository<SacramentalMaker>(_sacramentalMaker);
     public IBaseRepository<BaptismClient> BaptismClient => new BaseRepository<BaptismClient>(_baptismClient);
     public IBaseRepository<BaptismFather> BaptismFather => new BaseRepository<BaptismFather>(_baptismFather);

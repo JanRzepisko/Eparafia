@@ -1,3 +1,6 @@
+using Eparafia.Administration.Domain.Entities.BaptismEntities;
+using Eparafia.Administration.Domain.Entities.Dead;
+using Eparafia.Administration.Domain.Entities.WeddingEntities;
 using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Domain.Entities;

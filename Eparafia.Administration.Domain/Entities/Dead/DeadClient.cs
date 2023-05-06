@@ -1,6 +1,6 @@
 using Shared.BaseModels.BaseEntities;
 
-namespace Eparafia.Administration.Domain.Entities;
+namespace Eparafia.Administration.Domain.Entities.Dead;
 
 public class DeadClient : Entity
 {

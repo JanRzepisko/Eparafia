@@ -1,6 +1,6 @@
 using Eparafia.Administration.Domain.DefaultModel;
 
-namespace Eparafia.Administration.Domain.Entities;
+namespace Eparafia.Administration.Domain.Entities.Dead;
 
 public class DeadRegister : RegisterModel
 {

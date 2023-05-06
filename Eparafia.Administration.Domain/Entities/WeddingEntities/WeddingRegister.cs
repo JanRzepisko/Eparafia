@@ -1,6 +1,6 @@
 using Eparafia.Administration.Domain.DefaultModel;
 
-namespace Eparafia.Administration.Domain.Entities;
+namespace Eparafia.Administration.Domain.Entities.WeddingEntities;
 
 public class WeddingRegister : RegisterModel
 {

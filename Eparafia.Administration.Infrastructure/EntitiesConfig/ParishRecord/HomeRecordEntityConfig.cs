@@ -1,9 +1,8 @@
-using Eparafia.Administration.Domain.Entities;
 using Eparafia.Administration.Domain.Entities.ParishRecord;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Eparafia.Administration.Infrastructure.EntitiesConfig;
+namespace Eparafia.Administration.Infrastructure.EntitiesConfig.ParishRecord;
 
 internal sealed class HomeRecordEntityConfig : IEntityTypeConfiguration<HomeRecord>
 {

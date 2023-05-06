@@ -29,9 +29,7 @@ public sealed class DataContext : DbContext, IUnitOfWork
     public IPriestRepository Priests => new PriestRepository(_Priests);
     public IParishRepository Parishes => new ParishRepository(_Parishes);
     public IAnnouncementRepository Announcements => new AnnouncementRepository(_Announcement);
-
-    public IAnnouncementRecordRepository AnnouncementsRecords =>
-        new AnnouncementRecordRepository(_AnnouncementsRecords);
+    public IAnnouncementRecordRepository AnnouncementsRecords => new AnnouncementRecordRepository(_AnnouncementsRecords);
 
     public IPostRepository Posts => new PostRepository(_Post);
     public IBaseRepository<PostFile> PostFiles => new BaseRepository<PostFile>(_PostFile);

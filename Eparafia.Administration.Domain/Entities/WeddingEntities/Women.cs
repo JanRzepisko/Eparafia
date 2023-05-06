@@ -1,7 +1,6 @@
 using Eparafia.Administration.Domain.DefaultModel;
-using Shared.BaseModels.BaseEntities;
 
-namespace Eparafia.Administration.Domain.Entities;
+namespace Eparafia.Administration.Domain.Entities.WeddingEntities;
 
 public class Women : WeddingPerson
 {

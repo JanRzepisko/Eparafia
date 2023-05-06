@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Eparafia.Administration.Application\Eparafia.Administration.Application.csproj" />
+      <ProjectReference Include="..\Eparafia.Administration.Domain\Eparafia.Administration.Domain.csproj" />
       <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 

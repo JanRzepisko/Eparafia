@@ -14,23 +14,35 @@ services:
   #    - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
   #    - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
 
-  eparafia.api:
-    container_name: "Eparafia.Parish.API"
-    image: ${DOCKER_REGISTRY-}eparafiaapi
-    ports:
-      - 5002:80
-    build:
-      context: .
-      dockerfile: Eparafia.Parish.API/Dockerfile
-
+  
   eparafia.identity.api:
     container_name: "Eparafia.Identity.API"
-    image: ${DOCKER_REGISTRY-}eparafiaidentityapi
+    image: ${DOCKER_REGISTRY-}eparafia-identity
     ports:
       - 5001:80
     build:
       context: .
       dockerfile: Eparafia.Identity.API/Dockerfile
+
+  eparafia.api:
+    container_name: "Eparafia.Parish.API"
+    image: ${DOCKER_REGISTRY-}eparafia-parish
+    ports:
+      - 5002:80
+    build:
+      context: .
+      dockerfile: Eparafia.Parish.API/Dockerfile
+    
+  eparafia.administration.api:
+    container_name: "Eparafia.Administration.API"
+    image: ${DOCKER_REGISTRY-}eparafia-adminstration
+    ports:
+      - 5003:80
+    build:
+      context: .
+      dockerfile: Eparafia.Administration.API/Dockerfile
+
+
   #eparafia.bible.api:
   #  container_name: "BibleAPI"
   #  image: ${DOCKER_REGISTRY-}eparafiabibleapi

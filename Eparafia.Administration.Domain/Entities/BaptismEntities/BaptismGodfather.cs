@@ -1,6 +1,6 @@
 using Eparafia.Administration.Domain.DefaultModel;
 
-namespace Eparafia.Administration.Domain.Entities.BaptismParents;
+namespace Eparafia.Administration.Domain.Entities.BaptismEntities;
 
 public class BaptismGodfather : BaptismParent
 {

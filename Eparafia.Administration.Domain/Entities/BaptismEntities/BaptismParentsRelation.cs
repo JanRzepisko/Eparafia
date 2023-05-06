@@ -1,7 +1,7 @@
 using Eparafia.Administration.Domain.Enums;
 using Shared.BaseModels.BaseEntities;
 
-namespace Eparafia.Administration.Domain.Entities.BaptismParents;
+namespace Eparafia.Administration.Domain.Entities.BaptismEntities;
 
 public class BaptismParentsRelation : Entity
 {

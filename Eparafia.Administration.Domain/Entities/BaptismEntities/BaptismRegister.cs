@@ -1,8 +1,7 @@
 using Eparafia.Administration.Domain.DefaultModel;
-using Eparafia.Administration.Domain.Entities.BaptismParents;
 using Eparafia.Administration.Domain.ValueObjects;
 
-namespace Eparafia.Administration.Domain.Entities;
+namespace Eparafia.Administration.Domain.Entities.BaptismEntities;
 
 public class BaptismRegister : RegisterModel
 {

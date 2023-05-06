@@ -7,8 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Eparafia.Identity.Domain\Eparafia.Identity.Domain.csproj"/>
-        <ProjectReference Include="..\Shared\Shared.csproj"/>
+        <ProjectReference Include="..\Eparafia.Identity.Domain\Eparafia.Identity.Domain.csproj" />
+        <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
 </Project>
