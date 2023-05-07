@@ -1,5 +1,6 @@
 using System.Reflection;
 using Eparafia.Application.Services.FileManager;
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
@@ -16,7 +17,7 @@ namespace Shared.Extensions;
 public static class AddSharedServicesExtension
 {
     public static IServiceCollection AddSharedServices<AssemblyEntryPoint, DataContext, UnitOfWork>(
-        this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName)
+        this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName, RabbitMQLogin rabbitMQLogin)
         where DataContext : DbContext, UnitOfWork where UnitOfWork : class
     {
         services.AddMediatR(typeof(AssemblyEntryPoint).GetTypeInfo().Assembly);
@@ -47,6 +48,16 @@ public static class AddSharedServicesExtension
         services.AddControllers();;
         services.AddSwagger(serviceName);
         
+        services.AddMassTransit(c =>
+        {
+            //Add All Consumers
+            c.AddConsumers(typeof(AssemblyEntryPoint).Assembly);
+            c.SetKebabCaseEndpointNameFormatter();
+
+            c.BuildRabbitMQ(rabbitMQLogin);
+        });
+        services.AddMassTransitHostedService(true);
+
         
         //Add Services
         services.AddTransient<IEventBus, EventBus.EventBus>();

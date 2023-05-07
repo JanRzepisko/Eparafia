@@ -1,18 +1,19 @@
 using MassTransit;
+using Shared.Definitions;
 
 namespace Shared.EventBus;
 
 public class EventBus : IEventBus
 {
-    private readonly IPublishEndpoint _publishEndpoint;
+    private readonly IBus _bus;
 
-    public EventBus(IPublishEndpoint publishEndpoint)
+    public EventBus(IBus bus)
     {
-        _publishEndpoint = publishEndpoint;
+        _bus = bus;
     }
 
-    public Task PublishAsync<T>(T message, CancellationToken cancellationToken) where T : class
+    public Task PublishAsync<T>(T message, CancellationToken cancellationToken) where T : MessageBusEvent
     {
-        return _publishEndpoint.Publish(message, cancellationToken);
+        return _bus.Publish(message, cancellationToken);
     }
 }

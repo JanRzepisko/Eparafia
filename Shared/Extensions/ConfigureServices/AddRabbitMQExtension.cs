@@ -1,4 +1,5 @@
 using MassTransit;
+using RabbitMQ.Client;
 using Shared.BaseModels.Jwt;
 
 namespace Shared.Extensions;
@@ -21,4 +22,6 @@ public static class RabbitMQExtension
 
         return conf;
     }
+    
+
 }

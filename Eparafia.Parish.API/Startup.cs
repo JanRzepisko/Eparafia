@@ -29,24 +29,7 @@ public class Startup
 
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(
-            JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
-
-
-        //Configure RabbitMQ
-        services.AddMassTransit(c =>
-        {
-            //Add All Consumers
-            c.AddConsumer<PriestCreatedConsumer>();
-            c.AddConsumer<PriestUpdatedConsumer>();
-            c.AddConsumer<PriestRemovedConsumer>();
-            c.AddConsumer<UserCreatedConsumer>();
-            c.AddConsumer<UserUpdatedConsumer>();
-            c.AddConsumer<UserRemovedConsumer>();
-
-            c.BuildRabbitMQ(rabbitMQLogin);
-        });
-
+        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName, rabbitMQLogin);
         services.AddScoped<IIntentionService, IntentionService>();
     }
 

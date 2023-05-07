@@ -26,20 +26,7 @@ public class Startup
 
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(
-            JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
-
-
-        //Configure RabbitMQ
-        services.AddMassTransit(c =>
-        {
-            //Add All Consumers
-            c.AddConsumer<PriestChangeParishConsumer>();
-            c.AddConsumer<PriestCreatedConsumer>();
-            c.AddConsumer<PriestUpdatedConsumer>();
-            c.AddConsumer<PriestRemovedConsumer>();
-            c.BuildRabbitMQ(rabbitMQLogin);
-        });
+        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName, rabbitMQLogin);
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) => app.ConfigureApplication(Configuration);
 }
