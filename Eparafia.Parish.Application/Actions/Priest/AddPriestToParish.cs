@@ -36,7 +36,7 @@ public static class AddPriestToParish
 
             priest.ParishId = adderPriest.ParishId;
             _unitOfWork.SaveChangesAsync(cancellationToken);
-            _eventBus.PublishAsync(new ChangeParishPriest
+            _eventBus.PublishAsync(new ChangedParishPriestBusEvent
             {
                 ParishId = adderPriest.ParishId,
                 PriestId = priest.Id,

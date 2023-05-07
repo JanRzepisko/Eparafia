@@ -5,8 +5,7 @@ namespace Shared.Extensions;
 
 public static class RabbitMQExtension
 {
-    public static IBusRegistrationConfigurator BuildRabbitMQ(this IBusRegistrationConfigurator conf,
-        RabbitMQLogin login)
+    public static IBusRegistrationConfigurator BuildRabbitMQ(this IBusRegistrationConfigurator conf, RabbitMQLogin login)
     {
         conf.UsingRabbitMq((ctx, cfg) =>
         {

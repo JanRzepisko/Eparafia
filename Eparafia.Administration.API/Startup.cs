@@ -34,6 +34,7 @@ public class Startup
         services.AddMassTransit(c =>
         {
             //Add All Consumers
+            c.AddConsumer<PriestChangeParishConsumer>();
             c.AddConsumer<PriestCreatedConsumer>();
             c.AddConsumer<PriestUpdatedConsumer>();
             c.AddConsumer<PriestRemovedConsumer>();

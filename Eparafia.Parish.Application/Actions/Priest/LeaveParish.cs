@@ -31,7 +31,7 @@ public static class LeaveParish
 
             priest.ParishId = null;
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            _eventBus.PublishAsync(new ChangeParishPriest
+            _eventBus.PublishAsync(new ChangedParishPriestBusEvent
             {
                 ParishId = null,
                 PriestId = priest.Id,
