@@ -3,7 +3,7 @@ using MassTransit;
 using MediatR;
 using Shared.Messages;
 
-namespace Eparafia.Application.EventConsumers;
+namespace Eparafia.Administration.Application.EventConsumers;
 
 public class PriestRemovedConsumer : IConsumer<PriestRemovedBusEvent>
 {

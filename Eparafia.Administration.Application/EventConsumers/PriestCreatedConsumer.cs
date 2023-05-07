@@ -16,6 +16,6 @@ public class PriestCreatedConsumer : IConsumer<PriestCreatedBusEvent>
 
     public Task Consume(ConsumeContext<PriestCreatedBusEvent> context)
     {
-        return _mediator.Send(new CreatePriest.Command(context.Message.PriestId, context.Message.Name, context.Message.ParishId));
+        return _mediator.Send(new CreatePriest.Command(context.Message.PriestId, context.Message.Name));
     }
 }

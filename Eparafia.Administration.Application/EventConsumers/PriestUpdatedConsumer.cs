@@ -3,7 +3,7 @@ using MassTransit;
 using MediatR;
 using Shared.Messages;
 
-namespace Eparafia.Application.EventConsumers;
+namespace Eparafia.Administration.Application.EventConsumers;
 
 public class PriestUpdatedConsumer : IConsumer<PriestUpdatedBusEvent>
 {
@@ -16,6 +16,6 @@ public class PriestUpdatedConsumer : IConsumer<PriestUpdatedBusEvent>
 
     public Task Consume(ConsumeContext<PriestUpdatedBusEvent> context)
     {
-        return _mediator.Send(new UpdatePriest.Command(context.Message.PriestId, context.Message.Name, context.Message.ParishId));
+        return _mediator.Send(new UpdatePriest.Command(context.Message.PriestId, context.Message.Name));
     }
 }

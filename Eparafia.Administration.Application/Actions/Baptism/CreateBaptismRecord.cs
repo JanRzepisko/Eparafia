@@ -29,7 +29,7 @@ public static class CreateBaptismRecord
             {
                 throw new EntityNotFoundException("Priest not found");
             }
-            await _unitOfWork.BaptismRegister.AddAsync(request.Record.FromDtoToEntity(priest.ParishId), cancellationToken);
+            await _unitOfWork.BaptismRegister.AddAsync(request.Record.FromDtoToEntity((Guid)priest.ParishId), cancellationToken);
             return Unit.Value;
         }
 

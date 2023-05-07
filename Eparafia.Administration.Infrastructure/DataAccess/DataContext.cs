@@ -86,5 +86,7 @@ public sealed class DataContext : DbContext, IUnitOfWork
         modelBuilder.Entity<HomeRecord>().OwnsOne<Address>(c => c.Address);
         modelBuilder.Entity<BaptismFather>().OwnsOne<Address>(c => c.Address);
         modelBuilder.Entity<BaptismMother>().OwnsOne<Address>(c => c.Address);
+        modelBuilder.Entity<BaptismGodfather>().OwnsOne<Address>(c => c.Address);
+        modelBuilder.Entity<BaptismGodmother>().OwnsOne<Address>(c => c.Address);
     }
 }

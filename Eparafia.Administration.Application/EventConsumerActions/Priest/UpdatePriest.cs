@@ -7,7 +7,7 @@ namespace Eparafia.Administration.Application.EventConsumerActions.Priest;
 
 public static class UpdatePriest
 {
-    public sealed record Command(Guid PriestId, string? Name, Guid ParishId) : IRequest<Unit>;
+    public sealed record Command(Guid PriestId, string? Name) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -24,7 +24,7 @@ public static class UpdatePriest
 
             priest.Name = request.Name;
             priest.Id = request.PriestId;
-            priest.ParishId = request.ParishId;
+            priest.ParishId = null;
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

@@ -8,7 +8,7 @@ namespace Eparafia.Administration.Application.EventConsumerActions.Priest;
 
 public static class CreatePriest
 {
-    public sealed record Command(Guid Id, string Name, Guid ParishId) : IRequest<Unit>;
+    public sealed record Command(Guid Id, string Name) : IRequest<Unit>;
 
     public class Handler : IRequestHandler<Command, Unit>
     {
@@ -25,7 +25,7 @@ public static class CreatePriest
             {
                 Id = request.Id,
                 Name = request.Name,
-                ParishId = request.ParishId,  
+                ParishId = null,  
             };
 
             await _unitOfWork.Priests.AddAsync(newPriest, cancellationToken);
