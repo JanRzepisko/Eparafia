@@ -3,7 +3,6 @@ using Eparafia.Identity.Application;
 using Eparafia.Identity.Application.DataAccess;
 using Eparafia.Identity.Application.Services;
 using Eparafia.Identity.Infrastructure.DataAccess;
-using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
 using Shared.Extensions.ConfigureApp;
@@ -23,12 +22,14 @@ public class Startup
     {
         var connectionString = Configuration["ConnectionString"];
         var serviceName = Configuration["ServiceName"];
-        var rabbitMQLogin = RabbitMQLogin.FromConfiguration(Configuration);
 
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName, rabbitMQLogin);
+        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
         services.AddScoped<IJwtAuth, JwtAuth>();
+        
+        services.AddMessageBusConnection(c => c.ApplyConfiguration(Configuration.GetSection("RabbitMQ"))
+            .RegisterConsumersFromAssembly(typeof(AssemblyEntryPoint).Assembly));
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

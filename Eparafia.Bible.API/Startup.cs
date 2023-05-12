@@ -17,12 +17,12 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
-        string connectionString = Configuration["ConnectionString"];
-        string serviceName = Configuration["ServiceName"];
+        var connectionString = Configuration["ConnectionString"];
+        var serviceName = Configuration["ServiceName"];
 
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<Application.AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName, RabbitMQLogin.FromConfiguration(Configuration));
+        services.AddSharedServices<Application.AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) => app.ConfigureApplication(Configuration);
 }

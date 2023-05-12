@@ -1,13 +1,12 @@
 using Eparafia.Application.Enums;
-using Eparafia.Application.Services.FileManager;
 using Eparafia.Identity.Application.DataAccess;
 using Eparafia.Identity.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
 using Shared.BaseModels.Exceptions;
-using Shared.EventBus;
 using Shared.Messages;
 using Shared.Service.Interfaces;
+using Shared.Service.Interfaces.MessageBus;
 
 namespace Eparafia.Identity.Application.Actions.Priest;
 
@@ -18,17 +17,17 @@ public static class UpdatePriest
 
     public class Handler : IRequestHandler<Command, Unit>
     {
-        private readonly IEventBus _eventBus;
+        private readonly IMessageBusClient _messageBusClient;
         private readonly IFileManager _fileManager;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserProvider _userProvider;
 
-        public Handler(IUnitOfWork unitOfWork, IUserProvider userProvider, IFileManager fileManager, IEventBus eventBus)
+        public Handler(IUnitOfWork unitOfWork, IUserProvider userProvider, IFileManager fileManager, IMessageBusClient messageBusClient)
         {
             _unitOfWork = unitOfWork;
             _userProvider = userProvider;
             _fileManager = fileManager;
-            _eventBus = eventBus;
+            _messageBusClient = messageBusClient;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -59,7 +58,7 @@ public static class UpdatePriest
             }
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            await _eventBus.PublishAsync(new PriestUpdatedBusEvent
+            await _messageBusClient.SendAsync(new PriestUpdatedBusEvent
             {
                 PriestId = _userProvider.Id,
                 Name = priest.Name + " " + priest.Surname,

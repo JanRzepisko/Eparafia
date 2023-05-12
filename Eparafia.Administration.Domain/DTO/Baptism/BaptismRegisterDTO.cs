@@ -1,12 +1,7 @@
-using System.Data;
 using Eparafia.Administration.Domain.Entities;
 using Eparafia.Administration.Domain.Entities.BaptismEntities;
-using Eparafia.Administration.Domain.Enums;
 using Eparafia.Administration.Domain.ValueObjects;
 using Eparafia.Domain.ValueObjects;
-using FluentValidation;
-using MassTransit;
-using Microsoft.EntityFrameworkCore;
 
 namespace Eparafia.Administration.Domain.DTO.Baptism;
 

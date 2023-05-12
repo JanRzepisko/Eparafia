@@ -2,8 +2,8 @@ using Eparafia.Identity.Application.DataAccess;
 using Eparafia.Identity.Domain.ValueObjects;
 using FluentValidation;
 using MediatR;
-using Shared.EventBus;
 using Shared.Messages;
+using Shared.Service.Interfaces.MessageBus;
 
 namespace Eparafia.Identity.Application.Actions.Priest;
 
@@ -14,13 +14,13 @@ public static class RegisterPriest
 
     public class Handler : IRequestHandler<Command, Unit>
     {
-        private readonly IEventBus _eventBus;
+        private readonly IMessageBusClient _MessageBusClient;            
         private readonly IUnitOfWork _unitOfWork;
 
-        public Handler(IUnitOfWork unitOfWork, IEventBus eventBus)
+        public Handler(IUnitOfWork unitOfWork, IMessageBusClient messageBusClient)
         {
             _unitOfWork = unitOfWork;
-            _eventBus = eventBus;
+            _MessageBusClient = messageBusClient;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -45,7 +45,7 @@ public static class RegisterPriest
             await _unitOfWork.Priests.AddAsync(newPriest, cancellationToken);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            await _eventBus.PublishAsync(new PriestCreatedBusEvent
+            await _MessageBusClient.SendAsync(new PriestCreatedBusEvent
             {
                 PriestId = id,
                 Name = request.Name + " " + request.Surname,

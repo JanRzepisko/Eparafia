@@ -1,28 +1,27 @@
 using System.Reflection;
-using Eparafia.Application.Services.FileManager;
-using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using RawRabbit;
 using Shared.BaseModels.Jwt;
 using Shared.Behaviours;
-using Shared.EventBus;
 using Shared.Service.Implementations;
+using Shared.Service.Implementations.MessageBus;
 using Shared.Service.Interfaces;
+using Shared.Service.Interfaces.MessageBus;
 
 namespace Shared.Extensions;
 
 public static class AddSharedServicesExtension
 {
     public static IServiceCollection AddSharedServices<AssemblyEntryPoint, DataContext, UnitOfWork>(
-        this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName, RabbitMQLogin rabbitMQLogin)
+        this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName)
         where DataContext : DbContext, UnitOfWork where UnitOfWork : class
     {
         services.AddMediatR(typeof(AssemblyEntryPoint).GetTypeInfo().Assembly);
         services.AddFluentValidators(typeof(AssemblyEntryPoint).Assembly);
-        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
 
         services.AddDatabase<DataContext, UnitOfWork>(connectionString);
         services.AddFluentValidators(typeof(AssemblyEntryPoint).Assembly);
@@ -41,26 +40,16 @@ public static class AddSharedServicesExtension
                 .AllowAnyHeader()
                 .AllowAnyMethod());
         });
-
-        //Add Logging
-        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
-
-        services.AddControllers();;
+        
+        services.AddControllers();
         services.AddSwagger(serviceName);
         
-        services.AddMassTransit(c =>
-        {
-            //Add All Consumers
-            c.AddConsumers(typeof(AssemblyEntryPoint).Assembly);
-            c.SetKebabCaseEndpointNameFormatter();
-
-            c.BuildRabbitMQ(rabbitMQLogin);
-        });
-        services.AddMassTransitHostedService(true);
-
-        
         //Add Services
-        services.AddTransient<IEventBus, EventBus.EventBus>();
+        services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+        services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
+
+        services.AddTransient<IMessageBusConnectionBuilder<IBusClient>, MessageBusConnectionBuilder>();
+
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
         

@@ -1,10 +1,9 @@
 using Eparafia.Application.DataAccess;
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Configuration;
-using Shared.EventBus;
 using Shared.Messages;
 using Shared.Service.Interfaces;
+using Shared.Service.Interfaces.MessageBus;
 
 namespace Eparafia.Application.EventConsumerActions.Priest.Command;
 
@@ -16,13 +15,13 @@ public static class LeaveParish
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserProvider _userProvider;
-        private readonly IEventBus _eventBus;
-        
-        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IUserProvider userProvider, IEventBus eventBus)
+        private readonly IMessageBusClient _messageBusClient;
+
+        public Handler(IUnitOfWork unitOfWork, IUserProvider userProvider, IMessageBusClient messageBusClient)
         {
             _unitOfWork = unitOfWork;
             _userProvider = userProvider;
-            _eventBus = eventBus;
+            _messageBusClient = messageBusClient;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -31,7 +30,7 @@ public static class LeaveParish
 
             priest.ParishId = null;
             await _unitOfWork.SaveChangesAsync(cancellationToken);
-            _eventBus.PublishAsync(new ChangedParishPriestBusEvent
+            _messageBusClient.SendAsync(new ChangedParishPriestBusEvent
             {
                 ParishId = null,
                 PriestId = priest.Id,

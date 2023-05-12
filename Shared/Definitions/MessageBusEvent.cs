@@ -1,6 +1,6 @@
 namespace Shared.Definitions;
 
-public class MessageBusEvent
+public abstract class MessageBusEvent
 {
     
 }

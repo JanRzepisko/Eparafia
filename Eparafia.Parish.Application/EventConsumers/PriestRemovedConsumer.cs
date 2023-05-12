@@ -1,11 +1,11 @@
 using Eparafia.Application.Actions.Priest.Command;
-using MassTransit;
 using MediatR;
 using Shared.Messages;
+using Shared.Service.Interfaces.MessageBus;
 
 namespace Eparafia.Application.EventConsumers;
 
-public class PriestRemovedConsumer : IConsumer<PriestRemovedBusEvent>
+public class PriestRemovedConsumer : IEventConsumer<PriestRemovedBusEvent>
 {
     private readonly IMediator _mediator;
 
@@ -13,9 +13,9 @@ public class PriestRemovedConsumer : IConsumer<PriestRemovedBusEvent>
     {
         _mediator = mediator;
     }
-
-    public Task Consume(ConsumeContext<PriestRemovedBusEvent> context)
+    
+    public Task ConsumeAsync(PriestRemovedBusEvent @event, CancellationToken cancellationToken = default)
     {
-        return _mediator.Send(new RemovePriest.Command(context.Message.PriestId));
+        return _mediator.Send(new RemovePriest.Command(@event.PriestId), cancellationToken);
     }
 }

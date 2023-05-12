@@ -1,0 +1,13 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=fc86eaff_002D3ddd_002D498a_002D8e25_002D9a231036f5b6_0023Eparafia_002EIdentity_002EApplication/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=d1552b98_002D0cbe_002D4d29_002D8e6f_002D8d56074f00eb_0023Eparafia_002EIdentity_002EInfrastructure/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=e2251709_002Dbaba_002D4a5b_002Db914_002Daff0e5ad8e5d_0023Eparafia_002EIdentity_002EDomain/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=ca439da2_002D3fae_002D4e46_002Dbda1_002Ddec16403212a_0023Eparafia_002EParish_002EAPI/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=df00888e_002Dc9af_002D4dad_002D9335_002D71b20a943def_0023Eparafia_002EParish_002EInfrastructure/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=e5e31aca_002D2a86_002D44c1_002Da3ab_002D6b6a1f793173_0023Eparafia_002EParish_002EApplication/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=cf958c24_002Da487_002D48f6_002Db41a_002Dbaf8e0667e6f_0023Eparafia_002EParish_002EDomain/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=d88aed45_002Ddb7f_002D4d71_002Db777_002D8d341b5e7ace_0023Eparafia_002EBible_002EApplication/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=4ecf4b3a_002Db0e6_002D4913_002D9bb5_002D0df9cacab0ef_0023Eparafia_002EBible_002EInfrastructure/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=ab1d39ad_002Df583_002D425e_002Da142_002De862c98ac25d_0023Eparafia_002EBible_002EDomain/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=e9612ca5_002Db57d_002D48eb_002Da181_002D61a4c7d97e6c_0023Eparafia_002EBible_002EAPI/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UnloadedProject/UnloadedProjects/=f08877ee_002D561c_002D40e5_002D994b_002D271075ddbd1c_0023Eparafia_002EIdentity_002EAPI/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>
