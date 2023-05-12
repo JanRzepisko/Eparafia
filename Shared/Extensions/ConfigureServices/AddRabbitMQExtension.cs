@@ -16,7 +16,7 @@ public static class RabbitMQExtension
                 h.Password(login.Password);
             });
 
-            //Add All Consumers
+            cfg.ExchangeType = "topic";
             cfg.ConfigureEndpoints(ctx);
         });
 
