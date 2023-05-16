@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eparafia.Administration.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230503181915_init")]
-    partial class init
+    [Migration("20230515165706_init3")]
+    partial class init3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -22,7 +22,38 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismFather", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismClient", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateOnly>("BaptismDate")
+                        .HasColumnType("date");
+
+                    b.Property<Guid>("BaptismRegisterId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BaptismRegisterId")
+                        .IsUnique();
+
+                    b.ToTable("_baptismClient");
+                });
+
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismFather", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -61,15 +92,11 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_baptismFather");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismGodfather", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismGodfather", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<Guid>("BaptismRegisterId")
                         .HasColumnType("char(36)");
@@ -104,15 +131,11 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_baptismGodfather");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismGodmother", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismGodmother", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("longtext");
 
                     b.Property<Guid>("BaptismRegisterId")
                         .HasColumnType("char(36)");
@@ -147,7 +170,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_baptismGodmother");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismMother", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismMother", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -186,7 +209,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_baptismMother");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismParentsRelation", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismParentsRelation", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,7 +235,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_baptismParentsRelation");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -257,7 +280,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_baptismRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.DeadClient", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Dead.DeadClient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -288,7 +311,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_deadClient");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.DeadRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Dead.DeadRegister", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -317,38 +340,6 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.HasIndex("SacramentalMakerId");
 
                     b.ToTable("_deadRegister");
-                });
-
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Men", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Job")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("WeddingRegisterId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("WeddingRegisterId")
-                        .IsUnique();
-
-                    b.ToTable("_weddingMen");
                 });
 
             modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Parish", b =>
@@ -418,15 +409,11 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Firstname")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Lastname")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("ParishId")
+                    b.Property<Guid?>("ParishId")
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
@@ -455,7 +442,39 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_sacramentalMaker");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.Men", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateOnly>("BirthDate")
+                        .HasColumnType("date");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Job")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("WeddingRegisterId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeddingRegisterId")
+                        .IsUnique();
+
+                    b.ToTable("_weddingMen");
+                });
+
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.WeddingRegister", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -489,7 +508,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_weddingRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Witness", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.Witness", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -520,7 +539,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("_weddingWitness");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Women", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.Women", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -562,42 +581,22 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.ToTable("ActId");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.ValueObjects.BaptismClient", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismClient", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", "BaptismRegister")
+                        .WithOne("Client")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismClient", "BaptismRegisterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<DateOnly>("BaptismDate")
-                        .HasColumnType("date");
-
-                    b.Property<Guid>("BaptismRegisterId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateOnly>("BirthDate")
-                        .HasColumnType("date");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BaptismRegisterId")
-                        .IsUnique();
-
-                    b.ToTable("_baptismClient");
+                    b.Navigation("BaptismRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismFather", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismFather", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismParentsRelation", "BaptismParentsRelation")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismParentsRelation", "BaptismParentsRelation")
                         .WithOne("Father")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismFather", "BaptismParentsRelationId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismFather", "BaptismParentsRelationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -640,33 +639,105 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("BaptismParentsRelation");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismGodfather", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismGodfather", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismRegister", "BaptismRegister")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", "BaptismRegister")
                         .WithOne("Godfather")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismGodfather", "BaptismRegisterId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismGodfather", "BaptismRegisterId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Eparafia.Domain.ValueObjects.Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("BaptismGodfatherId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<string>("BuildingNumber")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("PostCode")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("Region")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.HasKey("BaptismGodfatherId");
+
+                            b1.ToTable("_baptismGodfather");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BaptismGodfatherId");
+                        });
+
+                    b.Navigation("Address")
                         .IsRequired();
 
                     b.Navigation("BaptismRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismGodmother", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismGodmother", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismRegister", "BaptismRegister")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", "BaptismRegister")
                         .WithOne("Godmother")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismGodmother", "BaptismRegisterId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismGodmother", "BaptismRegisterId")
                         .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("Eparafia.Domain.ValueObjects.Address", "Address", b1 =>
+                        {
+                            b1.Property<Guid>("BaptismGodmotherId")
+                                .HasColumnType("char(36)");
+
+                            b1.Property<string>("BuildingNumber")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("PostCode")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("Region")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.Property<string>("Street")
+                                .IsRequired()
+                                .HasColumnType("longtext");
+
+                            b1.HasKey("BaptismGodmotherId");
+
+                            b1.ToTable("_baptismGodmother");
+
+                            b1.WithOwner()
+                                .HasForeignKey("BaptismGodmotherId");
+                        });
+
+                    b.Navigation("Address")
                         .IsRequired();
 
                     b.Navigation("BaptismRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismMother", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismMother", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismParentsRelation", "BaptismParentsRelation")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismParentsRelation", "BaptismParentsRelation")
                         .WithOne("Mother")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismMother", "BaptismParentsRelationId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismMother", "BaptismParentsRelationId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -709,18 +780,18 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("BaptismParentsRelation");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismParentsRelation", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismParentsRelation", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismRegister", "BaptismRegister")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", "BaptismRegister")
                         .WithOne("Parents")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismParentsRelation", "BaptismRegisterId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismParentsRelation", "BaptismRegisterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BaptismRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", b =>
                 {
                     b.HasOne("Eparafia.Administration.Domain.ValueObjects.ActId", "ActId")
                         .WithMany()
@@ -745,18 +816,18 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("SacramentalMaker");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.DeadClient", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Dead.DeadClient", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.DeadRegister", "DeadRegister")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.Dead.DeadRegister", "DeadRegister")
                         .WithOne("Client")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.DeadClient", "DeadRegisterId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.Dead.DeadClient", "DeadRegisterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DeadRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.DeadRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Dead.DeadRegister", b =>
                 {
                     b.HasOne("Eparafia.Administration.Domain.Entities.Parish", "Parish")
                         .WithMany("DeadRegisters")
@@ -773,17 +844,6 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("Parish");
 
                     b.Navigation("SacramentalMaker");
-                });
-
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Men", b =>
-                {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.WeddingRegister", "WeddingRegister")
-                        .WithOne("Men")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.Men", "WeddingRegisterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("WeddingRegister");
                 });
 
             modelBuilder.Entity("Eparafia.Administration.Domain.Entities.ParishRecord.HomeRecord", b =>
@@ -848,14 +908,23 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                 {
                     b.HasOne("Eparafia.Administration.Domain.Entities.Parish", "Parish")
                         .WithMany("Priests")
-                        .HasForeignKey("ParishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParishId");
 
                     b.Navigation("Parish");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.Men", b =>
+                {
+                    b.HasOne("Eparafia.Administration.Domain.Entities.WeddingEntities.WeddingRegister", "WeddingRegister")
+                        .WithOne("Men")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.WeddingEntities.Men", "WeddingRegisterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("WeddingRegister");
+                });
+
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.WeddingRegister", b =>
                 {
                     b.HasOne("Eparafia.Administration.Domain.Entities.Parish", "Parish")
                         .WithMany("WeddingRegisters")
@@ -874,9 +943,9 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("SacramentalMaker");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Witness", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.Witness", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.WeddingRegister", "WeddingRegister")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.WeddingEntities.WeddingRegister", "WeddingRegister")
                         .WithMany("Witnesses")
                         .HasForeignKey("WeddingRegisterId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -885,29 +954,18 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("WeddingRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Women", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.Women", b =>
                 {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.WeddingRegister", "WeddingRegister")
+                    b.HasOne("Eparafia.Administration.Domain.Entities.WeddingEntities.WeddingRegister", "WeddingRegister")
                         .WithOne("Women")
-                        .HasForeignKey("Eparafia.Administration.Domain.Entities.Women", "WeddingRegisterId")
+                        .HasForeignKey("Eparafia.Administration.Domain.Entities.WeddingEntities.Women", "WeddingRegisterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("WeddingRegister");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.ValueObjects.BaptismClient", b =>
-                {
-                    b.HasOne("Eparafia.Administration.Domain.Entities.BaptismRegister", "BaptismRegister")
-                        .WithOne("Client")
-                        .HasForeignKey("Eparafia.Administration.Domain.ValueObjects.BaptismClient", "BaptismRegisterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BaptismRegister");
-                });
-
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismParents.BaptismParentsRelation", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismParentsRelation", b =>
                 {
                     b.Navigation("Father")
                         .IsRequired();
@@ -916,7 +974,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.BaptismEntities.BaptismRegister", b =>
                 {
                     b.Navigation("Client")
                         .IsRequired();
@@ -931,7 +989,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.DeadRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.Dead.DeadRegister", b =>
                 {
                     b.Navigation("Client")
                         .IsRequired();
@@ -964,7 +1022,7 @@ namespace Eparafia.Administration.Infrastructure.Migrations
                     b.Navigation("WeddingRegisters");
                 });
 
-            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingRegister", b =>
+            modelBuilder.Entity("Eparafia.Administration.Domain.Entities.WeddingEntities.WeddingRegister", b =>
                 {
                     b.Navigation("Men")
                         .IsRequired();
