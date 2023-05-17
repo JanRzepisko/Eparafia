@@ -48,8 +48,7 @@ public static class AddSharedServicesExtension
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
-        services.AddTransient<IMessageBusConnectionBuilder<IBusClient>, MessageBusConnectionBuilder>();
-
+        
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
         
