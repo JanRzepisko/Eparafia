@@ -1,9 +1,7 @@
 using Eparafia.Administration.Application;
 using Eparafia.Administration.Application.DataAccess;
 using Eparafia.Administration.Application.EventConsumers;
-using Eparafia.Administration.Infrastructure;
 using Eparafia.Administration.Infrastructure.DataAccess;
-using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
 using Shared.Extensions.ConfigureApp;
@@ -22,11 +20,19 @@ public class Startup
     {
         var connectionString = Configuration["ConnectionString"];
         var serviceName = Configuration["ServiceName"];
-        var rabbitMQLogin = RabbitMQLogin.FromConfiguration(Configuration);
 
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName, rabbitMQLogin);
+        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
+
+        services.AddMessageBusConnection(c => c.ApplyConfiguration(Configuration.GetSection("RabbitMQ"))
+            .RegisterConsumersFromAssembly(typeof(AssemblyEntryPoint).Assembly)
+            .SubscribeToEvent<PriestCreatedBusEvent>()
+            .SubscribeToEvent<PriestUpdatedBusEvent>()
+            .SubscribeToEvent<PriestRemovedBusEvent>()
+            .SubscribeToEvent<ChangedParishPriestBusEvent>()
+        );
+
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) => app.ConfigureApplication(Configuration);
 }

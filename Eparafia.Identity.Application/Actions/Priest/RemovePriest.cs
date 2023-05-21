@@ -1,10 +1,9 @@
 using Eparafia.Identity.Application.DataAccess;
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 using Shared.BaseModels.Exceptions;
-using Shared.EventBus;
 using Shared.Messages;
+using Shared.Service.Interfaces.MessageBus;
 
 namespace Eparafia.Identity.Application.Actions.Priest;
 
@@ -14,13 +13,13 @@ public static class RemovePriest
 
     public class Handler : IRequestHandler<Command, Unit>
     {
-        private readonly IEventBus _eventBus;
+        private readonly IMessageBusClient _messageBusClient;            
         private readonly IUnitOfWork _unitOfWork;
 
-        public Handler(IUnitOfWork unitOfWork, IConfiguration configuration, IEventBus eventBus)
+        public Handler(IUnitOfWork unitOfWork, IMessageBusClient messageBusClient)
         {
             _unitOfWork = unitOfWork;
-            _eventBus = eventBus;
+            _messageBusClient = messageBusClient;
         }
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
@@ -31,7 +30,7 @@ public static class RemovePriest
             _unitOfWork.Priests.RemoveById(request.PriestId);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-            await _eventBus.PublishAsync(new PriestRemovedBusEvent
+            await _messageBusClient.SendAsync(new PriestRemovedBusEvent
             {
                 PriestId = request.PriestId
             }, cancellationToken);
