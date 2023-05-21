@@ -20,6 +20,7 @@ public static class AddSharedServicesExtension
         this IServiceCollection services, JwtLogin jwtLogin, string connectionString, string serviceName)
         where DataContext : DbContext, UnitOfWork where UnitOfWork : class
     {
+       
         services.AddMediatR(typeof(AssemblyEntryPoint).GetTypeInfo().Assembly);
         services.AddFluentValidators(typeof(AssemblyEntryPoint).Assembly);
 
@@ -48,10 +49,10 @@ public static class AddSharedServicesExtension
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
-        
+        services.AddTransient<IMessageBusConnectionBuilder<IBusClient>, MessageBusConnectionBuilder>();
+
         services.AddScoped<IUserProvider, UserProvider>();
         services.AddScoped<IFileManager, FileManager>();
-        
         return services;
     }
 }

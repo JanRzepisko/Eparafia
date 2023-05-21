@@ -9,7 +9,7 @@ using Shared.Service.Interfaces.MessageBus;
 
 namespace Shared.Service.Implementations.MessageBus;
 
-internal sealed class MessageBusConnectionBuilder : IMessageBusConnectionBuilder<IBusClient>, IMessageBusConnectionBuilderConsumersAssemblyStage<IBusClient>, IMessageBusConnectionBuilderSubscribeStage<IBusClient>
+public sealed class MessageBusConnectionBuilder : IMessageBusConnectionBuilder<IBusClient>, IMessageBusConnectionBuilderConsumersAssemblyStage<IBusClient>, IMessageBusConnectionBuilderSubscribeStage<IBusClient>
 {
     private IBusClient _BusClient;
     private IServiceCollection _Services;

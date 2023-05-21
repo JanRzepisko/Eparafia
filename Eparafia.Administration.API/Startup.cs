@@ -30,6 +30,7 @@ public class Startup
             .SubscribeToEvent<PriestCreatedBusEvent>()
             .SubscribeToEvent<PriestUpdatedBusEvent>()
             .SubscribeToEvent<PriestRemovedBusEvent>()
+            .SubscribeToEvent<ChangedParishPriestBusEvent>()
         );
 
     }

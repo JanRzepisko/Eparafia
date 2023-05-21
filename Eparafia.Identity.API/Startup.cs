@@ -8,6 +8,7 @@ using RawRabbit.Configuration;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
 using Shared.Extensions.ConfigureApp;
+using Shared.Service.Implementations.MessageBus;
 using Shared.Service.Interfaces.MessageBus;
 
 namespace Eparafia.Identity.API;
@@ -32,7 +33,6 @@ public class Startup
         services.AddScoped<IJwtAuth, JwtAuth>();
 
         var cnf = Configuration.GetSection("RabbitMQ");
-        
         services.AddMessageBusConnection(c => c.ApplyConfiguration(cnf)
             .RegisterConsumersFromAssembly(typeof(AssemblyEntryPoint).Assembly));
     }
