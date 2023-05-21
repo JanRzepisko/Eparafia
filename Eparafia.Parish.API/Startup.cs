@@ -1,13 +1,12 @@
 using Eparafia.Application;
 using Eparafia.Application.DataAccess;
-using Eparafia.Application.EventConsumers;
 using Eparafia.Application.Services;
 using Eparafia.Infrastructure.DataAccess;
 using Eparafia.Infrastructure.Services;
-using MassTransit;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
 using Shared.Extensions.ConfigureApp;
+using Shared.Messages;
 
 namespace Eparafia.API;
 
@@ -25,29 +24,16 @@ public class Startup
         var connectionString = Configuration["ConnectionString"];
         var serviceName = Configuration["ServiceName"];
         
-        var rabbitMQLogin = RabbitMQLogin.FromConfiguration(Configuration);
-
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(
-            JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
-
-
-        //Configure RabbitMQ
-        services.AddMassTransit(c =>
-        {
-            //Add All Consumers
-            c.AddConsumer<PriestCreatedConsumer>();
-            c.AddConsumer<PriestUpdatedConsumer>();
-            c.AddConsumer<PriestRemovedConsumer>();
-            c.AddConsumer<UserCreatedConsumer>();
-            c.AddConsumer<UserUpdatedConsumer>();
-            c.AddConsumer<UserRemovedConsumer>();
-
-            c.BuildRabbitMQ(rabbitMQLogin);
-        });
-
+        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
         services.AddScoped<IIntentionService, IntentionService>();
+        
+        services.AddMessageBusConnection(c => c.ApplyConfiguration(Configuration.GetSection("RabbitMQ"))
+            .RegisterConsumersFromAssembly(typeof(AssemblyEntryPoint).Assembly)
+            .SubscribeToEvent<PriestCreatedBusEvent>()
+            .SubscribeToEvent<PriestUpdatedBusEvent>()
+            .SubscribeToEvent<PriestRemovedBusEvent>());
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

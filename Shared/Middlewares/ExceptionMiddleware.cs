@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Shared.BaseModels.ApiControllerModels;
 using Shared.BaseModels.Exceptions;
 
@@ -35,6 +36,9 @@ public class ExceptionMiddleware
         var response = context.Response;
         response.ContentType = "application/json";
         response.StatusCode = statusCode;
-        return response.WriteAsync(JsonConvert.SerializeObject(ApiResponse.Failure(statusCode, errors)));
+        return response.WriteAsync(JsonConvert.SerializeObject(ApiResponse.Failure(statusCode, errors), new JsonSerializerSettings 
+        { 
+            ContractResolver = new CamelCasePropertyNamesContractResolver() 
+        }));    
     }
 }

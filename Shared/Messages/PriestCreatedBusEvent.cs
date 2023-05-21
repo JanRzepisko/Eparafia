@@ -1,6 +1,8 @@
+using Shared.Definitions;
+
 namespace Shared.Messages;
 
-public class PriestCreatedBusEvent
+public class PriestCreatedBusEvent : MessageBusEvent
 {
     public Guid PriestId { get; set; }
     public string Name { get; set; }

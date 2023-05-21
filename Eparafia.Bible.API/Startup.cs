@@ -17,8 +17,8 @@ public class Startup
     
     public void ConfigureServices(IServiceCollection services)
     {
-        string connectionString = Configuration["ConnectionString"];
-        string serviceName = Configuration["ServiceName"];
+        var connectionString = Configuration["ConnectionString"];
+        var serviceName = Configuration["ServiceName"];
 
         //Configure Service
         services.Configure<string>(Configuration);
