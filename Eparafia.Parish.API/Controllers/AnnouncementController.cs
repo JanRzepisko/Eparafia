@@ -38,13 +38,12 @@ public class AnnouncementController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> UpdateAnnouncement(AnnouncementsRemove.Command command,
-        CancellationToken cancellationToken = default)
+    public async Task<IActionResult> DeleteAnnouncement([FromBody] AnnouncementsRemove.Command command, CancellationToken cancellationToken = default)
     {
         await _mediator.Send(command, cancellationToken);
         return Ok(ApiResponse.Success(200));
     }
-
+    
     [AllowAnonymous]
     [HttpGet]
     public async Task<IActionResult> GetAnnouncement(Guid parishId, int page,
@@ -54,7 +53,7 @@ public class AnnouncementController : Controller
         return Ok(ApiResponse.Success(200, AnnouncementsDTO.FromEntity(result)));
     }
     [AllowAnonymous]
-    [HttpGet("GetById")]
+    [HttpGet("ById")]
     public async Task<IActionResult> GetAnnouncementById(Guid announcementId, CancellationToken cancellationToken = default)
     {
         var result = await _mediator.Send(new GetAnnouncementsById.Query(announcementId), cancellationToken);
@@ -68,5 +67,12 @@ public class AnnouncementController : Controller
     {
         var result = await _mediator.Send(new SearchInAnnouncements.Query(parishId, query, page), cancellationToken);
         return Ok(ApiResponse.Success(200, AnnouncementRecordDTO.FromEntity(result)));
+    }
+    
+    [HttpGet("BeforePublish")]
+    public async Task<IActionResult> GetAnnouncementBeforePublish(int page, CancellationToken cancellationToken = default)
+    {
+        var result = await _mediator.Send(new GetAnnouncementsBeforePublish.Query(page), cancellationToken);
+        return Ok(ApiResponse.Success(200, AnnouncementsDTO.FromEntity(result)));
     }
 }
