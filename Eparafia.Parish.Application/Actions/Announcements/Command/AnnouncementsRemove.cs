@@ -24,8 +24,10 @@ public static class AnnouncementsRemove
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var announcement = await _unitOfWork.Announcements.GetByIdAsync(request.Id, cancellationToken);
-            if (announcement is null) throw new InvalidRequestException("Announcement not found");
+            if (!await _unitOfWork.Announcements.ExistsAsync(request.Id, cancellationToken)) 
+                throw new InvalidRequestException("Announcement not found");
+            _unitOfWork.Announcements.RemoveById(request.Id);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }
 

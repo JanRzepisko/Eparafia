@@ -9,4 +9,5 @@ public interface IAnnouncementRepository : IBaseRepository<Announcement>
         CancellationToken cancellationToken);
     
     Task<Announcement> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<List<Announcement>> GetAnnouncementsBeforePublish(Guid parishId, int page, int pageSize, CancellationToken cancellationToken);
 }
