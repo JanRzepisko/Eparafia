@@ -1,6 +1,5 @@
 using Eparafia.Administration.Application;
 using Eparafia.Administration.Application.DataAccess;
-using Eparafia.Administration.Application.EventConsumers;
 using Eparafia.Administration.Infrastructure.DataAccess;
 using Shared.BaseModels.Jwt;
 using Shared.Extensions;
@@ -25,6 +24,7 @@ public class Startup
         services.Configure<string>(Configuration);
         services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
 
+        
         services.AddMessageBusConnection(c => c.ApplyConfiguration(Configuration.GetSection("RabbitMQ"))
             .RegisterConsumersFromAssembly(typeof(AssemblyEntryPoint).Assembly)
             .SubscribeToEvent<PriestCreatedBusEvent>()
@@ -32,7 +32,6 @@ public class Startup
             .SubscribeToEvent<PriestRemovedBusEvent>()
             .SubscribeToEvent<ChangedParishPriestBusEvent>()
         );
-
     }
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env) => app.ConfigureApplication(Configuration);
 }
