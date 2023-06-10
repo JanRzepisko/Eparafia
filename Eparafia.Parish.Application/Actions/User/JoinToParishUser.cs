@@ -26,7 +26,7 @@ public static class JoinToParishUser
             var parish = await _unitOfWork.Parishes.GetByIdAsync(request.ParishId, cancellationToken);
             if (parish is null) throw new EntityNotFoundException("Parish not found");
 
-            var user = await _unitOfWork.Users.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var user = await _unitOfWork.Users.GetByIdAsync(_userProvider.UserId, cancellationToken);
             user.ParishId = parish.Id;
             await _unitOfWork.SaveChangesAsync(cancellationToken);
 

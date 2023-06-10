@@ -24,13 +24,13 @@ public static class AnnouncementsCreate
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var author = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var author = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
 
             var id = Guid.NewGuid();
             var newAnnouncements = new Announcement
             {
                 Id = id,
-                AuthorId = _userProvider.Id,
+                AuthorId = _userProvider.UserId,
                 PublishDate = request.Date,
                 ParishId = author.Parish.Id,
                 Title = request.Title,

@@ -32,9 +32,9 @@ public static class UpdatePriest
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
 
-            if (priest is null) throw new EntityNotFoundException($"user with id {_userProvider.Id} not found");
+            if (priest is null) throw new EntityNotFoundException($"user with id {_userProvider.UserId} not found");
             priest.Name = request.Name ?? priest.Name;
             priest.Surname = request.Surname ?? priest.Surname;
             priest.Email = request.Email ?? priest.Email;
@@ -43,15 +43,15 @@ public static class UpdatePriest
 
             if (request.RemovePhoto ?? false)
             {
-                _fileManager.RemoveImage(ImageType.PriestAvatar, _userProvider.Id, cancellationToken);
+                _fileManager.RemoveImage(ImageType.PriestAvatar, _userProvider.UserId, cancellationToken);
                 priest.PhotoPath = string.Empty;
                 priest.PhotoPathMin = string.Empty;
             }
 
             if (request.Base64 is not null)
             {
-                _fileManager.RemoveImage(ImageType.PriestAvatar, _userProvider.Id, cancellationToken);
-                var paths = await _fileManager.SaveImageAsync(request.Base64, ImageType.UserAvatar, _userProvider.Id,
+                _fileManager.RemoveImage(ImageType.PriestAvatar, _userProvider.UserId, cancellationToken);
+                var paths = await _fileManager.SaveImageAsync(request.Base64, ImageType.UserAvatar, _userProvider.UserId,
                     cancellationToken);
                 priest.PhotoPath = paths.Item1;
                 priest.PhotoPathMin = paths.Item2;
@@ -60,7 +60,7 @@ public static class UpdatePriest
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             await _messageBusClient.SendAsync(new PriestUpdatedBusEvent
             {
-                PriestId = _userProvider.Id,
+                PriestId = _userProvider.UserId,
                 Name = priest.Name + " " + priest.Surname,
                 PhotoPath = priest.PhotoPath,
                 PhotoPathMin = priest.PhotoPathMin

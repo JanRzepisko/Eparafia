@@ -29,7 +29,7 @@ public static class CreatePost
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
             var id = Guid.NewGuid();
             var post = new Post
             {

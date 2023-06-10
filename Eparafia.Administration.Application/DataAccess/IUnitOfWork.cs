@@ -3,6 +3,7 @@ using Eparafia.Administration.Domain.Entities.BaptismEntities;
 using Eparafia.Administration.Domain.Entities.Dead;
 using Eparafia.Administration.Domain.Entities.ParishRecord;
 using Eparafia.Administration.Domain.Entities.WeddingEntities;
+using Shared.BaseModels;
 using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Application.DataAccess;

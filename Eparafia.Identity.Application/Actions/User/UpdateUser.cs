@@ -30,23 +30,23 @@ public static class UpdateUser
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var user = await _unitOfWork.Users.GetByIdAsync(_userProvider.Id, cancellationToken);
-            if (user is null) throw new EntityNotFoundException($"user with id {_userProvider.Id} not found");
+            var user = await _unitOfWork.Users.GetByIdAsync(_userProvider.UserId, cancellationToken);
+            if (user is null) throw new EntityNotFoundException($"user with id {_userProvider.UserId} not found");
             user.Name = request.Name ?? user.Name;
             user.Surname = request.Surname ?? user.Surname;
             user.Email = request.Email ?? user.Email;
 
             if (request.RemovePhoto)
             {
-                _fileManager.RemoveImage(ImageType.UserAvatar, _userProvider.Id, cancellationToken);
+                _fileManager.RemoveImage(ImageType.UserAvatar, _userProvider.UserId, cancellationToken);
                 user.PhotoPath = string.Empty;
                 user.PhotoPathMin = string.Empty;
             }
 
             if (request.Base64 is not null)
             {
-                _fileManager.RemoveImage(ImageType.UserAvatar, _userProvider.Id, cancellationToken);
-                var paths = await _fileManager.SaveImageAsync(request.Base64, ImageType.UserAvatar, _userProvider.Id,
+                _fileManager.RemoveImage(ImageType.UserAvatar, _userProvider.UserId, cancellationToken);
+                var paths = await _fileManager.SaveImageAsync(request.Base64, ImageType.UserAvatar, _userProvider.UserId,
                     cancellationToken);
                 user.PhotoPath = paths.Item1;
                 user.PhotoPathMin = paths.Item2;

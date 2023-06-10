@@ -3,7 +3,6 @@ using Eparafia.Application.DataAccess;
 using Eparafia.Application.Services;
 using Eparafia.Infrastructure.DataAccess;
 using Eparafia.Infrastructure.Services;
-using Shared.BaseModels.Jwt;
 using Shared.Extensions;
 using Shared.Extensions.ConfigureApp;
 using Shared.Messages;
@@ -21,12 +20,9 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        var connectionString = Configuration["ConnectionString"];
-        var serviceName = Configuration["ServiceName"];
-        
         //Configure Service
         services.Configure<string>(Configuration);
-        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(JwtLogin.FromConfiguration(Configuration), connectionString, serviceName);
+        services.AddSharedServices<AssemblyEntryPoint, DataContext, IUnitOfWork>(Configuration);
         services.AddScoped<IIntentionService, IntentionService>();
         
         services.AddMessageBusConnection(c => c.ApplyConfiguration(Configuration.GetSection("RabbitMQ"))

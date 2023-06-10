@@ -1,9 +1,11 @@
 using Eparafia.Application.Services.Jwt;
 using Eparafia.Identity.Application.DataAccess;
 using Eparafia.Identity.Application.Services;
+using Eparafia.Identity.Domain.Entities;
 using MediatR;
 using Shared.BaseModels.Exceptions;
 using Shared.BaseModels.Jwt;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Identity.Application.Actions.Priest;
 
@@ -15,11 +17,13 @@ public static class LoginPriest
     {
         private readonly IJwtAuth _jwtAuth;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAuthorizationCache _authorizationCache;
 
-        public Handler(IUnitOfWork unitOfWork, IJwtAuth jwtAuth)
+        public Handler(IUnitOfWork unitOfWork, IJwtAuth jwtAuth, IAuthorizationCache authorizationCache)
         {
             _unitOfWork = unitOfWork;
             _jwtAuth = jwtAuth;
+            _authorizationCache = authorizationCache;
         }
 
         public async Task<GeneratedToken> Handle(Query request, CancellationToken cancellationToken)
@@ -31,8 +35,14 @@ public static class LoginPriest
             {
                 //throw new InvalidRequestException("Priest is not active");
             }
-
-
+            
+            _authorizationCache.CreateUser(priest.Id, priest.ParishId, cancellationToken);
+            await _unitOfWork.UserSessions.AddAsync(new UserSession()
+            {
+                UserId = priest.Id,
+                ParishId = priest.ParishId
+            }, cancellationToken);
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
             return await _jwtAuth.GenerateJwt(priest, JwtPolicies.Priest);
         }
     }

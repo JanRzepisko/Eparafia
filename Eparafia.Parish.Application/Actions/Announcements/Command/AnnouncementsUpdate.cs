@@ -49,7 +49,7 @@ public static class AnnouncementsUpdate
             
             announcements.Title = request.Title ?? announcements.Title;
             announcements.PublishDate = request.Date ?? announcements.PublishDate;
-            announcements.AuthorId = _userProvider.Id;
+            announcements.AuthorId = _userProvider.UserId;
 
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;

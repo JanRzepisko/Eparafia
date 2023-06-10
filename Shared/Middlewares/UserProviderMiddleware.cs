@@ -22,8 +22,8 @@ public class UserProviderMiddleware
         }
         else
         {
-            bool hasAuthorizations = endpoint.Metadata.Any(c => c.GetType() == typeof(AuthorizeAttribute));
-            bool forAnonymous = context.GetEndpoint()!.Metadata.Any(c => c.GetType() == typeof(AllowAnonymousAttribute));
+            var hasAuthorizations = endpoint.Metadata.Any(c => c.GetType() == typeof(AuthorizeAttribute));
+            var forAnonymous = context.GetEndpoint()!.Metadata.Any(c => c.GetType() == typeof(AllowAnonymousAttribute));
             if (!hasAuthorizations || forAnonymous)
             {
                 await _next(context);

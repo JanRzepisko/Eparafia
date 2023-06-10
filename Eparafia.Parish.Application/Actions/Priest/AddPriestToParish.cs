@@ -28,7 +28,7 @@ public static class AddPriestToParish
         {
             var priest = await _unitOfWork.Priests.GetByIdAsync(request.PriestId, cancellationToken);
 
-            var adderPriest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var adderPriest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
 
             if (priest is null) throw new Exception("Priest not found");
             if (priest.ParishId != null) throw new Exception("Priest is already assigned to a parish");

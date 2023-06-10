@@ -13,7 +13,11 @@ services:
   #  volumes:
   #    - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
   #    - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-
+  redis_image:
+    image: redis
+    container_name: cache
+    ports:
+      - "6379:6379"
   
   eparafia.identity.api:
     container_name: "Eparafia.Identity.API"

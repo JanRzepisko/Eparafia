@@ -4,6 +4,7 @@ using Eparafia.Identity.Application.Services;
 using MediatR;
 using Shared.BaseModels.Exceptions;
 using Shared.BaseModels.Jwt;
+using Shared.Service.Interfaces;
 
 namespace Eparafia.Identity.Application.Actions.User;
 
@@ -31,7 +32,7 @@ public static class LoginUser
             {
                 //throw new InvalidRequestException("User is not active");
             }
-
+                
             return await _jwtAuth.GenerateJwt(user, JwtPolicies.User);
         }
     }

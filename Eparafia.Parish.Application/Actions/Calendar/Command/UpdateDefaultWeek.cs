@@ -37,7 +37,7 @@ public static class UpdateDefaultWeek
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
             var commonEvents = await _unitOfWork.CommonWeek.GetByParishId((Guid)priest.ParishId, cancellationToken);
 
             foreach (var commonEvent in commonEvents) _unitOfWork.CommonWeek.Remove(commonEvent);

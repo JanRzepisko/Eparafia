@@ -27,7 +27,7 @@ public static class GetAnnouncementsBeforePublish
         public async Task<List<Announcement>> Handle(Query request, CancellationToken cancellationToken)
         {
             
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
             return await _unitOfWork.Announcements.GetAnnouncementsBeforePublish((Guid)priest.ParishId, request.Page, _pageSize, cancellationToken);
         }
 

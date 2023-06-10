@@ -10,7 +10,7 @@ using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Administration.Infrastructure.DataAccess;
 
-public sealed class DataContext : DbContext, IUnitOfWork
+public sealed class DataContext: DbContext, IUnitOfWork
 {
     private DbSet<Parish> _parish { get; set; }
     private DbSet<Priest> _priest { get; set; }

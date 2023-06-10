@@ -22,7 +22,7 @@ public static class GetPriestById
 
         public async Task<Domain.Entities.Priest> Handle(Query request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
             return priest;
         }
 

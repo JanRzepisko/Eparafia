@@ -25,7 +25,7 @@ public static class GetParishById
 
         public async Task<ParishDTO> Handle(Query request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
             var parish = await _unitOfWork.Parishes.GetByIdAsync(priest.ParishId, cancellationToken);
             if (parish is null) throw new EntityNotFoundException("Parish Not Found");
             return ParishDTO.FromEntity(parish);

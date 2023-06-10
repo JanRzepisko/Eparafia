@@ -24,7 +24,7 @@ public static class CreateBaptismRecord
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id,cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId,cancellationToken);
             if (priest is null)
             {
                 throw new EntityNotFoundException("Priest not found");

@@ -17,18 +17,22 @@ public static class RefreshToken
         private readonly IJwtAuth _jwtAuth;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IUserProvider _userProvider;
-
-        public Handler(IUnitOfWork unitOfWork, IJwtAuth jwtAuth, IUserProvider userProvider)
+        private readonly IAuthorizationCache _authorizationCache;
+        public Handler(IUnitOfWork unitOfWork, IJwtAuth jwtAuth, IUserProvider userProvider, IAuthorizationCache authorizationCache)
         {
             _unitOfWork = unitOfWork;
             _jwtAuth = jwtAuth;
             _userProvider = userProvider;
+            _authorizationCache = authorizationCache;
         }
 
         public async Task<GeneratedToken> Handle(Query request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
+            
             if (priest is null) throw new EntityNotFoundException("Priest not found");
+            
+            _authorizationCache.CreateUser(priest.Id, priest.ParishId, cancellationToken);
             return await _jwtAuth.GenerateJwt(priest, JwtPolicies.Priest);
         }
     }

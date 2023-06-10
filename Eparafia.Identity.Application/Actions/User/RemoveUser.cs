@@ -23,10 +23,10 @@ public static class RemoveUser
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var exist = await _unitOfWork.Users.ExistsAsync(_userProvider.Id, cancellationToken);
+            var exist = await _unitOfWork.Users.ExistsAsync(_userProvider.UserId, cancellationToken);
             if (!exist) throw new EntityNotFoundException("User not found");
 
-            _unitOfWork.Users.RemoveById(_userProvider.Id);
+            _unitOfWork.Users.RemoveById(_userProvider.UserId);
             await _unitOfWork.SaveChangesAsync(cancellationToken);
             return Unit.Value;
         }

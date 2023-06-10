@@ -2,6 +2,7 @@ namespace Shared.Service.Interfaces;
 
 public interface IUserProvider
 {
-    Guid Id { get; }
-    void SetUser(Guid? id);
+    Guid UserId { get; }
+    Guid? ParishId { get; }
+    Task SetUser(Guid? id);
 }

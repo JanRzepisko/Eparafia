@@ -31,7 +31,7 @@ public static class UpdateParish
 
         public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
         {
-            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.Id, cancellationToken);
+            var priest = await _unitOfWork.Priests.GetByIdAsync(_userProvider.UserId, cancellationToken);
             if (priest is null) throw new InvalidRequestException("Priest not found");
             if (priest.FunctionParish != FunctionParish.Owner)
                 throw new InvalidRequestException("You are not the owner of the parish");
