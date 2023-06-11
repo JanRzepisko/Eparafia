@@ -76,26 +76,31 @@ public class FileManager : IFileManager
 
     private async Task UploadFile(ImageType imageType, Guid imageId)
     {
-        var ftpRequest = (FtpWebRequest)WebRequest.Create($"{_ftpLogin.HostName}/{FactoryFilePath(imageType, imageId)}");
-        ftpRequest.Credentials = new NetworkCredential(_ftpLogin.Username, _ftpLogin.Password);
-        ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
+        try
+        {
+            var ftpRequest = (FtpWebRequest)WebRequest.Create($"{_ftpLogin.HostName}/{FactoryFilePath(imageType, imageId)}");
+            ftpRequest.Credentials = new NetworkCredential(_ftpLogin.Username, _ftpLogin.Password);
+            ftpRequest.Method = WebRequestMethods.Ftp.UploadFile;
         
-        var file = await File.ReadAllBytesAsync(FactoryLocalFilePath(imageType, imageId));
-        var sr = ftpRequest.GetRequestStream();
-        sr.WriteAsync(file, 0, file.Length);
-        sr.Close();
-        var response = (FtpWebResponse)ftpRequest.GetResponse();
-        response.Close();
-
+            var file = await File.ReadAllBytesAsync(FactoryLocalFilePath(imageType, imageId));
+            var sr = ftpRequest.GetRequestStream();
+            sr.WriteAsync(file, 0, file.Length);
+            sr.Close();
+            var response = (FtpWebResponse)ftpRequest.GetResponse();
+            response.Close();      
+        }
+        catch(WebException e)
+        {
+            var status = ((FtpWebResponse)e.Response).StatusDescription;
+        }
         //Use ssh to add perms for nginx
 
-        using var ssh = new SshClient("192.168.1.100", "ubuntu", "!Malinka@pass");
+        using var ssh = new SshClient("192.168.1.100", "jabuszko", "!Malinka@pass");
         ssh.Connect();
-        ssh.RunCommand($"sudo chmod 777 {FactoryFilePath(imageType, imageId)}");
+        var path = $"{FactoryFilePath(imageType, imageId)}";
+        ssh.RunCommand($"chmod 777 {path}");
         ssh.Disconnect();
     }
-    
-    
     private async Task UploadFileMin(ImageType imageType, Guid imageId)
     {
         var ftpRequest = (FtpWebRequest)WebRequest.Create($"{_ftpLogin.HostName}/{FactoryFilePathMin(imageType, imageId)}");
@@ -111,9 +116,10 @@ public class FileManager : IFileManager
 
         //Use ssh to add perms for nginx
 
-        using var ssh = new SshClient("192.168.1.100", "ubuntu", "!Malinka@pass");
+        using var ssh = new SshClient("192.168.1.100", "jabuszko", "!Malinka@pass");
         ssh.Connect();
-        ssh.RunCommand($"sudo chmod 777 {FactoryFilePathMin(imageType, imageId)}");
+        var path = $"{FactoryFilePathMin(imageType, imageId)}";
+        ssh.RunCommand($"chmod 777 {path}");
         ssh.Disconnect();
     }
 
