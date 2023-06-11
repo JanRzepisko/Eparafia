@@ -14,7 +14,7 @@ public sealed class DataContext : DbContext, IUnitOfWork
     }
 
     private DbSet<User>? _Users { get; set; }
-    private DbSet<Parish> _Parishes { get; set; }
+    private DbSet<Domain.Entities.Parish> _Parishes { get; set; }
     private DbSet<Priest> _Priests { get; set; }
     private DbSet<Announcement> _Announcement { get; set; }
     private DbSet<AnnouncementRecord> _AnnouncementsRecords { get; set; }
@@ -41,8 +41,8 @@ public sealed class DataContext : DbContext, IUnitOfWork
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         //I don't know why it only works here xd
-        modelBuilder.Entity<Parish>().OwnsOne(x => x.Address);
-        modelBuilder.Entity<Parish>().OwnsOne(x => x.Contact);
+        modelBuilder.Entity<Domain.Entities.Parish>().OwnsOne(x => x.Address);
+        modelBuilder.Entity<Domain.Entities.Parish>().OwnsOne(x => x.Contact);
         modelBuilder.Entity<Priest>().OwnsOne(x => x.PhotoPath);
         modelBuilder.Entity<User>().OwnsOne(x => x.PhotoPath);
         modelBuilder.Entity<CommonEvent>().OwnsOne(x => x.Event);

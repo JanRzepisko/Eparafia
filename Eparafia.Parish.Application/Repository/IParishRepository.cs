@@ -3,8 +3,8 @@ using Shared.BaseModels.BaseEntities;
 
 namespace Eparafia.Application.Repository;
 
-public interface IParishRepository : IBaseRepository<Parish>
+public interface IParishRepository : IBaseRepository<Domain.Entities.Parish>
 {
-    Task<Parish?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task<Parish?> GetByShortName(string shortName, CancellationToken cancellationToken);
+    Task<Domain.Entities.Parish?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task<Domain.Entities.Parish?> GetByShortName(string shortName, CancellationToken cancellationToken);
 }
