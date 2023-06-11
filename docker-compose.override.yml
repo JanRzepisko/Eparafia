@@ -1,62 +1,58 @@
 version: '3.4'
 
 services:
-<<<<<<< HEAD
-  <<<<<<< HEAD
-eparafia.identity.api:
-  =======
-eparafia.api:
-  >>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e
-  environment:
-    - ASPNETCORE_ENVIRONMENT=Development
-    - ASPNETCORE_URLS=https://+:443;http://+:80
-  ports:
-    - "80"
-    - "443"
-  volumes:
-    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-  <<<<<<< HEAD
-  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  =======
-  - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-eparafia.bible.api:
-  environment:
-    - ASPNETCORE_ENVIRONMENT=Development
-    - ASPNETCORE_URLS=https://+:443;http://+:80
-  ports:
-    - "80"
-    - "443"
-  volumes:
-    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  >>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e
-=======
-<<<<<<< HEAD
+  #rabbitmq:
+  #  image: rabbitmq:3-management-alpine
+  #  container_name: 'RabbitMQ'
+  #  ports:
+  #    - 5672:5672
+  #    - 15672:15672
+  #  environment:
+  #    - "RABBITMQ_DEFAULT_PASS=!Malinka@pass"
+  #    - "RABBITMQ_DEFAULT_USER=Eparafia"
+  #  volumes:
+  #    - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+  #    - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+  redis_image:
+    image: redis
+    container_name: cache
+    ports:
+      - "6379:6379"
+  
   eparafia.identity.api:
-=======
+    container_name: "Eparafia.Identity.API"
+    image: ${DOCKER_REGISTRY-}eparafia-identity
+    ports:
+      - 5001:80
+    build:
+      context: .
+      dockerfile: Eparafia.Identity.API/Dockerfile
+
   eparafia.api:
->>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+    container_name: "Eparafia.Parish.API"
+    image: ${DOCKER_REGISTRY-}eparafia-parish
     ports:
-      - "80"
-      - "443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-<<<<<<< HEAD
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-=======
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  eparafia.bible.api:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - 5002:80
+    build:
+      context: .
+      dockerfile: Eparafia.Parish.API/Dockerfile
+  
+  eparafia.administration.api:
+    container_name: "Eparafia.Administration.API"
+    image: ${DOCKER_REGISTRY-}eparafia-adminstration
     ports:
-      - "80"
-      - "443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
->>>>>>> 32e57d6103043468352874e6f94a66b6e6be5c7e
->>>>>>> main
+      - 5003:80
+    build:
+      context: .
+      dockerfile: Eparafia.Administration.API/Dockerfile
+
+
+  #eparafia.bible.api:
+  #  container_name: "BibleAPI"
+  #  image: ${DOCKER_REGISTRY-}eparafiabibleapi
+  #  ports:
+  #    - 5003:80
+  #  build:
+  #    context: .
+  #    dockerfile: Eparafia.Bible.API/Dockerfile
+  #
