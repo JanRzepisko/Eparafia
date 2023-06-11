@@ -31,12 +31,13 @@ public static class LoginPriest
             var priest = await _unitOfWork.Priests.GetByLoginAsync(request.Email, cancellationToken);
             if (priest is null) throw new EntityNotFoundException("User not found");
             if (!BCrypt.Net.BCrypt.Verify(request.Password, priest.PasswordHash)) throw new BadPassword("Bad password");
+              
             if (!priest.IsActive)
             {
                 //throw new InvalidRequestException("Priest is not active");
             }
             
-            _authorizationCache.CreateUser(priest.Id, priest.ParishId, cancellationToken);
+            await _authorizationCache.CreateUser(priest.Id, priest.ParishId, cancellationToken);
             await _unitOfWork.UserSessions.AddAsync(new UserSession()
             {
                 UserId = priest.Id,

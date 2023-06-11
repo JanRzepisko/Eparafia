@@ -13,6 +13,7 @@ using Shared.Service.Implementations;
 using Shared.Service.Implementations.MessageBus;
 using Shared.Service.Interfaces;
 using Shared.Service.Interfaces.MessageBus;
+using StackExchange.Redis;
 
 namespace Shared.Extensions;
 
@@ -50,19 +51,15 @@ public static class AddSharedServicesExtension
         services.AddControllers();
         services.AddSwagger(serviceName);
 
-        services.AddStackExchangeRedisCache(options =>
-        {
-            var connection = appCnf["RedisConnectionString"];
-            options.Configuration = connection;
-        });
-        
+       
         //Add Services
         services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 
         services.AddTransient<IMessageBusConnectionBuilder<IBusClient>, MessageBusConnectionBuilder>();
         
-        services.AddDistributedMemoryCache();
+        var multiplexer = ConnectionMultiplexer.Connect(appCnf["RedisConnectionString"]);
+        services.AddSingleton<IConnectionMultiplexer>(multiplexer);
         services.AddSingleton<IAuthorizationCache, AuthorizationCache>();
 
         services.AddScoped<IUserProvider, UserProvider>();
