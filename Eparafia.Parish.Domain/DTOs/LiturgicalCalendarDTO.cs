@@ -9,8 +9,8 @@ public class LiturgicalCalendarDTO
     public DateTime Date { get; set; }
     public Season Season { get; set; }
     public int SeasonWeek { get; set; }
+    public DayOfWeek Weekday => Date.DayOfWeek;
     public List<CelebrationDTO> Celebrations { get; set; }
-    public string Weekday { get; set; }
 
     public static LiturgicalCalendarDTO FromModel(LiturgicalCalendarResponseModel model)
     {
@@ -26,8 +26,6 @@ public class LiturgicalCalendarDTO
             Date = model.Date,
             Season = GetSeason(model.Season),
             SeasonWeek = model.Season_Week,
-            Weekday = model.Weekday
-            
         };
     }
 

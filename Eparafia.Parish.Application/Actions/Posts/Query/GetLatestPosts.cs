@@ -18,7 +18,7 @@ public static class GetLatestPosts
         public Handler(IUnitOfWork unitOfWork, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
-            _pageSize = configuration.GetValue<int>("PageSize");
+            _pageSize = configuration.GetValue<int>("PagePostSize");
         }
 
         public async Task<List<Post>> Handle(Query request, CancellationToken cancellationToken)

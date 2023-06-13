@@ -6,12 +6,9 @@ public enum Rank
     OptionalMemorial = 1,
     EasterTriduum = 2,
     PrimaryLiturgicalDays = 3,
-    Solemnity,
-    Memorial,
-    Sunday,
-    Feast,
-    Vigil,
-    Octave,
-    Commemoration,
-    ObligatoryMemorial
+    Solemnity = 4,
+    Memorial = 5,
+    Sunday = 6,
+    Feast = 7,
+    Commemoration = 8
 }
