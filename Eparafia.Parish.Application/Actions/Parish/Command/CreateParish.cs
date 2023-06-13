@@ -34,10 +34,11 @@ public static class CreateParish
             var parish = new Domain.Entities.Parish
             {
                 CallName = request.CallName,
-                ShortName = request.CallName.ToLower().Trim(' ') + request.Address.City.ToLower().Trim(' '),
+                ShortName = NormalizeString(request.CallName.ToLower().Trim(' ') + request.Address.City.ToLower().Trim(' ')),
                 Contact = request.Contact,
                 Priests = new List<Domain.Entities.Priest> { priest },
                 Address = request.Address,
+                
                 Id = id
             };
 
@@ -54,7 +55,6 @@ public static class CreateParish
 
             return Unit.Value;
         }
-
         public sealed class Validator : AbstractValidator<Command>
         {
             public Validator()
@@ -62,5 +62,19 @@ public static class CreateParish
                 RuleFor(c => c.CallName).MinimumLength(3).MaximumLength(50);
             }
         }
+
+        private static string NormalizeString(string c)
+        {
+            return c.Replace("ą", "a")
+                .Replace("ć", "c")
+                .Replace("ę", "e")
+                .Replace("ł", "l")
+                .Replace("ń", "n")
+                .Replace("ó", "o")
+                .Replace("ś", "s")
+                .Replace("ź", "z")
+                .Replace("ż", "z");
+        }
+
     }
 }
