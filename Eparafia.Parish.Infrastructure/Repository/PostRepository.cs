@@ -21,4 +21,12 @@ public class PostRepository : BaseRepository<Post>, IPostRepository
             .Take(pageSize)
             .ToListAsync(cancellationToken);
     }
+    
+    public ValueTask<Post?> GetByIdAsync(Guid? id, CancellationToken cancellationToken = default)
+    {
+        return new ValueTask<Post?>(_entities
+            .Include(c => c.Author)
+            .Include(c => c.Files)
+            .FirstOrDefaultAsync(c => id == c.Id, cancellationToken));
+    }
 }
